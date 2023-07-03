@@ -4,23 +4,42 @@
 #include <string.h>
 #include "ADTMap.h"
 
-typedef void* Pointer;
-
 // Holds the information of the current date
 typedef struct {
-    int date;           // Date 
+    int date;           // Date `
     int month;          // Month
     int year;           // Year
     int hours;          // Hours
     int minutes;        // Minutes
 } date_info;
 
+// Pointer to the struct date_info
+typedef date_info * DateInfo;
+
 int compare_dates(DateInfo info_1, DateInfo info_2){
-    int month_1;
+    // If the month of the first date is greater than the month of
+    // the second date, then that means that the first date comes 
+    // after the second. Same thing happens the other way around. 
+
+    if (info_1->month > info_2->month) 
+        return 1;
+    else if (info_1->month < info_2->month)
+        return -1;
+
+    // If the control flow reaches this point, it means that both dates
+    // are of the same month. This means that it depends on the day itself
+    // to figure out what date between info_1, info_2 comes first.
+
+    if (info_1->date > info_2->date)
+        return 1;
+    else if (info_1->date < info_2->date)
+        return -1;
+    else 
+        return 0;    
 }
 
 Map load_birthdays(void) {
-    Map birthdays = map_create(compare_dates, free, free);
+    Map birthdays = map_create((CompareFunc) compare_dates, free, free);
 
     DateInfo info_JK = malloc(sizeof(*info_JK));
     info_JK->date = 13;
@@ -64,15 +83,13 @@ Map load_birthdays(void) {
     info_test->year = 2023;
     map_insert(birthdays, info_test, "TEST_DATE");
 
+    printf("I love her");
     return birthdays;
 }
 
 void unload_birthdays(Map birthdays) {
     map_destroy(birthdays);
 }
-
-// Pointer to the struct date_info
-typedef date_info * DateInfo;
 
 // Holds the information of the people who have a birthday today
 typedef struct { 
