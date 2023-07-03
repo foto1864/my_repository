@@ -6,7 +6,7 @@
 
 // Holds the information of the current date
 typedef struct {
-    int date;           // Date `
+    int date;           // Date 
     int month;          // Month
     int year;           // Year
     int hours;          // Hours
