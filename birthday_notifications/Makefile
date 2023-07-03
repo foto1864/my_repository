@@ -9,8 +9,11 @@ EXEC = birthday_notifications
 # Compiler
 CC = gcc
 
+# Flags
+CFLAGS = -Wall -Werror
+
 make: $(OBJS)
-	$(CC) -o $(EXEC) $(OBJS) 
+	$(CC) -o $(EXEC) $(OBJS) $(CFLAGS) 
 
 run: $(EXEC)
 	./$(EXEC)
