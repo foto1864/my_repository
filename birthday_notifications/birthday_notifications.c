@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+typedef void* Pointer;
+
 // Holds the information of the current date
 typedef struct {
     int date;           // Date 
@@ -13,6 +15,13 @@ typedef struct {
 
 // Pointer to the struct date_info
 typedef date_info * DateInfo;
+
+// Holds the information of the people who have a birthday today
+typedef struct { 
+} birthday_info;
+
+// Pointer to the struct birthday_info
+typedef birthday_info * BirthdayInfo;
 
 // Gets the information of the current date
 DateInfo get_date_info(void) {
@@ -40,11 +49,25 @@ void print_date_info(DateInfo info) {
 }
 
 
+BirthdayInfo get_birthday_info(DateInfo info) {
+    BirthdayInfo bd_info = malloc(sizeof(*bd_info));
+    return bd_info;
+}
+
+void print_birthday_info(BirthdayInfo bd_info) {
+    return;
+}
+
 int main(void) {
 
-    DateInfo info = get_date_info();
-    print_date_info(info);
-    free(info);
+    DateInfo date_info = get_date_info();
+    print_date_info(date_info);
+
+    BirthdayInfo bd_info = get_birthday_info(date_info);
+    print_birthday_info(bd_info);
+
+    free(date_info);
+    free(bd_info);
 
     return 0;
 }
