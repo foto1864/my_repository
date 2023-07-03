@@ -17,6 +17,8 @@ typedef struct {
 typedef date_info * DateInfo;
 
 int compare_dates(DateInfo info_1, DateInfo info_2){
+
+    return 0;
     // If the month of the first date is greater than the month of
     // the second date, then that means that the first date comes 
     // after the second. Same thing happens the other way around. 
@@ -39,14 +41,19 @@ int compare_dates(DateInfo info_1, DateInfo info_2){
 }
 
 Map load_birthdays(void) {
+    printf("SPY");
     Map birthdays = map_create((CompareFunc) compare_dates, free, free);
 
+    printf("Boutta Segfault");
     DateInfo info_JK = malloc(sizeof(*info_JK));
     info_JK->date = 13;
     info_JK->month = 3;
     info_JK->year = 2004;
+    info_JK->hours = 17;
+    info_JK->minutes = 11;
     map_insert(birthdays, info_JK, "Jim Kontopidis");
-
+  
+    /*
     DateInfo info_AS = malloc(sizeof(*info_AS));
     info_AS->date = 25;
     info_AS->month = 2;
@@ -84,11 +91,8 @@ Map load_birthdays(void) {
     map_insert(birthdays, info_test, "TEST_DATE");
 
     printf("I love her");
+    */
     return birthdays;
-}
-
-void unload_birthdays(Map birthdays) {
-    map_destroy(birthdays);
 }
 
 // Holds the information of the people who have a birthday today
@@ -140,10 +144,10 @@ int main(void) {
     print_date_info(date_info);
     free(date_info);
 
+    printf("()");
     // Test
     Map birthdays = load_birthdays();
-    unload_birthdays(birthdays);
-    free(birthdays);
+    map_destroy(birthdays);
 
     //BirthdayInfo bd_info = get_birthday_info(date_info);
     //print_birthday_info(bd_info);
