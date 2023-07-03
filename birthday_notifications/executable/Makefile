@@ -1,13 +1,18 @@
 # Makefile for birthday_notifications.c
 
+# Paths
+MODULES = ../modules
+MOD_MAP = UsingADTMap_BirthdayNotifications
+MOD_HASH = UsingHashTable_ADTMap
+
+# Libraries
+INCLUDE = ../include
+
 # Source Files
-OBJS = birthday_notifications.c ../ADTMap/ADTMap.c
+OBJS = $(MODULES)/$(MOD_MAP)/bd_notifs.c $(MODULES)/$(MOD_HASH)/ADTMap.c $(MODULES)/$(MOD_MAP)/bd_notifs_utils.c
 
 # Executable
 EXEC = birthday_notifications 
-
-# Libraries
-INCLUDE = ../ADTMap/ADTMap.h
 
 # Compiler
 CC = gcc
