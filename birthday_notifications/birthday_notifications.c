@@ -2,25 +2,49 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct tm DayInfo;
+// Holds the information of the current date
+typedef struct {
+    int date;           // Date 
+    int month;          // Month
+    int year;           // Year
+    int hours;          // Hours
+    int minutes;        // Minutes
+} date_info;
 
-int main() {
+// Pointer to the struct date_info
+typedef date_info * DateInfo;
+
+// Gets the information of the current date
+DateInfo get_date_info(void) {
 
     time_t t = time(NULL);
-    DayInfo day = *localtime(&t);
+    struct tm day = *localtime(&t);
+    
+    DateInfo info = malloc(sizeof(*info));
+    info->date = day.tm_mday;                 // Get the date
+    info->month = day.tm_mon + 1;             // Get the month [0-11]
+    info->year = day.tm_year - 100;           // Get the year [Year-1900]
+    info->hours = day.tm_hour;                // Get the hours
+    info->minutes = day.tm_min;               // Get the minutes
+    
+    return info;
+}
 
-    // Date is the current date, numbering goes from 1-31
-    int date = day.tm_mday;
-    // Month has to be month+1 because numbering goes from 0-11
-    int month = day.tm_mon + 1;
-    // Year has to be year-100 because counting starts from 1900
-    int year = day.tm_year - 100;
+// Prints the information of the current date
+void print_date_info(DateInfo info) {
+    // Print The Current Date
+    printf("Current date is %02d/%02d/%02d\n", info->date, info->month, info->year);
+    // Print The Current Time
+    printf("Current time is %02d:%02d\n", info->hours, info->minutes);
+    return;
+}
 
-    int hours = day.tm_hour;
-    int minutes = day.tm_min;
 
-    printf("Today's date is %02d/%02d/%02d\n", date, month, year);
-    printf("Current time is %d:%d\n", hours, minutes);
+int main(void) {
+
+    DateInfo info = get_date_info();
+    print_date_info(info);
+    free(info);
 
     return 0;
 }
