@@ -3,14 +3,11 @@
 # Paths
 MODULES = ../modules
 MOD_MAP = UsingADTMap_BirthdayNotifications
-MOD_HASH = UsingHashTable_ADTMap
+MOD_SET = UsingADTSet_ADTMap
+MOD_AVL = UsingAVL_ADTSet
 
 # Libraries
 INCLUDE = ../include
-
-# Source Files
-
-OBJS = $(MODULES)/$(MOD_MAP)/bd_notifs.c $(MODULES)/$(MOD_HASH)/ADTMap.c $(MODULES)/$(MOD_MAP)/bd_notifs_utils.c
 
 # Executable
 EXEC = birthday_notifications 
@@ -21,12 +18,14 @@ CC = gcc
 # Flags
 CFLAGS = -Wall -Werror
 
-make: $(OBJS)
-	$(CC) -o $(EXEC) $(OBJS) $(CFLAGS) -I$(INCLUDE)
+make:
+	$(CC) -c $(MODULES)/$(MOD_AVL)/ADTSet.c -I$(INCLUDE) $(CFLAGS)
+	$(CC) -c $(MODULES)/$(MOD_SET)/ADTMap.c -I$(INCLUDE) $(CFLAGS)
+	$(CC) -c $(MODULES)/$(MOD_MAP)/bd_notifs.c -I$(INCLUDE) $(CFLAGS)
+	$(CC) -o $(EXEC) bd_notifs.o ADTMap.o ADTSet.o $(CFLAGS) -I$(INCLUDE)
 
-run: $(EXEC)
+run: 
 	./$(EXEC)
 
 valgrind: $(EXEC)
 	valgrind ./$(EXEC)
-
