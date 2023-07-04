@@ -22,7 +22,9 @@ make:
 	$(CC) -c $(MODULES)/$(MOD_AVL)/ADTSet.c -I$(INCLUDE) $(CFLAGS)
 	$(CC) -c $(MODULES)/$(MOD_SET)/ADTMap.c -I$(INCLUDE) $(CFLAGS)
 	$(CC) -c $(MODULES)/$(MOD_MAP)/bd_notifs.c -I$(INCLUDE) $(CFLAGS)
-	$(CC) -o $(EXEC) bd_notifs.o ADTMap.o ADTSet.o $(CFLAGS) -I$(INCLUDE)
+	$(CC) -c $(MODULES)/$(MOD_MAP)/bd_notifs_load_bds.c -I$(INCLUDE) $(CFLAGS)
+	$(CC) -c $(MODULES)/$(MOD_MAP)/bd_notifs_date_info.c -I$(INCLUDE) $(CFLAGS)
+	$(CC) -o $(EXEC) bd_notifs.o ADTMap.o ADTSet.o bd_notifs_load_bds.o bd_notifs_date_info.o $(CFLAGS) -I$(INCLUDE)
 
 run: 
 	./$(EXEC)

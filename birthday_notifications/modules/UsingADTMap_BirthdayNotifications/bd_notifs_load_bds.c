@@ -1,4 +1,42 @@
+#include "../../include/Birthday_Notifications.h"
 
+// Compare Function that arranges dates in chronological order
+int compare_dates(DateInfo info_1, DateInfo info_2){
+
+    DateInfo info_01 = info_1;
+    DateInfo info_02 = info_2;
+
+    // If the year of the first date is greater than the year of
+    // the second date, then that means that the first date comes
+    // after the second. Same thing happens the other way around.
+
+    if (info_01->year > info_02->year) 
+        return 1;
+    else if (info_01->year < info_02->year) 
+        return -1;
+
+    // If the month of the first date is greater than the month of
+    // the second date, then that means that the first date comes 
+    // after the second. Same thing happens the other way around. 
+
+    if (info_01->month > info_02->month) 
+        return 1;
+    else if (info_01->month < info_02->month)
+        return -1;
+
+    // If the control flow reaches this point, it means that both dates
+    // are of the same month. This means that it depends on the day itself
+    // to figure out what date between info_1, info_2 comes first.
+
+    if (info_01->date > info_02->date)
+        return 1;
+    else if (info_01->date < info_02->date)
+        return -1;
+    else 
+        return 0;    
+}
+
+// Loads the birthdays of the year when the program starts
 Map load_birthdays(void) {
 
     Map birthdays = map_create((CompareFunc)compare_dates, free, NULL);
@@ -43,7 +81,8 @@ Map load_birthdays(void) {
     info_test->date = 4;
     info_test->month = 7;
     info_test->year = 2023;
-    map_insert(birthdays, info_test, "TEST_DATE");
+    int a = 7;
+    map_insert(birthdays, info_test, &a);
     
     return birthdays;
 }
