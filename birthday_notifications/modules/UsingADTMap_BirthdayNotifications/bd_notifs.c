@@ -2,29 +2,54 @@
 
 int main(void) {
 
-    // Get and print the information of current day
+    // Get and print the information of current day.
     DateInfo date_info = get_date_info();
     print_date_info(date_info);
-
-    printf("BreakPoint_01\n");
-    // Load the information of the birthdays
+    
+    // Load the information of the birthdays.
     Map birthdays = load_birthdays();
 
-    // Create a dummy date that will represent the current one
+    // Create a dummy date that will represent the current one.
     DateInfo today = malloc(sizeof(*today));
     today->date = date_info->date;
     today->month = date_info->month;
     today->year = date_info->year;
-
-    printf("BreakPoint_02\n");
-    // Search for the birthdays of current day
+   
+    // Search for, and print the birthdays of current day.
     Pointer found = map_find(birthdays, today);
-    printf("BreakPoint_03\n");
+    if (found != NULL)
+        printf("Todays is %s's birthday!\n", (char*) found);    
+    else {
+        printf("No Birthdays Today!\n");
+        // Insert a dummy node, so that we can search for the next. 
+        map_insert(birthdays, today, "Dummy");
+    }
 
-    // Print the found birthday
-    printf("Todays is %d's birthday\n", *(int*)found);
+    // Print the upcoming birthday.
+    MapNode next = map_next(birthdays, map_find_node(birthdays, today));
+    DateInfo birthday;
+    
+    if (next == MAP_EOF) {
+        printf("Next birthday coming up is %s ", (char*)map_node_value(birthdays, map_first(birthdays)));
+        DateInfo birthday = map_node_key(birthdays, map_first(birthdays));
+        int date = birthday->date;
+        int month = birthday->month;
+        int year = birthday->year;
+        printf("on %02d/%02d (%d years old)\n", date, month, date_info->year - year);
+    }     
+    else { 
+        printf("Next birthday coming up is %s ", (char*)map_node_value(birthdays, next));
+        DateInfo birthday = map_node_key(birthdays, next);
+        int date = birthday->date;
+        int month = birthday->month;
+        int year = birthday->year;
+        printf("on %02d/%02d (%d years old)\n", date, month, date_info->year - year);
+    }
 
-    // Free memory that was allocated dynamically
+    // After being done with the work, remove the dummy node inserted earlier.
+    map_remove(birthdays, today);
+
+    // Free memory that was allocated dynamically.
     free(date_info);
     map_destroy(birthdays); 
     

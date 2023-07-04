@@ -10,10 +10,10 @@ int compare_dates(DateInfo info_1, DateInfo info_2){
     // the second date, then that means that the first date comes
     // after the second. Same thing happens the other way around.
 
-    if (info_01->year > info_02->year) 
-        return 1;
-    else if (info_01->year < info_02->year) 
-        return -1;
+    //if (info_01->year > info_02->year) 
+      //  return 1;
+    //else if (info_01->year < info_02->year) 
+      //  return -1;
 
     // If the month of the first date is greater than the month of
     // the second date, then that means that the first date comes 
@@ -40,6 +40,12 @@ int compare_dates(DateInfo info_1, DateInfo info_2){
 Map load_birthdays(void) {
 
     Map birthdays = map_create((CompareFunc)compare_dates, free, NULL);
+
+    DateInfo info_AD = malloc(sizeof(*info_AD));
+    info_AD->date = 7;
+    info_AD->month = 7;
+    info_AD->year = 2004;
+    map_insert(birthdays, info_AD, "Anastasia Diamantakou");
 
     DateInfo info_JK = malloc(sizeof(*info_JK));
     info_JK->date = 13;
@@ -76,13 +82,6 @@ Map load_birthdays(void) {
     info_ET->month = 10;
     info_ET->year = 1968;
     map_insert(birthdays, info_ET, "Eva Tasiou");
-
-    DateInfo info_test = malloc(sizeof(*info_test));
-    info_test->date = 4;
-    info_test->month = 7;
-    info_test->year = 2023;
-    int a = 7;
-    map_insert(birthdays, info_test, &a);
-    
+  
     return birthdays;
 }
