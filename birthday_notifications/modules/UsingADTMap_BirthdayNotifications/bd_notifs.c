@@ -47,6 +47,35 @@ int main(void) {
     // After being done with the work, remove the dummy node inserted earlier.
     map_remove(birthdays, today);
 
+    printf("Do you want to see all upcoming birthdays? (Y/n)  ");
+    int ch = getchar();
+
+    // If the answer is YES.
+    if (ch == 89 || ch == 121) {
+        printf("\nHere are all the birthdays of the year:\n\n");
+        for(MapNode node = map_first(birthdays); 
+            node != MAP_EOF; 
+            node = map_next(birthdays, node)) {
+
+            DateInfo info = map_node_key(birthdays, node);
+            int date = info->date;
+            int month = info->month;
+            int year = info->year;
+            printf("%s on %02d/%02d ", (char*)map_node_value(birthdays, node), date, month);    
+            printf("(%d years old)\n", date_info->year - year);
+        }
+        printf("\n");
+    }
+    // If the answer is NO.
+    else if (ch == 110 || ch == 78) {
+        printf("Thank you, Have a nice day!\n");
+    }
+    // If the character entered is invalid.
+    else { 
+        fprintf(stderr, "Invalid Character Entered\n");
+        exit(1);
+    }    
+
     // Free memory that was allocated dynamically.
     free(date_info);
     map_destroy(birthdays); 

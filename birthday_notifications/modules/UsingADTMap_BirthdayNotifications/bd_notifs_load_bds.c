@@ -40,6 +40,72 @@ int compare_dates(DateInfo info_1, DateInfo info_2){
 Map load_birthdays(void) {
 
     Map birthdays = map_create((CompareFunc)compare_dates, free, NULL);
+    
+    DateInfo info_AK = malloc(sizeof(*info_AK));
+    info_AK->date = 25;
+    info_AK->month = 12;
+    info_AK->year = 1998;
+    map_insert(birthdays, info_AK, "Alice Kolaklidi");
+
+    DateInfo info_CD = malloc(sizeof(*info_CD));
+    info_CD->date = 24;
+    info_CD->month = 6;
+    info_CD->year = 2004;
+    map_insert(birthdays, info_CD, "Cynthia Mpousiou 'Cidi Love'");
+
+    DateInfo info_DS = malloc(sizeof(*info_DS));
+    info_DS->date = 13;
+    info_DS->month = 11;
+    info_DS->year = 2004;
+    map_insert(birthdays, info_DS, "Despina Stavrinou");
+
+    DateInfo info_MAM = malloc(sizeof(*info_MAM));
+    info_MAM->date = 22;
+    info_MAM->month = 5;
+    info_MAM->year = 2004;
+    map_insert(birthdays, info_MAM, "Melina Amalia Mavroudi");
+
+    DateInfo info_ADS = malloc(sizeof(*info_ADS));
+    info_ADS->date = 11;
+    info_ADS->month = 9;
+    info_ADS->year = 2004;
+    map_insert(birthdays, info_ADS, "Andrianna Kyriakou 'Andy Sunday'");
+
+    DateInfo info_AMA = malloc(sizeof(*info_AMA));
+    info_AMA->date = 20;
+    info_AMA->month = 2;
+    info_AMA->year = 2004;
+    map_insert(birthdays, info_AMA, "Alexandra Mitta 'Amita'");
+
+    DateInfo info_BA = malloc(sizeof(*info_BA));
+    info_BA->date = 17;
+    info_BA->month = 1;
+    info_BA->year = 2004;
+    map_insert(birthdays, info_BA, "Basilis Afentoulidis");
+
+    DateInfo info_GM = malloc(sizeof(*info_GM));
+    info_GM->date = 6;
+    info_GM->month = 5;
+    info_GM->year = 2004;
+    map_insert(birthdays, info_GM, "George Melas");
+
+    DateInfo info_MA = malloc(sizeof(*info_MA));
+    info_MA->date = 22;
+    info_MA->month = 9;
+    info_MA->year = 2004;
+    map_insert(birthdays, info_MA, "Maria Alexopoulou");
+
+    DateInfo info_ESPO = malloc(sizeof(*info_ESPO));
+    info_ESPO->date = 8;
+    info_ESPO->month = 1;
+    info_ESPO->year = 2004;
+    map_insert(birthdays, info_ESPO, "Antonis Spyropoulos");
+
+    DateInfo info_MK = malloc(sizeof(*info_MK));
+    info_MK->date = 3;
+    info_MK->month = 8;
+    info_MK->year = 2004;
+    map_insert(birthdays, info_MK, "Marilena Kastania");
 
     DateInfo info_AD = malloc(sizeof(*info_AD));
     info_AD->date = 7;
