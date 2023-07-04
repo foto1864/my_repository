@@ -9,7 +9,7 @@ DateInfo get_date_info(void) {
     DateInfo info = malloc(sizeof(*info));
     info->date = day.tm_mday;                 // Get the date
     info->month = day.tm_mon + 1;             // Get the month [0-11]
-    info->year = day.tm_year - 100;           // Get the year [Year-1900]
+    info->year = day.tm_year + 1900;           // Get the year [Year-1900]
     info->hours = day.tm_hour;                // Get the hours
     info->minutes = day.tm_min;               // Get the minutes
     
@@ -19,7 +19,7 @@ DateInfo get_date_info(void) {
 // Prints the information of the current date
 void print_date_info(DateInfo info) {
     // Print The Current Date
-    printf("Current date is %02d/%02d/%02d\n", info->date, info->month, info->year);
+    printf("Current date is %02d/%02d/%d\n", info->date, info->month, info->year);
     // Print The Current Time
     printf("Current time is %02d:%02d\n", info->hours, info->minutes);
     return;

@@ -6,6 +6,7 @@ int main(void) {
     DateInfo date_info = get_date_info();
     print_date_info(date_info);
 
+    printf("BreakPoint_01\n");
     // Load the information of the birthdays
     Map birthdays = load_birthdays();
 
@@ -15,11 +16,13 @@ int main(void) {
     today->month = date_info->month;
     today->year = date_info->year;
 
+    printf("BreakPoint_02\n");
     // Search for the birthdays of current day
     Pointer found = map_find(birthdays, today);
+    printf("BreakPoint_03\n");
 
     // Print the found birthday
-    printf("Todays is %d's birthday", *(int*)found);
+    printf("Todays is %d's birthday\n", *(int*)found);
 
     // Free memory that was allocated dynamically
     free(date_info);
