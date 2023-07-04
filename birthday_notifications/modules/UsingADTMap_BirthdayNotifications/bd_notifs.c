@@ -25,26 +25,24 @@ int main(void) {
         map_insert(birthdays, today, "Dummy");
     }
 
-    // Print the upcoming birthday.
+    // Get the info of the upcoming birthday.
     MapNode next = map_next(birthdays, map_find_node(birthdays, today));
-    DateInfo birthday;
-    
+    DateInfo birthday = NULL;
+
     if (next == MAP_EOF) {
         printf("Next birthday coming up is %s ", (char*)map_node_value(birthdays, map_first(birthdays)));
-        DateInfo birthday = map_node_key(birthdays, map_first(birthdays));
-        int date = birthday->date;
-        int month = birthday->month;
-        int year = birthday->year;
-        printf("on %02d/%02d (%d years old)\n", date, month, date_info->year - year);
+        birthday = map_node_key(birthdays, map_first(birthdays));
     }     
     else { 
         printf("Next birthday coming up is %s ", (char*)map_node_value(birthdays, next));
-        DateInfo birthday = map_node_key(birthdays, next);
-        int date = birthday->date;
-        int month = birthday->month;
-        int year = birthday->year;
-        printf("on %02d/%02d (%d years old)\n", date, month, date_info->year - year);
+        birthday = map_node_key(birthdays, next);
     }
+
+    // Finally assign the values and print the info.
+    int date = birthday->date;
+    int month = birthday->month;
+    int year = birthday->year;
+    printf("on %02d/%02d (%d years old)\n", date, month, date_info->year - year);
 
     // After being done with the work, remove the dummy node inserted earlier.
     map_remove(birthdays, today);
