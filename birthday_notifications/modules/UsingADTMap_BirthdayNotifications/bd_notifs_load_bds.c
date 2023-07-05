@@ -6,14 +6,8 @@ int compare_dates(DateInfo info_1, DateInfo info_2){
     DateInfo info_01 = info_1;
     DateInfo info_02 = info_2;
 
-    // If the year of the first date is greater than the year of
-    // the second date, then that means that the first date comes
-    // after the second. Same thing happens the other way around.
-
-    //if (info_01->year > info_02->year) 
-      //  return 1;
-    //else if (info_01->year < info_02->year) 
-      //  return -1;
+    ///////////////////////////////// TO DO //////////////////////////////////////
+    // Update that needs to be made : What happends if two people share a birthday
 
     // If the month of the first date is greater than the month of
     // the second date, then that means that the first date comes 
@@ -40,6 +34,24 @@ int compare_dates(DateInfo info_1, DateInfo info_2){
 Map load_birthdays(void) {
 
     Map birthdays = map_create((CompareFunc)compare_dates, free, NULL);
+
+    DateInfo info_JG = malloc(sizeof(*info_JG));
+    info_JG->date = 16;
+    info_JG->month = 11;
+    info_JG->year = 2004;
+    map_insert(birthdays, info_JG, "Jasmine Katsiki");
+
+    DateInfo info_SK = malloc(sizeof(*info_SK));
+    info_SK->date = 11;
+    info_SK->month = 2;
+    info_SK->year = 2004;
+    map_insert(birthdays, info_SK, "Semina Kallimani");
+
+    DateInfo info_TZK = malloc(sizeof(*info_TZK));
+    info_TZK->date = 14;
+    info_TZK->month = 5;
+    info_TZK->year = 2000;
+    map_insert(birthdays, info_TZK, "Konstantina Tziara");
     
     DateInfo info_AK = malloc(sizeof(*info_AK));
     info_AK->date = 25;

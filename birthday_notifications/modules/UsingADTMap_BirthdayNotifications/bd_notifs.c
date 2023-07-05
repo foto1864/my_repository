@@ -61,7 +61,7 @@ int main(void) {
             int date = info->date;
             int month = info->month;
             int year = info->year;
-            printf("%s on %02d/%02d ", (char*)map_node_value(birthdays, node), date, month);    
+            printf("%02d/%02d %s ", date, month, (char*)map_node_value(birthdays, node));    
             printf("(%d years old)\n", date_info->year - year);
         }
         printf("\n");
