@@ -29,6 +29,8 @@ int main(void) {
     MapNode next = map_next(birthdays, map_find_node(birthdays, today));
     DateInfo birthday = NULL;
 
+    // If we're looking at the last birthday of the calendar year, the next birthday will be
+    // at the start of the map, since the compare function takes into account only 1 calendar year.
     if (next == MAP_EOF) {
         printf("Next birthday coming up is %s ", (char*)map_node_value(birthdays, map_first(birthdays)));
         birthday = map_node_key(birthdays, map_first(birthdays));
@@ -66,6 +68,7 @@ int main(void) {
             printf("(%d years old)\n", date_info->year - year);
         }
         printf("\n");
+        printf("You have the birthday information of %d people in total.\n", map_size(birthdays));
     }
     // If the answer is NO. (Meaning that the character is 'n' or 'N').
     else if (ch == 110 || ch == 78) {
@@ -76,6 +79,8 @@ int main(void) {
         fprintf(stderr, "Invalid Character Entered\n");
         exit(1);
     }    
+
+
 
     // Free memory that was allocated dynamically.
     free(date_info);

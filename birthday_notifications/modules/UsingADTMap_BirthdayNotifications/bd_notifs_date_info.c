@@ -7,11 +7,11 @@ DateInfo get_date_info(void) {
     struct tm day = *localtime(&t);
     
     DateInfo info = malloc(sizeof(*info));
-    info->date = day.tm_mday;                 // Get the date
-    info->month = day.tm_mon + 1;             // Get the month [0-11]
-    info->year = day.tm_year + 1900;           // Get the year [Year-1900]
-    info->hours = day.tm_hour;                // Get the hours
-    info->minutes = day.tm_min;               // Get the minutes
+    info->date = day.tm_mday;                  // Get the date
+    info->month = day.tm_mon + 1;              // Get the month [Counting is 0 to 11]
+    info->year = day.tm_year + 1900;           // Get the year [Years since 1900]
+    info->hours = day.tm_hour;                 // Get the hours
+    info->minutes = day.tm_min;                // Get the minutes
     
     return info;
 }
