@@ -80,8 +80,6 @@ int main(void) {
         exit(1);
     }    
 
-
-
     // Free memory that was allocated dynamically.
     free(date_info);
     map_destroy(birthdays); 
