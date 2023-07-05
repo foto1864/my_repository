@@ -47,10 +47,11 @@ int main(void) {
     // After being done with the work, remove the dummy node inserted earlier.
     map_remove(birthdays, today);
 
+    // Get the intentions of the user.
     printf("Do you want to see all upcoming birthdays? (Y/n)  ");
     int ch = getchar();
 
-    // If the answer is YES.
+    // If the answer is YES. (Meaning that the character is 'y' or 'Y').
     if (ch == 89 || ch == 121) {
         printf("\nHere are all the birthdays of the year:\n\n");
         for(MapNode node = map_first(birthdays); 
@@ -66,7 +67,7 @@ int main(void) {
         }
         printf("\n");
     }
-    // If the answer is NO.
+    // If the answer is NO. (Meaning that the character is 'n' or 'N').
     else if (ch == 110 || ch == 78) {
         printf("Thank you, Have a nice day!\n");
     }
