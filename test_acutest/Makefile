@@ -15,10 +15,8 @@ CC = gcc
 # include files
 INCLUDE = ../include
 
-make: $(OBJ1), $(OBJ2)
-	$(CC) -c $(OBJ1) 
-	$(CC) -c $(OBJ2)
-	$(CC) -o $(UNL_1) $(UNL_2) $(EXEC) -I$(INCLUDE)
-
-run: $(EXEC)
+make: $(OBJ_1) $(OBJ_2)
+	$(CC) -c $(OBJ_1) 
+	$(CC) -c $(OBJ_2)
+	$(CC) -o $(EXEC) $(UNL_1) $(UNL_2) 
 	./$(EXEC)
