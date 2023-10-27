@@ -3,45 +3,36 @@ using namespace std;
 typedef unsigned int uint;
 void printArray(char* array, uint size);
 void deleteRepeats(char* array, uint size);
+void readArray(void);
 
 int main(void) {
-    
     while (1) {
-
-        uint arraySize;
-        cout << "Please enter the size of the array: " << endl;
-        cin >> arraySize;
-        char* charArray = new char[arraySize];
-
-        cout << "Enter the characters that will be put into the array: " << endl;
-        for (int i=0; i<arraySize; i++) {
-            cin >> charArray[i];
-        }    
-
-        cout << "Now the duplicate characters are going to be deleted from the array: " << endl;
-        deleteRepeats(charArray, arraySize);            
-        delete[] charArray;    
-        
-        char userReply;
+        readArray();     
         cout << "Would you like to repeat the process for a new array with different values?" << endl;
         cout << "Press 'N' or 'n' if you would like the process to stop, else press any key to repeat." << endl;
-
-        cin >> userReply;
+        char userReply;
+        cin >> userReply;        
         if (userReply == 'N' || userReply == 'n') 
             break;
     }
-
     return 0;
 }
 
-void printArray(char* array, uint size) {
-    for (int i=0; i<size; i++) {
-        cout << array[i];
+// Reads the size of the array and the contents of it
+void readArray(void) {   
+    uint arraySize;
+    cout << "Please enter the size of the array: " << endl;
+    cin >> arraySize;
+    char* charArray = new char[arraySize];
+    cout << "Please enter the characters that will be put into the array: " << endl;
+    for (int i=0; i<arraySize; i++) {
+        cin >> charArray[i];
     }
-    cout << endl;
-    return;
+    deleteRepeats(charArray, arraySize);
+    delete[] charArray;
 }
 
+// Deletes the duplicate characters in the array
 void deleteRepeats(char* array, uint size) {
     for (int i = 0; i < size; i ++)  {
         for (int j = i + 1; j < size; j++) {  
@@ -56,4 +47,13 @@ void deleteRepeats(char* array, uint size) {
         }
     }
     return;  
+}
+
+// Prints the contents of the array
+void printArray(char* array, uint size) {
+    for (int i=0; i<size; i++) {
+        cout << array[i];
+    }
+    cout << endl;
+    return;
 }
