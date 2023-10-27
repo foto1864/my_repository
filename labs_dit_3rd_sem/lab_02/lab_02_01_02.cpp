@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 typedef unsigned int uint;
-void printArray(char* array, uint size);
-void deleteRepeats(char* array, uint size);
 void readArray(void);
+void deleteRepeats(char* array, uint size);
+void printArray(char* array, uint size);
 
 int main(void) {
     while (1) {
