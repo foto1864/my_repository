@@ -5,15 +5,28 @@ void swapForExB(int &a, int &b);
 void swapForExC(int **a, int **b);
 
 int main(void) {
-    int xA = 5, yA = 10;
+
+    // Exercise 1
+    cout << "Enter 2 numbers to be swapped:" << endl;
+    int xA, yA;
+    cin >> xA;
+    cin >> yA;
     swapForExA(&xA, &yA);
-    cout << "After swap the numbers are: " << xA << " " << yA << endl;
+    cout << "After swap the numbers are: " << xA << " " << yA << endl << endl;
 
-    int xB = 13, yB = 07; 
+    // Exercise 2
+    cout << "Enter another 2 numbers to be swapped, using a different method:" << endl; 
+    int xB, yB;
+    cin >> xB;
+    cin >> yB; 
     swapForExB(xB, yB);
-    cout << "After swap the numbers are: " << xB << " " << yB << endl;
+    cout << "After swap the numbers are: " << xB << " " << yB << endl << endl;
 
-    int xC = 20, yC = 12;
+    // Exercise 3
+    cout << "Enter another 2 numbers to be swapped, using a different method:" << endl; 
+    int xC, yC;
+    cin >> xC;
+    cin >> yC;
     int *ptr1 = &xC; 
     int *ptr2 = &yC;
     swapForExC(&ptr1, &ptr2);
