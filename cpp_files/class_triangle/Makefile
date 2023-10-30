@@ -1,10 +1,10 @@
-# Makefile test for farenheit_to_celcius.cpp
+# Makefile test for class_triangle.cpp
 
 # source
-OBJ = farenheit_to_celcius.cpp
+OBJ = class_triangle.cpp
 
 # exec
-EXEC = farenheit_to_celcius
+EXEC = class_triangle
 
 # compiler
 CC = g++

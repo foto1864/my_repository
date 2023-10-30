@@ -1,4 +1,4 @@
-# Makefile test for test.cpp
+# Makefile test for class_rectangle.cpp
 
 # source
 OBJ = class_rectangle.cpp
