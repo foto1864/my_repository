@@ -106,7 +106,23 @@ int main(void) {
         cout << "Perimeter of constructed triangle is " << perimeter << endl;
         cout << "Area of constructed triangle is " << area << endl;
 
+        cout << "Do you want to repeat the process? Press 'Y' for yes or 'N' for no: " << endl;
         
+        char ch;
+        cin >> ch;
+        label:
+        if (ch == 'N') {
+            cout << "Thank you for using our program!" << endl;
+            break;
+        }
+        else if (ch == 'Y') continue;
+        else {
+            while (1) {
+                cout << "Invalid character entered. Please enter one of 'Y' or 'N'." << endl;
+                cin >> ch;
+                if (ch == 'Y' || ch == 'N') goto label;
+            }
+        }
     }
     return 0;
 }
