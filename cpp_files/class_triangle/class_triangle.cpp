@@ -86,23 +86,27 @@ class Triangle {
 
 int main(void) {
 
-    cout << "Enter the coordinates of 3 points in 2D space, so that they for a triangle:" << endl;
-    cout << "The format is you enter xA, yA then press enter, then xB and yB .." << endl;
+    while (1) {
 
-    float coorArray[6];
-    for (int i=0; i<6; i++) {
-        cin >> coorArray[i];
+        cout << "Enter the coordinates of 3 points in 2D space, so that they for a triangle:" << endl;
+        cout << "The format is you enter xA, yA then press enter, then xB and yB .." << endl;
+
+        float coorArray[6];
+        for (int i=0; i<6; i++) {
+            cin >> coorArray[i];
+        }
+        Point a(coorArray[0], coorArray[1]);
+        Point b(coorArray[2], coorArray[3]);
+        Point c(coorArray[4], coorArray[5]);
+
+        Triangle triangle_01(a, b, c);
+        float perimeter = triangle_01.getPerimeter();
+        float area = triangle_01.getArea();
+
+        cout << "Perimeter of constructed triangle is " << perimeter << endl;
+        cout << "Area of constructed triangle is " << area << endl;
+
+        
     }
-    Point a(coorArray[0], coorArray[1]);
-    Point b(coorArray[2], coorArray[3]);
-    Point c(coorArray[4], coorArray[5]);
-
-    Triangle triangle_01(a, b, c);
-    float perimeter = triangle_01.getPerimeter();
-    float area = triangle_01.getArea();
-
-    cout << "Perimeter of constructed triangle is " << perimeter << endl;
-    cout << "Area of constructed triangle is " << area << endl;
-
     return 0;
 }
