@@ -11,7 +11,7 @@ class Rectangle {
         void setWidth(double w) {
             if (w < 0) {
                 cout << "Width of a rectangle can't have a negative value. ";
-                cout << "Task Terminated" << endl;
+                cout << "Task Terminated." << endl;
                 exit(-1);
             }
             else width = w;
@@ -19,7 +19,7 @@ class Rectangle {
         void setHeight(double h) {
             if (h < 0) {
                 cout << "Height of a rectangle can't have a negative value. ";
-                cout << "Task Terminated" << endl;
+                cout << "Task Terminated." << endl;
                 exit(-1);
             }
             else height = h;
@@ -28,31 +28,37 @@ class Rectangle {
         double getHeight(void) { return height; }
         double getArea(void) { return width*height; }
         double getPerimeter(void) { return 2*(width+height); }
+
+        // Constructor Default
+        Rectangle() {
+            width = 0;
+            height = 0;
+        }
+        // Constructor
+        Rectangle(double w, double h) {
+            if (w*h <= 0) {
+                cout << "Width and height can only be positive. ";
+                cout << "Task terminated." << endl;
+                exit(1); 
+            }
+            width = w;
+            height = h;
+        }
+        // Destructor
+        ~Rectangle() {
+            cout << "Destructor has been executed." << endl;
+        }
 };
 
 int main(void) {
 
-    Rectangle *recArray = new Rectangle[2];
-    
-    Rectangle *rec_01 = new Rectangle;
-    rec_01->setHeight(5);
-    rec_01->setWidth(7);
-    
-    Rectangle *rec_02 = new Rectangle;
-    rec_02->setHeight(6);
-    rec_02->setWidth(8);
+    Rectangle rec_01(5,6);
+    Rectangle rec_02(3,4);
 
-    recArray[0] = *rec_01;
-    recArray[1] = *rec_02;
-
-    for (int i=0; i<2; i++) {
-        cout << "Area of rectangle " << i << " is " << recArray[i].getArea() << endl;
-        cout << "Perimeter of rectangle " << i << " is " << recArray[i].getPerimeter() << endl;
-    }
-
-    delete rec_01;
-    delete rec_02;
-    delete[] recArray;
+    cout << "Area of rec_01 is " << rec_01.getArea() << endl;
+    cout << "Perimeter of rec_01 is " << rec_01.getPerimeter() << endl;
+    cout << "Area of rec_02 is " << rec_02.getArea() << endl;
+    cout << "Perimeter of rec_02 is " << rec_02.getPerimeter() << endl;
 
     return 0;
 }
