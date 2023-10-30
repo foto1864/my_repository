@@ -31,19 +31,6 @@ class Rectangle {
 };
 
 int main(void) {
-    Rectangle rec;
-    double width, height;
 
-    cout << "Enter the width and height of the rectangle: " << endl;
-    cout << "Height: ";
-    cin >> height;
-    cout << "Width: ";
-    cin >> width;
-
-    rec.setHeight(height);
-    rec.setWidth(width);
-
-    cout << "Area of rectangle is " << rec.getArea() << endl;
-    cout << "Perimeter of rectangle is " << rec.getPerimeter() << endl;
     return 0;
 }
