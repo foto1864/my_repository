@@ -100,6 +100,7 @@ int main(void) {
         Point c(coorArray[4], coorArray[5]);
 
         Triangle triangle_01(a, b, c);
+
         float perimeter = triangle_01.getPerimeter();
         float area = triangle_01.getArea();
 
