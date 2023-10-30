@@ -32,7 +32,7 @@ class Rectangle {
 
 int main(void) {
 
-    Rectangle *recArray = new Rectangle[3];
+    Rectangle *recArray = new Rectangle[2];
     
     Rectangle *rec_01 = new Rectangle;
     rec_01->setHeight(5);
@@ -49,6 +49,10 @@ int main(void) {
         cout << "Area of rectangle " << i << " is " << recArray[i].getArea() << endl;
         cout << "Perimeter of rectangle " << i << " is " << recArray[i].getPerimeter() << endl;
     }
+
+    delete rec_01;
+    delete rec_02;
+    delete[] recArray;
 
     return 0;
 }
