@@ -37,9 +37,10 @@ int main(void) {
 
     Pet Noisette("Noisette", 10);
     Pet Goofy("Goofy", 100);
+    Pet Mikey("Mikey", 100);
 
-    cout << "The two pets have been created: Their names are:" << endl;
-    cout << Noisette.getName() << " and " << Goofy.getName() << endl;
+    cout << "The three pets have been created: Their names are:" << endl;
+    cout << Noisette.getName() << ", " << Goofy.getName() << " and " << Mikey.getName() << endl;
 
     return 0;
 }
