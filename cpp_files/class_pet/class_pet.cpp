@@ -4,8 +4,10 @@ using namespace std;
 class Pet {
     private:
         string name;
+        string species;
         int age;
     public:
+        void setSpecies(string s) { species = s; }
         void setName(string n) { name = n; }
         void setAge(int a) {
             if (age < 0) {
@@ -14,12 +16,13 @@ class Pet {
             age = a;
         }
         int getAge() { return age; }
-        string getName() { return name;
-        }
+        string getName() { return name; }
+        string getSpecies() {return species; }
         // Constructor
-        Pet(string n, int a) {
+        Pet(string n, int a, string s) {
             name = n;
             age = a;
+            species = s;
         }
         // Constructor Default
         Pet() {
@@ -35,9 +38,9 @@ class Pet {
 
 int main(void) {
 
-    Pet Noisette("Noisette", 10);
-    Pet Goofy("Goofy", 100);
-    Pet Mikey("Mikey", 100);
+    Pet Noisette("Noisette", 10, "Dog");
+    Pet Goofy("Goofy", 100, "Dog");
+    Pet Mikey("Mikey", 100, "Mouse");
 
     cout << "The three pets have been created: Their names are:" << endl;
     cout << Noisette.getName() << ", " << Goofy.getName() << " and " << Mikey.getName() << endl;
