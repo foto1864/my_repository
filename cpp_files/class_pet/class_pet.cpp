@@ -35,4 +35,11 @@ class Pet {
 
 int main(void) {
 
+    Pet Noisette("Noisette", 10);
+    Pet Goofy("Goofy", 100);
+
+    cout << "The two pets have been created: Their names are:" << endl;
+    cout << Noisette.getName() << " and " << Goofy.getName() << endl;
+
+    return 0;
 }
