@@ -3,8 +3,14 @@ using namespace std;
 
 
 class Point {
-    float x;
-    float y;
+    private:
+        float x;
+        float y;
+    public:
+        void set(float px, float py) {
+            x = px;
+            y = py;
+        }
 };
 
 
