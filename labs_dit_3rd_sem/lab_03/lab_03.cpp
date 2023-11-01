@@ -13,6 +13,18 @@ class Point {
         }
 };
 
+class Triangle {
+    private:
+        Point a;
+        Point b;
+        Point c;
+    public:
+        void set(Point pa, Point pb, Point pc) {
+            a = pa;
+            b = pb;
+            c = pc;
+        }
+};
 
 int main(void) {
 
