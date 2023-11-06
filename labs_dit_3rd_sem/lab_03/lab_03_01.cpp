@@ -26,6 +26,7 @@ class Triangle {
         float area(void) const;
         Point get(int index) const;
         bool equal(const Triangle &tr) const;
+        bool isTheSame(const Triangle &tr) const;
 };
 
 
@@ -90,6 +91,11 @@ float Triangle::area(void) const{
     float sideC = a.dist(b);
     float s = (sideA + sideB + sideC)/2; // Semiperimeter
     return sqrt(s*(s-sideA)*(s-sideB)*(s-sideC)); // Heron's Formula
+}
+bool Triangle::isTheSame(const Triangle &tr) const{
+    if (this->a.equal(tr.a) && this->b.equal(tr.b) && this->c.equal(tr.c))
+        return true;
+    return false;
 }
 
 
