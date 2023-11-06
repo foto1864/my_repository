@@ -19,7 +19,7 @@ class Triangle {
         Point b;
         Point c;
     public:
-        void set(Point pa, Point pb, Point pc) {
+        void set(Point &pa, Point &pb, Point &pc) {
             a = pa;
             b = pb;
             c = pc;
