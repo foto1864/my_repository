@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int multiply(int &a, int &b);
+int multiply(const int &a, const int &b);
 int multiplySimple(int a, int b);
 
 int main() {
