@@ -5,13 +5,13 @@ using namespace std;
 
 class Point {
     private:
-        float x; // x-coordinate
-        float y; // y-coordinate
+        double x; // x-coordinate
+        double y; // y-coordinate
         void printInfo(void) const;
     public:
-        void set(const float &px, const float &py);
+        void set(const double &px, const double &py);
         void print(void) const;
-        float dist(const Point &p) const;
+        double dist(const Point &p) const;
         bool equal(const Point &p) const;
 };
 
@@ -23,7 +23,7 @@ class Triangle {
     public:
         void set(const Point &pa, const Point &pb, const Point &pc);
         void print(void) const;
-        float area(void) const;
+        double area(void) const;
         Point get(int index) const;
         bool equal(const Triangle &tr) const;
         bool isTheSame(const Triangle &tr) const;
@@ -39,12 +39,12 @@ void Point::print(void) const{
     printInfo();
     return;
 }
-void Point::set(const float &px, const float &py) {
+void Point::set(const double &px, const double &py) {
     x = px; // Set x-coordinate
     y = py; // Set y-coordinate
     return;
 }
-float Point::dist(const Point &p) const{
+double Point::dist(const Point &p) const{
     return sqrt((this->x-p.x)*(this->x-p.x) + (this->y-p.y)*(this->y-p.y));
 }
 bool Point::equal(const Point &p) const{
@@ -85,11 +85,11 @@ bool Triangle::equal(const Triangle &tr) const{
         return true;
     return false;
 }
-float Triangle::area(void) const{
-    float sideA = b.dist(c);
-    float sideB = c.dist(a);
-    float sideC = a.dist(b);
-    float s = (sideA + sideB + sideC)/2; // Semiperimeter
+double Triangle::area(void) const{
+    double sideA = b.dist(c);
+    double sideB = c.dist(a);
+    double sideC = a.dist(b);
+    double s = (sideA + sideB + sideC)/2; // Semiperimeter
     return sqrt(s*(s-sideA)*(s-sideB)*(s-sideC)); // Heron's Formula
 }
 bool Triangle::isTheSame(const Triangle &tr) const{
@@ -106,12 +106,12 @@ int main(void) {
     b.set(3, 5);
     c.set(4, 6);
 
-    float distAB = a.dist(b);
+    double distAB = a.dist(b);
     cout << "Dist AB is " << distAB << endl; 
 
     Triangle tr_01;
     tr_01.set(a, b, c);
-    float area = tr_01.area();
+    double area = tr_01.area();
     cout << "Area of the given triangle is " << area << endl;
 
     cout << endl;
