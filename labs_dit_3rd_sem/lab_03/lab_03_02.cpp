@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+class Pet;
+class Person;
+
 class Person {
     private:
         string name;
