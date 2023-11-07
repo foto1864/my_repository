@@ -1,8 +1,10 @@
 #include <iostream>
+#include <cstring>
+
 using namespace std;
 const int MAX_SIZE = 1024;
 
-int strlen(char *str) {
+int myStrlen(char *str) {
     int length = 0; 
     int i=0;
     while(1) {
@@ -52,7 +54,12 @@ class String {
                 return '\0';
             return array[index];
         }
-
+        int find(char* str) {
+            int length = myStrlen(str);
+            for (int i=0; i<this->size; i++) {
+                
+            }
+        }
 };
 
 
@@ -63,5 +70,10 @@ int main(void) {
     char c = str.characterAtIndex(9);
     cout << "Character at index 9 is " << c << endl;
     cout << "Size of str is " << str.getSize() << endl;
+    
+    string name = "Giannis"; 
+
     return 0;
+
+
 }
