@@ -7,7 +7,8 @@ class Person {
         Pet *pet;
     public:
         void setName(string n);
-        void getPet(void);
+        void getPet(Pet *newPet);
+        string getPetName(void);
 };
 
 class Pet {
@@ -17,16 +18,19 @@ class Pet {
     public:
         void setName(string n);
         void setOwner(Person *newOwner);
+        string getName(void);
 };
 
 ////////////////////////// Functions of class Person //////////////////////////
-void Person::getPet(void) {
-    Pet *pet = new Pet;
-    pet->setOwner(this);
+void Person::getPet(Pet *newPet) {
+    newPet->setOwner(this);
 }
 void Person::setName(string n) {
     name = n;
     return;
+}
+string Person::getPetName(void) {
+    return pet->getName();
 }
 
 ////////////////////////// Functions of class Pet //////////////////////////
@@ -38,16 +42,19 @@ void Pet::setName(string n) {
     name = n;
     return;
 }
+string Pet::getName(void) {
+    return name;
+}
 
 int main(void) {
 
-    Person Giannis;
-    Giannis.setName("Giannis");
-    Pet Noisette;
-    Noisette.setName("Noisette");
-    Noisette.setOwner(&Giannis);
-    Giannis.getPet();
+    Person foto;
+    foto.setName("Foto");
+    Pet dog;
+    dog.setName("Serpico");
+    foto.getPet(&dog);
 
+    cout << "Foto's dog is " << foto.getPetName() << endl;
 
     return 0;
 }
