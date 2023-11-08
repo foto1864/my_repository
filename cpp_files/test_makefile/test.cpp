@@ -17,7 +17,10 @@ int Card::getValue(void) {
     return value;
 }
 Card::Card(): value(0), suit(NoTrump) {}
-Card::Card(int v, Suit s): value(v), suit(s) {}
+Card::Card(int v, Suit s) {
+    value = v;
+    suit = s;
+}
 
 ////////////////////////// Functions of Class BridgeHand //////////////////////////// 
 
