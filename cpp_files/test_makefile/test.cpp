@@ -7,9 +7,6 @@ class Rectangle {
         double height;
     public:
         static int count;
-        int getCount() {
-            return count;
-        }
         Rectangle(double w, double h): width(w), height(h) {
             cout << "Rec Created. " << endl;
             count++;
@@ -18,7 +15,13 @@ class Rectangle {
             cout << "Rec Destroyed. " << endl;
             count--;
         }
+        friend Rectangle addRectangle(const Rectangle &r1, const Rectangle &r2);
 };
+
+Rectangle addRectangle(const Rectangle &r1, const rectangle &r2) {
+    Rectangle newRect;
+    newRect.
+}
 
 int Rectangle::count = 0;
 
