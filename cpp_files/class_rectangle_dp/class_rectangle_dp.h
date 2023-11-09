@@ -17,5 +17,6 @@ class Rectangle {
         Rectangle();
         // Constructor Initializer List
         Rectangle(double w, double h);
+        // Destructor
         ~Rectangle();
 };
