@@ -22,17 +22,14 @@ class Rectangle {
         }
         // Default Constructor
         Rectangle() {
-            cout << "Rec Created." << endl;
             count++;
         }
         // Constructor Initializer List
         Rectangle(double w, double h): width(w), height(h) {
-            cout << "Rec Created. " << endl;
             count++;
         }
         // Destructor 
         ~Rectangle() {
-            cout << "Rec Destroyed. " << endl;
             count--;
         }
 };
