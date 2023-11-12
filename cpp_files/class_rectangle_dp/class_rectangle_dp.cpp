@@ -1,21 +1,6 @@
 #include <iostream>
+#include "class_rectangle_dp.h"
 using namespace std;
-
-class Rectangle {
-    private:
-        double width;
-        double height;
-    public:
-        static int count;
-        double getHeight(void);
-        double getWidth(void);
-        double getArea(void);
-        friend Rectangle* addRectangle(const Rectangle &r1, const Rectangle &r2);
-        void printDimensions(void);
-        Rectangle();
-        Rectangle(double w, double h);
-        ~Rectangle();
-};
 
 int Rectangle::count = 0;
 
