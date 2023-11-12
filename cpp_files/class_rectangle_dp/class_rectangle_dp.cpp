@@ -21,6 +21,9 @@ int main(void) {
     double width = r3->getHeight();
     double height = r3->getWidth();
 
+    Rectangle* r4 = *r2 + *r3;
+    r4->printDimensions();
+
     double areaR3 = r3->getArea();
     cout << "According to my calculations area of r3 should be: 99m2." << endl;
     cout << "The area of the last rectangle (r3) is " << areaR3 << "m2." << endl;

@@ -25,6 +25,12 @@ Rectangle::Rectangle(double w, double h): width(w), height(h) {
 Rectangle::~Rectangle() {
     count--;
 }
+Rectangle* Rectangle::operator+(const Rectangle &r2) {
+    Rectangle* newRect = new Rectangle;
+    newRect->height = this->height + r2.height;
+    newRect->width = this->width + r2.width;
+    return newRect;
+}
 
 // Friend Function Of Class Rectangle (TEST)
 Rectangle* addRectangle(const Rectangle &r1, const Rectangle &r2) {

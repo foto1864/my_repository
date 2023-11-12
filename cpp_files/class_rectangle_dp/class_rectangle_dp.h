@@ -11,6 +11,7 @@ class Rectangle {
         double getHeight(void);
         double getWidth(void);
         double getArea(void);
+        Rectangle* operator+(const Rectangle &r2);
         friend Rectangle* addRectangle(const Rectangle &r1, const Rectangle &r2);
         void printDimensions(void);
         // Default Constructor
