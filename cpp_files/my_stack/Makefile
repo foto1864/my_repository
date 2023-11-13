@@ -14,14 +14,17 @@ EXEC = my_stack
 # Compiler
 CC = g++
 
+# Include Files
+INCLUDE = ../my_stack
+
 # Compile Options
 FLAGS = -Wall -Werror
 
 # Compilation Process
-make: $(OBJ1)
-	$(CC) -c $(OBJ1)
-	$(CC) -c $(OBJ2)
-	$(CC) -o $(EXEC) $(UNL1) $(UNL2)
+make: $(OBJ1) $(OBJ2)
+	$(CC) -c $(OBJ1) -I$(INCLUDE)
+	$(CC) -c $(OBJ2) -I$(INCLUDE)
+	$(CC) -o $(EXEC) $(UNL1) $(UNL2) -I$(INCLUDE)
 
 run: $(OBJ1) $(OBJ2) $(EXEC) 
 	./$(EXEC)
