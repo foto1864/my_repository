@@ -1,8 +1,4 @@
-///////////////////////////////////////////////////////////////////////
-//
-// Υλοποίηση του ADT Map μέσω του ADT Set (dependent data structure)
-//
-///////////////////////////////////////////////////////////////////////
+// Implementation of ADTMap using ADTSet
 
 #include <stdlib.h>
 #include <assert.h>
@@ -28,7 +24,6 @@ static int compare_map_nodes(MapNode a, MapNode b) {
 	return a->owner->compare(a->key, b->key);
 }
 
-// Συνάρτηση που καταστρέφει ένα map node
 static void destroy_map_node(MapNode node) {
 	if (node->owner->destroy_key != NULL)
 		node->owner->destroy_key(node->key);
@@ -40,7 +35,7 @@ static void destroy_map_node(MapNode node) {
 }
 
 Map map_create(CompareFunc compare, DestroyFunc destroy_key, DestroyFunc destroy_value) {
-	assert(compare != NULL);	// LCOV_EXCL_LINE
+	assert(compare != NULL);
 
 	Map map = malloc(sizeof(*map));
 	map->set = set_create((CompareFunc)compare_map_nodes, (DestroyFunc)destroy_map_node);
@@ -110,11 +105,8 @@ DestroyFunc map_set_destroy_value(Map map, DestroyFunc destroy_value) {
 }
 
 void map_destroy(Map map) {
-	// destroy το set, τα περιεχόμενα θα τα κάνει free η destroy_map_node
-	set_destroy(map->set);
-
-	// free το ίδιο το map
-	free(map);
+	set_destroy(map->set); // Destroys the set
+	free(map);	// Destroys the map
 }
 
 MapNode map_find_node(Map map, Pointer key) {
