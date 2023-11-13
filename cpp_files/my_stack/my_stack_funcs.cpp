@@ -66,7 +66,7 @@ T Stack<T>::getTop(void) {
     return start->data;
 }
 
-// Inserts the elements of stack s2 to the current Stack.
+// Inserts the elements of Stack s2 to the current Stack.
 template <class T>
 Stack<T> Stack<T>::operator+(Stack s2){
     while (!s2.isEmpty()){

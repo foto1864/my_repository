@@ -4,5 +4,6 @@ using namespace std;
 
 int main(void) {
     cout << "Makefile Works" << endl;
+    cout << "New Screen Works!" << endl;
     return 0;
 }
