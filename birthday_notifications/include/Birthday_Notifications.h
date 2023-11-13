@@ -30,3 +30,8 @@ int compare_dates(DateInfo info_1, DateInfo info_2);
 
 // Loads the birthdays of the year when the program starts
 Map load_birthdays(void);
+
+
+// TODO //
+// Make the user able to insert a .txt file with the info instead of
+// having the info already stored in the program 
