@@ -8,7 +8,7 @@
 //
 ////////////////////////////////////////////////////////////////////////
 
-#pragma once // #include το πολύ μία φορά
+#pragma once // #include once at most
 
 #include "common_types.h"
 
