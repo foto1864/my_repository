@@ -7,8 +7,7 @@ typedef struct {
     int date;           // Date 
     int month;          // Month
     int year;           // Year
-    int hours;          // Hours
-    int minutes;        // Minutes
+
 } info;
 
 typedef info* Info;
@@ -18,20 +17,36 @@ typedef info* Info;
 
 int main(void) {
 
-    int *array = malloc(5 * sizeof(int));
-    for (int i=0; i<5; i++) {
-        array[i] = 0;
-    }
-
-    Info *info_array = malloc(5 * sizeof(Info));
-    for (int i=0; i<5; i++) {
+    Info *info_array = malloc(2 * sizeof(Info));
+    for (int i=0; i<2; i++) {
         info_array[i] = malloc(sizeof(*info_array));
     }
 
-    // ascii 49 is dec 01
     int date[2];
-    date[0] = 10*(getchar() + 48);
-    date[1] = getchar + 48;
+    int month[2];
+    int year[4];
+
+    // Enter the birthday information of someone
+    for (int i=0; i<2; i++) {
+        date[0] = 10*(getchar()+48);
+        date[1] = getchar()+48;
+        info_array[i]->date = date[0] + date[1];
+        getchar(); // Reads the expected "/"
+        month[0] = 10*(getchar()+48);
+        month[1] = getchar();
+        info_array[i]->month = month[0] + month[1];
+        getchar(); // Reads the expected "/"
+        for(int j=0; j<4; j++) 
+            year[j] = getchar()+48;
+        info_array[i]->year = 1000*year[0]+100*year[1]+10*year[2]+year[3];
+        fgets(info_array[i]->name, MAX_NAME_LENGTH, stdin);
+    }
+
+    for (int i=0; i<2; i++) {
+        printf("Info of the peasant at info_array[%d] is:\n", i);
+        printf("%d/%d/%d ", info_array[i]->date, info_array[i]->month, info_array[i]->year);
+        printf(" His name is %s\n", info_array[i]->name);
+    }
 
     return 0;
 }
