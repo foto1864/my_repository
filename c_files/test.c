@@ -4,10 +4,17 @@
 
 typedef struct {
     char name[MAX_NAME_LENGTH];
-    int age;
+    int date;           // Date 
+    int month;          // Month
+    int year;           // Year
+    int hours;          // Hours
+    int minutes;        // Minutes
 } info;
 
 typedef info* Info;
+
+// USER INPUT
+// DD/MM/YYYY NAME(str) \n
 
 int main(void) {
 
@@ -18,12 +25,13 @@ int main(void) {
 
     Info *info_array = malloc(5 * sizeof(Info));
     for (int i=0; i<5; i++) {
-        info_array[i] = NULL;
+        info_array[i] = malloc(sizeof(*info_array));
     }
 
-    info_array[1]->age = 6;
-
-    printf("The age of array[1] is %d", info_array[1]->age);
+    // ascii 49 is dec 01
+    int date[2];
+    date[0] = 10*(getchar() + 48);
+    date[1] = getchar + 48;
 
     return 0;
 }
