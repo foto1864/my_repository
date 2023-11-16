@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX_NAME_LENGTH 50
+#define NUM_OF_PEOPLE 2
 
 typedef struct {
     char name[MAX_NAME_LENGTH];
@@ -12,41 +14,56 @@ typedef struct {
 
 typedef info* Info;
 
-// USER INPUT
-// DD/MM/YYYY NAME(str) \n
+Info get_information(void);
+void print_information(Info info);
 
 int main(void) {
 
-    Info *info_array = malloc(2 * sizeof(Info));
-    for (int i=0; i<2; i++) {
-        info_array[i] = malloc(sizeof(*info_array));
+    Info *info_array = malloc(NUM_OF_PEOPLE * sizeof(Info));
+
+    // USER INPUT
+    // DD MM YYYY NAME(str) \n
+
+    for (int i=0; i<NUM_OF_PEOPLE; i++) {
+        info_array[i] = get_information();
     }
-
-    int date[2];
-    int month[2];
-    int year[4];
-
-    // Enter the birthday information of someone
-    for (int i=0; i<2; i++) {
-        date[0] = 10*(getchar()+48);
-        date[1] = getchar()+48;
-        info_array[i]->date = date[0] + date[1];
-        getchar(); // Reads the expected "/"
-        month[0] = 10*(getchar()+48);
-        month[1] = getchar();
-        info_array[i]->month = month[0] + month[1];
-        getchar(); // Reads the expected "/"
-        for(int j=0; j<4; j++) 
-            year[j] = getchar()+48;
-        info_array[i]->year = 1000*year[0]+100*year[1]+10*year[2]+year[3];
-        fgets(info_array[i]->name, MAX_NAME_LENGTH, stdin);
-    }
-
-    for (int i=0; i<2; i++) {
-        printf("Info of the peasant at info_array[%d] is:\n", i);
-        printf("%d/%d/%d ", info_array[i]->date, info_array[i]->month, info_array[i]->year);
-        printf(" His name is %s\n", info_array[i]->name);
+    for (int i=0; i<NUM_OF_PEOPLE; i++) {
+        print_information(info_array[i]);
     }
 
     return 0;
+}
+
+Info get_information(void) {
+    
+    Info info = malloc(sizeof(*info));
+    scanf("%d[^/]", &info->date);       // Get the day
+    scanf("%d[^/]", &info->month);      // Get the month
+    scanf("%d[^/]", &info->year);       // Get the year
+
+    // Get the name:
+    // We first store the name in a temporary buffer because we are
+    // going to be making changes to the string before we store it as name.
+    char temp_buff[MAX_NAME_LENGTH];
+    fgets(temp_buff, MAX_NAME_LENGTH, stdin);
+    
+    // What this algorithm does is it removes all the spaces from the start
+    // and all the line-feeds at the end of the string, so what remains is
+    // just the name of the person, so then it can safely be stored as name.
+    int length = strlen(temp_buff);
+    int start = 0;
+    int end = length-1;
+    while (start < length && temp_buff[start] == 32)
+        start++;
+    while (end > 0 && temp_buff[end] == 10)
+        end--;
+    strncpy(info->name, temp_buff+start, end - start + 1);
+    
+    return info;
+}
+
+void print_information(Info info) {
+    printf("The name of the peasant is %s ", info->name);
+    printf("and his birthday is on: %d/%d/%d.\n", info->date, info->month, info->year);
+    return;
 }
