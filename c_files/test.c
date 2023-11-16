@@ -9,7 +9,6 @@ typedef struct {
     int date;   // Date 
     int month;  // Month
     int year;   // Year
-
 } info;
 
 typedef info* Info;
