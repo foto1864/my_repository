@@ -6,9 +6,9 @@
 
 typedef struct {
     char name[MAX_NAME_LENGTH];
-    int date;           // Date 
-    int month;          // Month
-    int year;           // Year
+    int date;   // Date 
+    int month;  // Month
+    int year;   // Year
 
 } info;
 
@@ -21,9 +21,6 @@ int main(void) {
 
     Info *info_array = malloc(NUM_OF_PEOPLE * sizeof(Info));
 
-    // USER INPUT
-    // DD MM YYYY NAME(str) \n
-
     for (int i=0; i<NUM_OF_PEOPLE; i++) {
         info_array[i] = get_information();
     }
@@ -34,8 +31,10 @@ int main(void) {
     return 0;
 }
 
+// Expected User Input is DD MM YYYY Name Name\n
+
 Info get_information(void) {
-    
+
     Info info = malloc(sizeof(*info));
     scanf("%d[^/]", &info->date);       // Get the day
     scanf("%d[^/]", &info->month);      // Get the month
