@@ -17,8 +17,16 @@ void print_information(Info info);
 
 int main(void) {
 
-    int num_of_people;
-    scanf("%d", &num_of_people);
+    //FILE *file;
+    //file = fopen("birthdays.txt", "r");
+
+    //if (file == NULL) {
+        //fprintf(stderr, "Could not open file!");
+        //return -1;
+    //}
+    int num_of_people = 1;
+
+    //scanf("%d", &num_of_people);
     Info *info_array = malloc(num_of_people * sizeof(Info));
 
     for (int i=0; i<num_of_people; i++) {
