@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "include/ADTMap.h"
 #define MAX_NAME_LENGTH 50
 
 typedef struct {
@@ -11,11 +12,11 @@ typedef struct {
     int year;     // Year
     int hours;    // Hours
     int minutes;  // Minutes
-
 } info;
 
 typedef info* Info;
 
+int compare_dates(Info, Info);
 Info get_date_info(void);
 void print_date_info(Info);
 Info get_bday_information(FILE*);
@@ -32,14 +33,30 @@ int main(void) {
         fprintf(stderr, "Could not open file!");
         return -1;
     }
+
+    Map birthdays = map_create((CompareFunc) compare_dates, NULL, NULL);
+
+
     int num_of_people = getc(file)-48;
-    Info *info_array = malloc(num_of_people * sizeof(Info));
-    for (int i=0; i<num_of_people; i++) {
-        info_array[i] = get_bday_information(file);
+    //Info *info_array = malloc(num_of_people * sizeof(Info)); 
+    printf("Number of people is %d\n", num_of_people);
+
+    for (int i=0; i<num_of_people+1; i++) {
+        map_insert(birthdays, get_bday_information(file), get_bday_information(file)->name);
+        printf("it ran\n");
     }
-    for (int i=0; i<num_of_people; i++) {
-        print_bday_information(info_array[i]);
+
+    Info found = (Info) map_find(birthdays, today);
+    if (found == NULL) {
+        printf("No Birthdays today!\n");
     }
+    else {
+        printf("Todays is %s's birthday!\n", found->name);
+    }
+
+    printf("The size of the map is %d\n", map_size(birthdays));
+
+
 
     return 0;
 }
@@ -105,4 +122,35 @@ void print_date_info(Info info) {
     // Print The Current Time
     printf("Current time is %02d:%02d\n", info->hours, info->minutes);
     return;
+}
+
+// Compare Function that arranges dates in chronological order
+int compare_dates(Info info_1, Info info_2){
+
+    Info info_01 = info_1;
+    Info info_02 = info_2;
+
+    ///////////////////////////////// TO DO //////////////////////////////////////////
+    // Update that needs to be made : What happends if two people share a birthday ///
+    //////////////////////////////////////////////////////////////////////////////////
+
+    // If the month of the first date is greater than the month of
+    // the second date, then that means that the first date comes 
+    // after the second. Same thing happens the other way around. 
+
+    if (info_01->month > info_02->month) 
+        return 1;
+    else if (info_01->month < info_02->month)
+        return -1;
+
+    // If the control flow reaches this point, it means that both dates
+    // are of the same month. This means that it depends on the day itself
+    // to figure out what date between info_1, info_2 comes first.
+
+    if (info_01->date > info_02->date)
+        return 1;
+    else if (info_01->date < info_02->date)
+        return -1;
+    else 
+        return 0;    
 }
