@@ -12,47 +12,41 @@ typedef struct {
 
 typedef info* Info;
 
-Info get_information(void);
-void print_information(Info info);
+Info get_information(FILE *);
+void print_information(Info);
 
 int main(void) {
-
-    //FILE *file;
-    //file = fopen("birthdays.txt", "r");
-
-    //if (file == NULL) {
-        //fprintf(stderr, "Could not open file!");
-        //return -1;
-    //}
-    int num_of_people = 1;
-
-    //scanf("%d", &num_of_people);
+    FILE *file;
+    file = fopen("birthdays.txt", "r");
+    if (file == NULL) {
+        fprintf(stderr, "Could not open file!");
+        return -1;
+    }
+    int num_of_people = getc(file)-48;
     Info *info_array = malloc(num_of_people * sizeof(Info));
-
     for (int i=0; i<num_of_people; i++) {
-        info_array[i] = get_information();
+        info_array[i] = get_information(file);
     }
     for (int i=0; i<num_of_people; i++) {
         print_information(info_array[i]);
     }
-
     return 0;
 }
 
 // Expected User Input is DD MM YYYY Name Name\n
 
-Info get_information(void) {
+Info get_information(FILE *read_file) {
 
     Info info = malloc(sizeof(*info));
-    scanf("%d", &info->date);       // Get the day
-    scanf("%d", &info->month);      // Get the month
-    scanf("%d", &info->year);       // Get the year
+    fscanf(read_file, "%d", &info->date);       // Get the day
+    fscanf(read_file, "%d", &info->month);      // Get the month
+    fscanf(read_file, "%d", &info->year);       // Get the year
 
     // Get the name:
     // We first store the name in a temporary buffer because we are
     // going to be making changes to the string before we store it as name.
     char temp_buff[MAX_NAME_LENGTH];
-    fgets(temp_buff, MAX_NAME_LENGTH, stdin);
+    fgets(temp_buff, MAX_NAME_LENGTH, read_file);
     
     // What this algorithm does is it removes all the spaces from the start
     // and all the line-feeds at the end of the string, so what remains is
@@ -71,6 +65,6 @@ Info get_information(void) {
 
 void print_information(Info info) {
     printf("The name of the peasant is %s ", info->name);
-    printf("and his birthday is on: %d/%d/%d.\n", info->date, info->month, info->year);
+    printf("and his birthday is on: %02d/%02d/%d.\n", info->date, info->month, info->year);
     return;
 }
