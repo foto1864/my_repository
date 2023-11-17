@@ -1,8 +1,5 @@
 # Makefile for test.c
 
-# Libraries
-INCLUDE = include
-
 # Unliked Files
 UNL1 = ADTSet.o 
 UNL2 = ADTMap.o 
@@ -19,8 +16,8 @@ CC = gcc
 
 # Compilation Process
 make:
-	$(CC) -c test.c -I$(INCLUDE) $(FLAGS)
-	$(CC) -o $(EXEC) ADT_Set/$(UNL1) ADT_Map/$(UNL2) $(UNL3) -I$(INCLUDE) $(FLAGS)
+	$(CC) -c test.c $(FLAGS)
+	$(CC) -o $(EXEC) ADT_Set/$(UNL1) ADT_Map/$(UNL2) $(UNL3) $(FLAGS)
 
 run: $(EXEC)
 	./$(EXEC)
