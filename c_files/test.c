@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX_NAME_LENGTH 50
-#define NUM_OF_PEOPLE 2
 
 typedef struct {
     char name[MAX_NAME_LENGTH];
@@ -18,12 +17,14 @@ void print_information(Info info);
 
 int main(void) {
 
-    Info *info_array = malloc(NUM_OF_PEOPLE * sizeof(Info));
+    int num_of_people;
+    scanf("%d", &num_of_people);
+    Info *info_array = malloc(num_of_people * sizeof(Info));
 
-    for (int i=0; i<NUM_OF_PEOPLE; i++) {
+    for (int i=0; i<num_of_people; i++) {
         info_array[i] = get_information();
     }
-    for (int i=0; i<NUM_OF_PEOPLE; i++) {
+    for (int i=0; i<num_of_people; i++) {
         print_information(info_array[i]);
     }
 
