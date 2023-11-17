@@ -35,9 +35,9 @@ int main(void) {
 Info get_information(void) {
 
     Info info = malloc(sizeof(*info));
-    scanf("%d[^/]", &info->date);       // Get the day
-    scanf("%d[^/]", &info->month);      // Get the month
-    scanf("%d[^/]", &info->year);       // Get the year
+    scanf("%d", &info->date);       // Get the day
+    scanf("%d", &info->month);      // Get the month
+    scanf("%d", &info->year);       // Get the year
 
     // Get the name:
     // We first store the name in a temporary buffer because we are
