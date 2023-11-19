@@ -15,6 +15,7 @@ typedef struct {
 } info;
 typedef info* Info;
 
+// Prototypes
 int compare_dates(Info, Info);
 Info get_date_info(void);
 void print_date_info(Info);
