@@ -11,7 +11,7 @@ class Rectangle {
         double getArea(void) const;
         friend Rectangle addRectangle(const Rectangle &r1, const Rectangle &r2);
         Rectangle operator+(const Rectangle &r2);
-        Rectangle operator=(const Rectangle &r2);
+        void operator=(const Rectangle &r2);
         bool operator>(const Rectangle &r2);
         bool operator<(const Rectangle &r2);
         Rectangle();
@@ -44,11 +44,9 @@ bool Rectangle::operator<(const Rectangle &r2) {
         return true;
     return false;
 }
-Rectangle Rectangle::operator=(const Rectangle &r2) {
-    Rectangle newRect;
-    newRect.height = this->height;
-    newRect.width = this->width;
-    return newRect;
+void Rectangle::operator=(const Rectangle &r2) {
+    this->height = r2.height;
+    this->width = r2.width;
 }
 Rectangle Rectangle::operator+(const Rectangle &r2) {
     Rectangle r;
@@ -108,6 +106,9 @@ int main(void) {
     // Check if = operator works
     r3 = r1;
     cout << "In total there are " << Rectangle::count << " rectangles." << endl;
+
+    cout << "New dimensions of r3 are ";
+    r3.printDimensions();   // Should be (3,4)
 
 
     return 0;
