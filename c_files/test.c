@@ -13,7 +13,6 @@ typedef struct {
     int hours;    // Hours
     int minutes;  // Minutes
 } info;
-
 typedef info* Info;
 
 int compare_dates(Info, Info);
