@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 class Rectangle {
@@ -110,6 +111,9 @@ int main(void) {
     cout << "New dimensions of r3 are ";
     r3.printDimensions();   // Should be (3,4)
 
-
+    // After including cstdio
+    printf("Is printf better than cout? ");
+    printf("I like it Idk..\n");
+    
     return 0;
 }
