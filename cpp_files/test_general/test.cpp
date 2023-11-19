@@ -11,6 +11,7 @@ class Rectangle {
         double getArea(void) const;
         friend Rectangle addRectangle(const Rectangle &r1, const Rectangle &r2);
         Rectangle operator+(const Rectangle &r2);
+        Rectangle operator=(const Rectangle &r2);
         bool operator>(const Rectangle &r2);
         bool operator<(const Rectangle &r2);
         Rectangle();
@@ -42,6 +43,12 @@ bool Rectangle::operator<(const Rectangle &r2) {
     if (this->getArea() < r2.getArea())
         return true;
     return false;
+}
+Rectangle Rectangle::operator=(const Rectangle &r2) {
+    Rectangle newRect;
+    newRect.height = this->height;
+    newRect.width = this->width;
+    return newRect;
 }
 Rectangle Rectangle::operator+(const Rectangle &r2) {
     Rectangle r;
@@ -98,6 +105,10 @@ int main(void) {
     else 
         cout << "R3 and R4 have the same area" << endl;
     
+    // Check if = operator works
+    r3 = r1;
+    cout << "In total there are " << Rectangle::count << " rectangles." << endl;
+
 
     return 0;
 }
