@@ -125,6 +125,8 @@ void print_date_info(Info info) {
     return;
 }
 
+// Gotta Change the CompareFunc
+
 // Compare Function that arranges dates in chronological order
 int compare_dates(Info info_1, Info info_2){
 
