@@ -154,4 +154,5 @@ int compare_dates(Info info_1, Info info_2){
         return -1;
     else 
         return 0;    
+    // end of control
 }
