@@ -41,9 +41,10 @@ int main(void) {
     //Info *info_array = malloc(num_of_people * sizeof(Info)); 
     printf("Number of people is %d\n", num_of_people);
 
-    for (int i=0; i<num_of_people+1; i++) {
+    for (int i=0; i<num_of_people; i++) {
         Info info = get_bday_information(file);
-        map_insert(birthdays, info, get_bday_information(file)->name);
+        int* key = &info->date;
+        map_insert(birthdays, key, get_bday_information(file)->name);
         printf("it ran\n");
     }
 
