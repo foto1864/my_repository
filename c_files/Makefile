@@ -15,11 +15,11 @@ FLAGS = -Wall -Werror
 CC = gcc
 
 # Compilation Process
-make:
+make: test.c
 	$(CC) -c test.c $(FLAGS)
 	$(CC) -o $(EXEC) ADT_Set/$(UNL1) ADT_Map/$(UNL2) $(UNL3) $(FLAGS)
 
-run: $(EXEC)
+run: test.c $(EXEC)
 	./$(EXEC)
 
 valgrind: $(EXEC)
