@@ -42,8 +42,7 @@ int main(void) {
     printf("Number of people is %d\n", num_of_people);
 
     for (int i=0; i<num_of_people; i++) {
-        Info info = get_bday_information(file);
-        int* key = &info->month;
+        Info key = get_bday_information(file);
         map_insert(birthdays, key, get_bday_information(file)->name);
         printf("it ran\n");
     }
