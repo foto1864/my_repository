@@ -70,6 +70,10 @@ int main(void) {
         exit(1);
     }
 
+    fclose(file);
+    free(birthdays);
+    free(today);
+
     return 0;
 }
 
