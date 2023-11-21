@@ -60,7 +60,17 @@ Map load_bday_information(FILE *read_file, int lines) {
         fscanf(read_file, "%d", &info->date);       // Get the day
         fscanf(read_file, "%d", &info->month);      // Get the month
         fscanf(read_file, "%d", &info->year);       // Get the year
-    
+
+        // Error of Input Checking
+        if (info->date > 31 || info->date < 1) {
+            fprintf(stderr, "Invalid date entered.\n");
+            exit(1);
+        }
+        if (info->month > 12 || info->month < 1) {
+            fprintf(stderr, "Invalid month entered\n");
+            exit(1);
+        }
+
         // Will not be needed but good to have been initialized.
         info->hours = 0;        
         info->minutes = 0;      
@@ -83,6 +93,7 @@ Map load_bday_information(FILE *read_file, int lines) {
             end--;
         strncpy(info->name, temp_buff+start, end - start + 1);
         
+        print_bday_information(info);
         map_insert(map, info, info->name);
     }
 
@@ -99,7 +110,6 @@ void print_todays_birthday(Info info, Info today) {
     printf("Today is %s's birthday!", info->name);
     printf(" He/She just turned %d years old!\n", today->year-info->year);
 }
-
 
 void print_next_birthday(Map map, Info today) {
     Map birthdays = map;
