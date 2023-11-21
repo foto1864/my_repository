@@ -15,11 +15,10 @@ typedef struct {
 } info;
 typedef info* Info;
 
-// Prototypes
 int compare_dates(Info, Info);
 Info get_date_info(void);
 void print_date_info(Info);
-Info get_bday_information(FILE*);
+Map load_bday_information(FILE*, int);
 void print_bday_information(Info);
 
 int main(void) {
@@ -34,70 +33,58 @@ int main(void) {
         return -1;
     }
 
-    Map birthdays = map_create((CompareFunc) compare_dates, NULL, NULL);
-
-
     int num_of_people = getc(file)-48;
-    //Info *info_array = malloc(num_of_people * sizeof(Info)); 
-    printf("Number of people is %d\n", num_of_people);
+    Map birthdays = load_bday_information(file, num_of_people);
 
-    for (int i=0; i<num_of_people; i++) {
-        Info key = get_bday_information(file);
-        print_bday_information(key);
-        map_insert(birthdays, key, get_bday_information(file)->name);
+    Info found = (Info) map_find(birthdays, today);
+    if (found == NULL) {
+        printf("No Birthdays today!\n");
     }
-
-    //Info found = (Info) map_find(birthdays, today);
-    //if (found == NULL) {
-    //    printf("No Birthdays today!\n");
-    //}
-    //else {
-    //    printf("Todays is %s's birthday!\n", found->name);
-    //}
-
+    else {
+        printf("Todays is %s's birthday!\n", found->name);
+    }
     printf("The size of the map is %d\n", map_size(birthdays));
-
-    //Info peasant_01 = get_bday_information(file);
-    //print_bday_information(peasant_01);
-    //Info peasant_02 = get_bday_information(file);
-    //print_bday_information(peasant_02);
-    //Info peasant_03 = get_bday_information(file);
-    //print_bday_information(peasant_03);
 
     return 0;
 }
 
 // Expected User Input is DD MM YYYY Name Name\n in each line.
-Info get_bday_information(FILE *read_file) {
+Map load_bday_information(FILE *read_file, int lines) {
 
-    Info info = malloc(sizeof(*info));
-    fscanf(read_file, "%d", &info->date);       // Get the day
-    fscanf(read_file, "%d", &info->month);      // Get the month
-    fscanf(read_file, "%d", &info->year);       // Get the year
-    
-    // Will not be needed but good to have been initialized.
-    info->hours = 0;        
-    info->minutes = 0;      
+    Map map = map_create((CompareFunc) compare_dates, NULL, NULL);
 
-    // Get the name:
-    // We first store the name in a temporary buffer because we are
-    // going to be making changes to the string before we store it as name.
-    char temp_buff[MAX_NAME_LENGTH];
-    fgets(temp_buff, MAX_NAME_LENGTH, read_file);
+    for (int i=0; i<lines; i++) {
+        Info info = malloc(sizeof(*info));
+        fscanf(read_file, "%d", &info->date);       // Get the day
+        fscanf(read_file, "%d", &info->month);      // Get the month
+        fscanf(read_file, "%d", &info->year);       // Get the year
     
-    // What this algorithm does is it removes all the spaces from the start
-    // and all the line-feeds at the end of the string, so what remains is
-    // just the name of the person, so then it can safely be stored as name.
-    int length = strlen(temp_buff);
-    int start = 0;
-    int end = length-1;
-    while (start < length && temp_buff[start] == 32)
-        start++;
-    while (end > 0 && temp_buff[end] == 10)
-        end--;
-    strncpy(info->name, temp_buff+start, end - start + 1);
-    
-    return info;
+        // Will not be needed but good to have been initialized.
+        info->hours = 0;        
+        info->minutes = 0;      
+
+        // Get the name:
+        // We first store the name in a temporary buffer because we are
+        // going to be making changes to the string before we store it as name.
+        char temp_buff[MAX_NAME_LENGTH];
+        fgets(temp_buff, MAX_NAME_LENGTH, read_file);
+        
+        // What this algorithm does is it removes all the spaces from the start
+        // and all the line-feeds at the end of the string, so what remains is
+        // just the name of the person, so then it can safely be stored as name.
+        int length = strlen(temp_buff);
+        int start = 0;
+        int end = length-1;
+        while (start < length && temp_buff[start] == 32)
+            start++;
+        while (end > 0 && temp_buff[end] == 10)
+            end--;
+        strncpy(info->name, temp_buff+start, end - start + 1);
+        
+        map_insert(map, info, info->name);
+    }
+
+    return map;
 }
 
 void print_bday_information(Info info) {
