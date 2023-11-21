@@ -19,7 +19,6 @@ int compare_dates(Info, Info);
 Info get_date_info(void);
 Map load_bday_information(FILE*);
 void print_date_info(Info);
-void print_bday_information(Info);
 void print_todays_birthday(Info, Info);
 void print_next_birthday(Map, Info);
 void print_all_birthdays(Map, Info);
@@ -77,7 +76,9 @@ int main(void) {
 // Expected User Input is DD MM YYYY Name Name\n in each line.
 Map load_bday_information(FILE *read_file) {
 
-    int num_of_people = getc(read_file)-48;
+    int num_of_people;
+    fscanf(read_file, "%d", &num_of_people);
+
     Map map = map_create((CompareFunc) compare_dates, NULL, NULL);
 
     for (int i=0; i<num_of_people; i++) {
@@ -116,17 +117,13 @@ Map load_bday_information(FILE *read_file) {
     return map;
 }
 
-void print_bday_information(Info info) {
-    printf("The name of the peasant is %s ", info->name);
-    printf("and his birthday is on: %02d/%02d/%d.\n", info->date, info->month, info->year);
-    return;
-}
 
 void print_todays_birthday(Info info, Info today) {
     printf("Today is %s's birthday!", info->name);
     printf(" He/She just turned %d years old!\n", today->year-info->year);
 }
 
+// Prints the next upcoming birthday.
 void print_next_birthday(Map map, Info today) {
     Map birthdays = map;
     map_insert(birthdays, today, "UNKNOWN");
@@ -140,12 +137,13 @@ void print_next_birthday(Map map, Info today) {
     map_remove(birthdays, today);
 }
 
+// Prints all the birthdays of the calendar year that are saved.
 void print_all_birthdays(Map birthdays, Info today) {
         printf("\nHere are all the birthdays of the year:\n\n");
         for(MapNode node = map_first(birthdays); 
             node != MAP_EOF; 
-            node = map_next(birthdays, node)) {
-
+            node = map_next(birthdays, node))
+        {
             Info info = map_node_key(birthdays, node);
             int date = info->date;
             int month = info->month;
@@ -174,9 +172,7 @@ Info get_date_info(void) {
 
 // Prints the information of the current date
 void print_date_info(Info info) {
-    // Print The Current Date
     printf("Current date is %02d/%02d/%d\n", info->date, info->month, info->year);
-    // Print The Current Time
     printf("Current time is %02d:%02d\n", info->hours, info->minutes);
     return;
 }
