@@ -43,21 +43,26 @@ int main(void) {
 
     for (int i=0; i<num_of_people; i++) {
         Info key = get_bday_information(file);
+        print_bday_information(key);
         map_insert(birthdays, key, get_bday_information(file)->name);
-        printf("it ran\n");
     }
 
-    Info found = (Info) map_find(birthdays, today);
-    if (found == NULL) {
-        printf("No Birthdays today!\n");
-    }
-    else {
-        printf("Todays is %s's birthday!\n", found->name);
-    }
+    //Info found = (Info) map_find(birthdays, today);
+    //if (found == NULL) {
+    //    printf("No Birthdays today!\n");
+    //}
+    //else {
+    //    printf("Todays is %s's birthday!\n", found->name);
+    //}
 
     printf("The size of the map is %d\n", map_size(birthdays));
 
-
+    //Info peasant_01 = get_bday_information(file);
+    //print_bday_information(peasant_01);
+    //Info peasant_02 = get_bday_information(file);
+    //print_bday_information(peasant_02);
+    //Info peasant_03 = get_bday_information(file);
+    //print_bday_information(peasant_03);
 
     return 0;
 }
