@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/foto1864/my_repository-1",
-      "program": "/home/foto1864/my_repository-1/build/Debug/outDebug",
+      "cwd": "/home/foto1864/my_repository/birthday_notifications_new",
+      "program": "/home/foto1864/my_repository/birthday_notifications_new/birthday_notifications",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

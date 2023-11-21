@@ -71,7 +71,7 @@ int main(void) {
     }
 
     fclose(file);
-    free(birthdays);
+    map_destroy(birthdays);
     free(today);
 
     return 0;
@@ -129,16 +129,23 @@ void print_todays_birthday(Info info, Info today) {
 
 // Prints the next upcoming birthday.
 void print_next_birthday(Map map, Info today) {
+    
     Map birthdays = map;
-    map_insert(birthdays, today, "UNKNOWN");
-    MapNode next = map_next(birthdays, map_find_node(birthdays, today));
+    Info todays_copy = malloc(sizeof(*todays_copy));
+    todays_copy->date = today->date;
+    todays_copy->month = today->month;
+    todays_copy->year = today->year;
+
+    map_insert(birthdays, todays_copy, "UNKNOWN");
+    MapNode next = map_next(birthdays, map_find_node(birthdays, todays_copy));
     if (next == NULL) {
         next = map_first(birthdays);
     }
     Info next_bday = (Info) map_node_value(birthdays, next);
     printf("The next birthday coming up is %s's on %02d/%02d.", next_bday->name, next_bday->date, next_bday->month);
-    printf(" He/She will turn %d years old!\n", today->year-next_bday->year);
-    map_remove(birthdays, today);
+    printf(" He/She will turn %d years old!\n", todays_copy->year-next_bday->year);
+    
+    map_remove(birthdays, todays_copy);
 }
 
 // Prints all the birthdays of the calendar year that are saved.
