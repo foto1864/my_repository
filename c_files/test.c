@@ -20,6 +20,8 @@ Info get_date_info(void);
 void print_date_info(Info);
 Map load_bday_information(FILE*, int);
 void print_bday_information(Info);
+void print_todays_birthday(Info, Info);
+void print_next_birthday(Map, Info);
 
 int main(void) {
     
@@ -39,11 +41,11 @@ int main(void) {
     Info found = (Info) map_find(birthdays, today);
     if (found == NULL) {
         printf("No Birthdays today!\n");
+        print_next_birthday(birthdays, today);
     }
     else {
-        printf("Todays is %s's birthday!\n", found->name);
+        print_todays_birthday(found, today);
     }
-    printf("The size of the map is %d\n", map_size(birthdays));
 
     return 0;
 }
@@ -93,6 +95,22 @@ void print_bday_information(Info info) {
     return;
 }
 
+void print_todays_birthday(Info info, Info today) {
+    printf("Today is %s's birthday!", info->name);
+    printf(" He/She just turned %d years old!\n", today->year-info->year);
+}
+
+
+void print_next_birthday(Map map, Info today) {
+    Map birthdays = map;
+    map_insert(birthdays, today, "UNKNOWN");
+    MapNode next = map_next(birthdays, map_find_node(birthdays, today));
+    Info next_bday = (Info) map_node_value(birthdays, next);
+    printf("The next birthday coming up is %s's on %02d/%02d.", next_bday->name, next_bday->date, next_bday->month);
+    printf(" He/She will turn %d years old!\n", today->year-next_bday->year);
+    map_remove(birthdays, today);
+}
+
 // Gets the information of the current date
 Info get_date_info(void) {
     time_t t = time(NULL);
@@ -116,8 +134,6 @@ void print_date_info(Info info) {
     printf("Current time is %02d:%02d\n", info->hours, info->minutes);
     return;
 }
-
-// Gotta Change the CompareFunc
 
 // Compare Function that arranges dates in chronological order
 int compare_dates(Info info_1, Info info_2){
@@ -148,5 +164,4 @@ int compare_dates(Info info_1, Info info_2){
         return -1;
     else 
         return 0;    
-    // end of control
 }
