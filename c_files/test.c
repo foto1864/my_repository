@@ -17,8 +17,8 @@ typedef info* Info;
 
 int compare_dates(Info, Info);
 Info get_date_info(void);
-void print_date_info(Info);
 Map load_bday_information(FILE*);
+void print_date_info(Info);
 void print_bday_information(Info);
 void print_todays_birthday(Info, Info);
 void print_next_birthday(Map, Info);
