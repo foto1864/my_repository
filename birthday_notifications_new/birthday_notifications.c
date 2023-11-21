@@ -46,7 +46,7 @@ int main(void) {
         print_todays_birthday(found, today);
     }
 
-    printf("Do you want to see all upcoming birthdays? (Y/n)  ");
+    /*printf("Do you want to see all upcoming birthdays? (Y/n)  ");
     int ch = getchar();
 
     switch (ch) {
@@ -68,7 +68,7 @@ int main(void) {
     default:
         fprintf(stderr, "Invalid Character Entered\n");
         exit(1);
-    }
+    }*/
 
     fclose(file);
     free(birthdays);
@@ -83,7 +83,7 @@ Map load_bday_information(FILE *read_file) {
     int num_of_people;
     fscanf(read_file, "%d", &num_of_people);
 
-    Map map = map_create((CompareFunc) compare_dates, NULL, NULL);
+    Map map = map_create((CompareFunc) compare_dates, free, NULL);
 
     for (int i=0; i<num_of_people; i++) {
         Info info = malloc(sizeof(*info));
