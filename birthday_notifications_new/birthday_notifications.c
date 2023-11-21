@@ -46,7 +46,7 @@ int main(void) {
         print_todays_birthday(found, today);
     }
 
-    /*printf("Do you want to see all upcoming birthdays? (Y/n)  ");
+    printf("Do you want to see all upcoming birthdays? (Y/n)  ");
     int ch = getchar();
 
     switch (ch) {
@@ -68,7 +68,7 @@ int main(void) {
     default:
         fprintf(stderr, "Invalid Character Entered\n");
         exit(1);
-    }*/
+    }
 
     fclose(file);
     free(birthdays);
