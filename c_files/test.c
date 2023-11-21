@@ -22,6 +22,7 @@ Map load_bday_information(FILE*);
 void print_bday_information(Info);
 void print_todays_birthday(Info, Info);
 void print_next_birthday(Map, Info);
+void print_all_birthdays(Map, Info);
 
 int main(void) {
     
@@ -44,6 +45,30 @@ int main(void) {
     }
     else {
         print_todays_birthday(found, today);
+    }
+
+    printf("Do you want to see all upcoming birthdays? (Y/n)  ");
+    int ch = getchar();
+
+    switch (ch) {
+    // If the answer is Yes we print the birthdays.
+    case 'Y':
+        print_all_birthdays(birthdays, today);
+        break;
+    case 'y':
+        print_all_birthdays(birthdays, today);
+        break;
+    // If the answer is No we print a goodbye message.
+    case 'N':
+        printf("Thank you for using our program! Have a nice day!\n");
+        break;
+    case 'n':
+        printf("Thank you for using our program! Have a nice day!\n");
+        break;
+    // In any other case, the user has entered an invalid character.
+    default:
+        fprintf(stderr, "Invalid Character Entered\n");
+        exit(1);
     }
 
     return 0;
@@ -75,9 +100,7 @@ Map load_bday_information(FILE *read_file) {
         info->hours = 0;        
         info->minutes = 0;      
 
-        // Get the name:
-        // First we get the intented whitespace character, and then
-        // the string is scanned and stored into the name        
+        // Get the name:     
         getc(read_file);
         int ch;
         int i=0;
@@ -115,6 +138,23 @@ void print_next_birthday(Map map, Info today) {
     printf("The next birthday coming up is %s's on %02d/%02d.", next_bday->name, next_bday->date, next_bday->month);
     printf(" He/She will turn %d years old!\n", today->year-next_bday->year);
     map_remove(birthdays, today);
+}
+
+void print_all_birthdays(Map birthdays, Info today) {
+        printf("\nHere are all the birthdays of the year:\n\n");
+        for(MapNode node = map_first(birthdays); 
+            node != MAP_EOF; 
+            node = map_next(birthdays, node)) {
+
+            Info info = map_node_key(birthdays, node);
+            int date = info->date;
+            int month = info->month;
+            int year = info->year;
+            printf("%02d/%02d %s ", date, month, (char*)map_node_value(birthdays, node));    
+            printf("(%d years old)\n", today->year - year);
+        }
+        printf("\n");
+        printf("You have the birthday information of %d people in total.\n", map_size(birthdays));
 }
 
 // Gets the information of the current date
