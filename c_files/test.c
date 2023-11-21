@@ -18,7 +18,7 @@ typedef info* Info;
 int compare_dates(Info, Info);
 Info get_date_info(void);
 void print_date_info(Info);
-Map load_bday_information(FILE*, int);
+Map load_bday_information(FILE*);
 void print_bday_information(Info);
 void print_todays_birthday(Info, Info);
 void print_next_birthday(Map, Info);
@@ -35,8 +35,7 @@ int main(void) {
         return -1;
     }
 
-    int num_of_people = getc(file)-48;
-    Map birthdays = load_bday_information(file, num_of_people);
+    Map birthdays = load_bday_information(file);
 
     Info found = (Info) map_find(birthdays, today);
     if (found == NULL) {
@@ -51,11 +50,12 @@ int main(void) {
 }
 
 // Expected User Input is DD MM YYYY Name Name\n in each line.
-Map load_bday_information(FILE *read_file, int lines) {
+Map load_bday_information(FILE *read_file) {
 
+    int num_of_people = getc(read_file)-48;
     Map map = map_create((CompareFunc) compare_dates, NULL, NULL);
 
-    for (int i=0; i<lines; i++) {
+    for (int i=0; i<num_of_people; i++) {
         Info info = malloc(sizeof(*info));
         fscanf(read_file, "%d", &info->date);       // Get the day
         fscanf(read_file, "%d", &info->month);      // Get the month
@@ -76,24 +76,17 @@ Map load_bday_information(FILE *read_file, int lines) {
         info->minutes = 0;      
 
         // Get the name:
-        // We first store the name in a temporary buffer because we are
-        // going to be making changes to the string before we store it as name.
-        char temp_buff[MAX_NAME_LENGTH];
-        fgets(temp_buff, MAX_NAME_LENGTH, read_file);
-        
-        // What this algorithm does is it removes all the spaces from the start
-        // and all the line-feeds at the end of the string, so what remains is
-        // just the name of the person, so then it can safely be stored as name.
-        int length = strlen(temp_buff);
-        int start = 0;
-        int end = length-1;
-        while (start < length && temp_buff[start] == 32)
-            start++;
-        while (end > 0 && temp_buff[end] == 10)
-            end--;
-        strncpy(info->name, temp_buff+start, end - start + 1);
-        
-        print_bday_information(info);
+        // First we get the intented whitespace character, and then
+        // the string is scanned and stored into the name        
+        getc(read_file);
+        int ch;
+        int i=0;
+        ch = getc(read_file);
+        while (ch != '\n' && ch != EOF) {
+            info->name[i++] = ch;
+            ch = getc(read_file);
+        }
+        info->name[i] = '\0';
         map_insert(map, info, info->name);
     }
 
@@ -115,6 +108,9 @@ void print_next_birthday(Map map, Info today) {
     Map birthdays = map;
     map_insert(birthdays, today, "UNKNOWN");
     MapNode next = map_next(birthdays, map_find_node(birthdays, today));
+    if (next == NULL) {
+        next = map_first(birthdays);
+    }
     Info next_bday = (Info) map_node_value(birthdays, next);
     printf("The next birthday coming up is %s's on %02d/%02d.", next_bday->name, next_bday->date, next_bday->month);
     printf(" He/She will turn %d years old!\n", today->year-next_bday->year);
