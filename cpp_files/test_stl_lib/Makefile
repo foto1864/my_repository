@@ -14,7 +14,7 @@ FLAGS = -Wall -Werror
 
 # Compilation Process
 make: $(OBJ)
-	$(CC) -o $(EXEC) $(OBJ)
+	$(CC) -o $(EXEC) $(OBJ) $(FLAGS)
 
 run: $(EXEC)
 	./$(EXEC)

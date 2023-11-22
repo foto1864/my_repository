@@ -9,9 +9,12 @@ EXEC = test
 # compiler
 CC = g++
 
+# compiler options
+FLAGS = -Wall -Werror
+
 # make
 make: $(OBJ)
-	$(CC) -o $(EXEC) $(OBJ)
+	$(CC) -o $(EXEC) $(OBJ) $(FLAGS)
 
 # run
 run: $(EXEC)
