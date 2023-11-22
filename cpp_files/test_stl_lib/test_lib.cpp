@@ -10,7 +10,6 @@
 #define SIZE 10
 using namespace std;
 
-
 int get_random_int32(void);
 
 int main(void) {

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <limits>
+using namespace std;
 
 // Returns a random 32-bit integer.
 int get_random_int32(void);

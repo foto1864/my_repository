@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "functions.hpp"
 
 // Variables declared as static so that the function can return a different
 // random value each time it gets called, changing a seed.
