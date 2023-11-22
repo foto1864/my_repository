@@ -1,30 +1,45 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
+#include <unistd.h>
+#include <random>
+#include <limits>
+#define SIZE 10
 using namespace std;
 
-void print(int);
+
+int get_random_int32(void);
 
 int main(void) {
 
+    // Vector Section
     vector<int> v;
-    for (int i=0; i<10; i++) {
-        v.push_back(0);
+    for (int i=0; i<SIZE; i++) {
+        v.push_back(get_random_int32() % 2000);
     }
     cout << "Size of vector is " << v.size() << endl;
-
-    for (int i=0; i<5; i++) {
-        v.pop_back();
+    vector<int>::iterator Iter;
+    sort(v.begin(), v.end());
+    for (int i=0; i<v.size(); i++) {
+        cout << "V[" << i << "] = " << v[i] << endl;
     }
 
-    cout << "After popping the chain the size of the vector is " << v.size() << endl;
 
-    vector<int>::iterator Iter;
-    for_each(v.begin(), v.end(), print);
+    // String Section
+    string s1 = "Giannis";
+    string s2 = "Foteinakis";
+    string s3 = s1 + " " + s2;
+    cout << "My name is " << s3 << endl;
 
     return 0;
 }
 
-void print(int n) {
-    cout << n << endl;
+int get_random_int32(void) {
+    static random_device rd;
+    static mt19937 gen(rd());
+    static uniform_int_distribution<int> distribution(1, INT32_MAX);
+    return distribution(gen);
 }
