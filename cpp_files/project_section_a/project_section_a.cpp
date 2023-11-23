@@ -91,6 +91,9 @@ void Secretary::insert_person(Person *p) {
 // Do I need to use a given data structure or create my own one?
 // Why does the second option seem easier bruv?
 
+// There is no segfault in creating my own vector
+// Because Im him
+
 
 
 
