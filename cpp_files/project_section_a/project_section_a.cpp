@@ -94,6 +94,7 @@ void Secretary::insert_person(Person *p) {
 // There is no segfault in creating my own vector
 // Because Im him
 
+// I Know Victorias Secret as they say
 
 
 
