@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #define MIN_UNIVERSITY_SIZE 10
-using namespace std;
+using namespace std
 
 class Person {
     private:
