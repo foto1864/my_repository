@@ -24,3 +24,8 @@ run: birthday_notifications.c $(EXEC)
 
 valgrind: $(EXEC)
 	valgrind ./$(EXEC)
+
+clean:
+	rm birthday_notifications
+	rm birthday_notifications.o
+	
