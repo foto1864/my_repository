@@ -37,10 +37,10 @@ class Person {
 class Secretary {
     private:
         map<string, Person*> university;
-        uint university_size;
     public:
         void insert_person(Person*);
         void find(string);
+        uint size(void);
         friend ostream &operator<<(ostream &, Person &);
         friend istream &operator>>(istream &, Person &);
         void operator=(const Secretary &);
@@ -53,17 +53,32 @@ class Secretary {
 ////////////////////////////////// FUNCTIONS FOR CLASS SECRETARY //////////////////////////////////
 
 Secretary::Secretary() {
-    university_size = 0;
+    cout << "Secretary created" << endl;
 }
 
 void Secretary::insert_person(Person *p) {
-    university.insert(p->get_name(), p);
+    university.insert(pair<string, Person*> (p->get_name(), p));
+}
+
+uint Secretary::size(void) {
+    return university.size();
+}
+
+Secretary::~Secretary() {
+    cout << "Secretary destroyed" << endl;
 }
 
 int main(void) {
 
     Person p1("Giannis", "foto@gmail.com", "6972521094", 2004, 2200207);
     cout << p1;
+
+    Secretary sec;
+    sec.insert_person(&p1);
+
+    cout << "Size of secretary is " << sec.size() << endl;
+
+
 
     return 0;
 }
