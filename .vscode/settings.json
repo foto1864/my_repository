@@ -4,7 +4,8 @@
     "array": "c",
     "ostream": "cpp",
     "iostream": "cpp",
-    "cstring": "cpp"
+    "cstring": "cpp",
+    "iosfwd": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

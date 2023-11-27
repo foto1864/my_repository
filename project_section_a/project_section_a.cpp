@@ -41,7 +41,7 @@ class Secretary {
         void insert_person(Person*);
         bool find(string);
         uint size(void);
-        friend ostream &operator<<(ostream &, Person &);
+        friend ostream &operator<<(ostream &, const Secretary&);
         friend istream &operator>>(istream &, Person &);
         void operator=(const Secretary &);
         Secretary operator+(const Secretary &);
@@ -56,21 +56,39 @@ Secretary::Secretary() {
     cout << "Secretary created." << endl;
 }
 
+void Secretary::insert_person(Person *p) {
+    university.insert(pair<string, Person*> (p->get_phone_number(), p));
+}
+
 bool Secretary::find(string phone_number) {
     map<string, Person*>::iterator map_iterator;
     map_iterator = university.find(phone_number);
-    if (map_iterator != university.end())
-        return true;
-    return false;
-}
-
-
-void Secretary::insert_person(Person *p) {
-    university.insert(pair<string, Person*> (p->get_name(), p));
+    return map_iterator != university.end();
 }
 
 uint Secretary::size(void) {
     return university.size();
+}
+
+ostream &operator<<(ostream &str, const Secretary &sec){
+    map<string, Person*>::const_iterator it;
+    for (it = sec.university.begin(); it != sec.university.end(); it++) {
+        Person *p = it->second;
+        str << *p << endl;
+    }
+    return str;
+}
+
+istream &operator>>(ostream &str, Secretary &sec) {
+    Person *new_person;
+    cout << "Enter the personal information of a new person to be added to the university.";
+    cout << "Give Student's or Teacher's info in the following order: " << endl;
+    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+
+    string person_name, phone_num, email;
+    uint id, b_year;
+    str >> person_name;
+
 }
 
 Secretary::~Secretary() {
@@ -79,20 +97,24 @@ Secretary::~Secretary() {
 
 int main(void) {
 
-    Person p1("Giannis", "foto@gmail.com", "6972521094", 2004, 2200207);
-    cout << p1;
+    Person p1("Giannis", "foto@gmail.com", "6912345432", 2004, 2200207);
+    cout << p1 << endl;
+
+    Person p2;
+    cin >> p2;
 
     Secretary sec;
     sec.insert_person(&p1);
+    sec.insert_person(&p2);
+    
+    cout << sec;
 
-    if (sec.find("6972521094"))
+    if (sec.find("6912345432"))
         cout << "Found!" << endl;
     else 
         cout << "Not Found!" << endl;
 
     cout << "Size of secretary is " << sec.size() << endl;
-
-
 
     return 0;
 }
