@@ -1,23 +1,20 @@
 # Makefile for project_section_a.cpp
 
-# Source
-OBJ = project_section_a.cpp
-
-# Executable
-EXEC = project_section_a
-
 # Compiler
 CC = g++
 
-# Compiler Options
+# Flags
 FLAGS = -Wall -Werror
 
-# Compilation Process
-make: $(OBJ)
-	$(CC) -o $(EXEC) $(OBJ) $(FLAGS)
+project: project_section_a.o
+	$(CC) -o project project_section_a.o $(FLAGS) 
 
-run: $(EXEC)
-	./$(EXEC)
+clean:
+	rm project
+	rm project_section_a.o
 
-valgrind: $(EXEC)
-	valgrind ./$(EXEC)
+run: project
+	./project
+
+valgrind: project
+	valgrind ./project
