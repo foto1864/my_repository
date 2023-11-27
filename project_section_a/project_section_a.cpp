@@ -79,16 +79,12 @@ ostream &operator<<(ostream &str, const Secretary &sec){
     return str;
 }
 
-istream &operator>>(ostream &str, Secretary &sec) {
-    Person *new_person;
-    cout << "Enter the personal information of a new person to be added to the university.";
-    cout << "Give Student's or Teacher's info in the following order: " << endl;
-    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
-
-    string person_name, phone_num, email;
-    uint id, b_year;
-    str >> person_name;
-
+istream &operator>>(istream &str, Secretary &sec) {
+    cout << "Enter the personal information of a new person to be added to the university."<< endl;
+    Person new_person;
+    istream &newstr = cin >> new_person;
+    sec.insert_person(&new_person);
+    return newstr;
 }
 
 Secretary::~Secretary() {
@@ -107,6 +103,8 @@ int main(void) {
     sec.insert_person(&p1);
     sec.insert_person(&p2);
     
+    //cin >> sec;
+
     cout << sec;
 
     if (sec.find("6912345432"))
