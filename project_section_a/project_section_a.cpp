@@ -39,7 +39,7 @@ class Secretary {
         map<string, Person*> university;
     public:
         void insert_person(Person*);
-        void find(string);
+        bool find(string);
         uint size(void);
         friend ostream &operator<<(ostream &, Person &);
         friend istream &operator>>(istream &, Person &);
@@ -53,8 +53,17 @@ class Secretary {
 ////////////////////////////////// FUNCTIONS FOR CLASS SECRETARY //////////////////////////////////
 
 Secretary::Secretary() {
-    cout << "Secretary created" << endl;
+    cout << "Secretary created." << endl;
 }
+
+bool Secretary::find(string phone_number) {
+    map<string, Person*>::iterator map_iterator;
+    map_iterator = university.find(phone_number);
+    if (map_iterator != university.end())
+        return true;
+    return false;
+}
+
 
 void Secretary::insert_person(Person *p) {
     university.insert(pair<string, Person*> (p->get_name(), p));
@@ -65,7 +74,7 @@ uint Secretary::size(void) {
 }
 
 Secretary::~Secretary() {
-    cout << "Secretary destroyed" << endl;
+    cout << "Secretary destroyed." << endl;
 }
 
 int main(void) {
@@ -75,6 +84,11 @@ int main(void) {
 
     Secretary sec;
     sec.insert_person(&p1);
+
+    if (sec.find("6972521094"))
+        cout << "Found!" << endl;
+    else 
+        cout << "Not Found!" << endl;
 
     cout << "Size of secretary is " << sec.size() << endl;
 
