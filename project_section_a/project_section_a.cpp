@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <map>
 using namespace std;    
 
 class Person {
@@ -35,34 +36,34 @@ class Person {
 
 class Secretary {
     private:
-
+        map<string, Person*> university;
+        uint university_size;
     public:
-        Secretary();
         void insert_person(Person*);
+        void find(string);
+        friend ostream &operator<<(ostream &, Person &);
+        friend istream &operator>>(istream &, Person &);
+        void operator=(const Secretary &);
+        Secretary operator+(const Secretary &);
+        Secretary();
+        Secretary(const Secretary &);
+        ~Secretary();
 };
 
 ////////////////////////////////// FUNCTIONS FOR CLASS SECRETARY //////////////////////////////////
 
 Secretary::Secretary() {
+    university_size = 0;
 }
 
 void Secretary::insert_person(Person *p) {
+    university.insert(p->get_name(), p);
 }
 
 int main(void) {
 
     Person p1("Giannis", "foto@gmail.com", "6972521094", 2004, 2200207);
     cout << p1;
-
-    Secretary university;
-    Person **p = (Person**) malloc(sizeof(Person*));
-    for (int i=0; i<20; i++) {
-        p[i] = (Person*) malloc(sizeof(class Person));
-    }
-
-    for (int i=0; i<20; i++) {
-        university.insert_person(p[i]);
-    }
 
     return 0;
 }
