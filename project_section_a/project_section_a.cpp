@@ -81,10 +81,7 @@ ostream &operator<<(ostream &str, const Secretary &sec){
 
 istream &operator>>(istream &str, Secretary &sec) {
     cout << "Enter the personal information of a new person to be added to the university."<< endl;
-    Person new_person;
-    istream &newstr = cin >> new_person;
-    sec.insert_person(&new_person);
-    return newstr;
+
 }
 
 Secretary::~Secretary() {
