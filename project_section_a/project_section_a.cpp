@@ -79,24 +79,24 @@ ostream &operator<<(ostream &str, const Secretary &sec){
     return str;
 }
 
+
 istream &operator>>(istream &str, Secretary &sec) {
-    cout << "Enter the personal information of a new person to be added to the university."<< endl;
-    cout << "Give Student's or Teacher's info in the following order: " << endl;
-    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
-    Person *new_person;
-    string n_name, n_phone_number, n_email;
-    uint n_id, n_birth_year;
-    str >> n_name;
-    str >> n_id;
-    str >> n_phone_number;
-    str >> n_birth_year;
-    str >> n_email;
-    new_person->set_name(n_name);
-    new_person->set_academic_ID(n_id);
-    new_person->set_phone_number(n_phone_number);
-    new_person->set_birth_year(n_birth_year);
-    new_person->set_email_address(n_email);
-    sec.insert_person(new_person);
+    
+    cout << "How many persons do you want to add to the university?" << endl;
+    uint num_of_new_persons;
+    str >> num_of_new_persons;
+
+    Person *persons = (Person*) calloc(num_of_new_persons,sizeof(Person));
+
+    for (int i=0; i<num_of_new_persons; i++) {
+        cin >> persons[i];
+    }
+    for (int i=0; i<num_of_new_persons; i++) {
+        sec.insert_person(&persons[i]);
+    }
+
+    free(persons);
+
     return str;
 }
 
@@ -116,9 +116,10 @@ int main(void) {
     sec.insert_person(&p1);
     sec.insert_person(&p2);
     
-    //cin >> sec;
+    cin >> sec;
 
     cout << sec;
+    
 
     if (sec.find("6912345432"))
         cout << "Found!" << endl;
@@ -126,6 +127,7 @@ int main(void) {
         cout << "Not Found!" << endl;
 
     cout << "Size of secretary is " << sec.size() << endl;
+
 
     return 0;
 }
