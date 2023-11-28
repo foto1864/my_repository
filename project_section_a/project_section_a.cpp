@@ -42,7 +42,7 @@ class Secretary {
         bool find(string);
         uint size(void);
         friend ostream &operator<<(ostream &, const Secretary&);
-        friend istream &operator>>(istream &, Person &);
+        friend istream &operator>>(istream &, Secretary&);
         void operator=(const Secretary &);
         Secretary operator+(const Secretary &);
         Secretary();
@@ -81,7 +81,23 @@ ostream &operator<<(ostream &str, const Secretary &sec){
 
 istream &operator>>(istream &str, Secretary &sec) {
     cout << "Enter the personal information of a new person to be added to the university."<< endl;
-
+    cout << "Give Student's or Teacher's info in the following order: " << endl;
+    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+    Person *new_person;
+    string n_name, n_phone_number, n_email;
+    uint n_id, n_birth_year;
+    str >> n_name;
+    str >> n_id;
+    str >> n_phone_number;
+    str >> n_birth_year;
+    str >> n_email;
+    new_person->set_name(n_name);
+    new_person->set_academic_ID(n_id);
+    new_person->set_phone_number(n_phone_number);
+    new_person->set_birth_year(n_birth_year);
+    new_person->set_email_address(n_email);
+    sec.insert_person(new_person);
+    return str;
 }
 
 Secretary::~Secretary() {
