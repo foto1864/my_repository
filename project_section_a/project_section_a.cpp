@@ -81,22 +81,6 @@ ostream &operator<<(ostream &str, const Secretary &sec){
 
 
 istream &operator>>(istream &str, Secretary &sec) {
-    
-    cout << "How many persons do you want to add to the university?" << endl;
-    uint num_of_new_persons;
-    str >> num_of_new_persons;
-
-    Person *persons = (Person*) calloc(num_of_new_persons,sizeof(Person));
-
-    for (int i=0; i<num_of_new_persons; i++) {
-        cin >> persons[i];
-    }
-    for (int i=0; i<num_of_new_persons; i++) {
-        sec.insert_person(&persons[i]);
-    }
-
-    free(persons);
-
     return str;
 }
 
