@@ -85,18 +85,33 @@ istream &operator>>(istream &str, Secretary &sec) {
     uint num_of_people;
     str >> num_of_people;
 
-    Person array[num_of_people];
-    for (int i=0; i<num_of_people; i++) {
-        cin >> array[i];
-    }
-    for (int i=0; i<num_of_people; i++) {
-        sec.insert_person(&array[i]);
-    }
+    cout << "Give Students' or Teachers' info in the following order: " << endl;
+    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
 
+    for (int i = 0; i < num_of_people; ++i) {
+            Person* person = new Person(); // Create a new Person object
+            string name, phone_num, email;
+            uint id, b_year;
+            str >> name;
+            str >> id;
+            str >>  phone_num; // Use the overloaded >> operator for Person
+            str >> b_year;
+            str >> email;
+            person->set_phone_number(phone_num);
+            person->set_name(name);
+            person->set_academic_ID(id);
+            person->set_birth_year(b_year);
+            person->set_email_address(email);
+            sec.university[person->get_phone_number()] = person;
+        }
     return str;
 }
 
 Secretary::~Secretary() {
+    map<string, Person*>::const_iterator it;
+    for (it = university.begin(); it != university.end(); it++) {
+        delete it->second;
+    }
     cout << "Secretary destroyed." << endl;
 }
 
