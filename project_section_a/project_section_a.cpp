@@ -110,7 +110,8 @@ istream &operator>>(istream &str, Secretary &sec) {
 Secretary::~Secretary() {
     map<string, Person*>::const_iterator it;
     for (it = university.begin(); it != university.end(); it++) {
-        delete it->second;
+        if (it->second != nullptr)
+            delete it->second;
     }
     cout << "Secretary destroyed." << endl;
 }
