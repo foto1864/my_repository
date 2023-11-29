@@ -44,7 +44,7 @@ class Secretary {
         friend ostream &operator<<(ostream &, const Secretary&);
         friend istream &operator>>(istream &, Secretary&);
         void operator=(const Secretary&);
-        Secretary operator+(const Secretary&);
+        Secretary operator+(const Person&);
         Secretary();
         Secretary(const Secretary&);
         ~Secretary();
@@ -57,7 +57,13 @@ Secretary::Secretary() {
 }
 
 void Secretary::insert_person(Person *p) {
-    university.insert(pair<string, Person*> (p->get_phone_number(), p));
+    Person *new_person = new Person;
+    new_person->set_name(p->get_name());
+    new_person->set_academic_ID(p->get_academic_ID());
+    new_person->set_birth_year(p->get_birth_year());
+    new_person->set_email_address(p->get_email_address());
+    new_person->set_phone_number(p->get_phone_number());
+    university[new_person->get_phone_number()] = new_person;
 }
 
 bool Secretary::find(string phone_number) {
@@ -79,38 +85,50 @@ ostream &operator<<(ostream &str, const Secretary &sec){
     return str;
 }
 
+Secretary Secretary::operator+(const Person& p) {
+    Secretary sec = *this;
+    Person *new_person = new Person;
+    new_person->set_name(p.get_name());
+    new_person->set_academic_ID(p.get_academic_ID());
+    new_person->set_birth_year(p.get_birth_year());
+    new_person->set_email_address(p.get_email_address());
+    new_person->set_phone_number(p.get_phone_number());
+    sec.university[p.get_phone_number()] = new_person;
+    return sec;
+}
+
 
 istream &operator>>(istream &str, Secretary &sec) {
     cout << "How many people do you want to add to the university?" << endl;
     uint num_of_people;
     str >> num_of_people;
 
-    cout << "Give Students' or Teachers' info in the following order: " << endl;
-    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
-
     for (int i = 0; i < num_of_people; ++i) {
-            Person* person = new Person(); // Create a new Person object
-            string name, phone_num, email;
-            uint id, b_year;
-            str >> name;
-            str >> id;
-            str >>  phone_num; // Use the overloaded >> operator for Person
-            str >> b_year;
-            str >> email;
-            person->set_phone_number(phone_num);
-            person->set_name(name);
-            person->set_academic_ID(id);
-            person->set_birth_year(b_year);
-            person->set_email_address(email);
-            sec.university[person->get_phone_number()] = person;
-        }
+        cout << "Give Students' or Teachers' info in the following order: " << endl;
+        cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+
+        Person* person = new Person(); // Create a new Person object
+        string name, phone_num, email;
+        uint id, b_year;
+        str >> name;
+        str >> id;
+        str >>  phone_num; // Use the overloaded >> operator for Person
+        str >> b_year;
+        str >> email;
+        person->set_phone_number(phone_num);
+        person->set_name(name);
+        person->set_academic_ID(id);
+        person->set_birth_year(b_year);
+        person->set_email_address(email);
+        sec.university[person->get_phone_number()] = person;
+    }
     return str;
 }
 
 Secretary::~Secretary() {
     map<string, Person*>::const_iterator it;
     for (it = university.begin(); it != university.end(); it++) {
-        if (it->second != nullptr)
+        if (it->second != NULL)
             delete it->second;
     }
     cout << "Secretary destroyed." << endl;
@@ -129,6 +147,10 @@ int main(void) {
     sec.insert_person(&p2);
     
     cin >> sec;
+
+    Person p3("Petros", "petros@mail.com", "6972521094", 2004, 2200208);
+
+    sec = sec + p3;
 
     cout << sec;
     
