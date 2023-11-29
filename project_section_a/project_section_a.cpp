@@ -19,11 +19,11 @@ class Person {
         void set_birth_year(uint);
         void set_academic_ID(uint);
         // Accessor Functions
-        string get_name(void);
-        string get_email_address(void);
-        string get_phone_number(void);
-        uint get_birth_year(void);
-        uint get_academic_ID(void);
+        string get_name(void) const;
+        string get_email_address(void) const;
+        string get_phone_number(void) const;
+        uint get_birth_year(void) const;
+        uint get_academic_ID(void) const;
         // Operator Overloading
         friend ostream &operator<<(ostream &, Person &);
         friend istream &operator>>(istream &, Person &);
@@ -43,10 +43,10 @@ class Secretary {
         uint size(void);
         friend ostream &operator<<(ostream &, const Secretary&);
         friend istream &operator>>(istream &, Secretary&);
-        void operator=(const Secretary &);
-        Secretary operator+(const Secretary &);
+        void operator=(const Secretary&);
+        Secretary operator+(const Secretary&);
         Secretary();
-        Secretary(const Secretary &);
+        Secretary(const Secretary&);
         ~Secretary();
 };
 
@@ -81,6 +81,18 @@ ostream &operator<<(ostream &str, const Secretary &sec){
 
 
 istream &operator>>(istream &str, Secretary &sec) {
+    cout << "How many people do you want to add to the university?" << endl;
+    uint num_of_people;
+    str >> num_of_people;
+
+    Person array[num_of_people];
+    for (int i=0; i<num_of_people; i++) {
+        cin >> array[i];
+    }
+    for (int i=0; i<num_of_people; i++) {
+        sec.insert_person(&array[i]);
+    }
+
     return str;
 }
 
@@ -130,11 +142,11 @@ void Person::set_birth_year(uint year) { birth_year = year; return; }
 void Person::set_academic_ID(uint id) { academic_ID = id; return; }
 
 // Accessor Functions
-string Person::get_name(void) { return name; }
-string Person::get_email_address(void) { return email_address; }
-string Person::get_phone_number(void) { return phone_number; }
-uint Person::get_birth_year(void) { return birth_year; }
-uint Person::get_academic_ID(void) { return academic_ID; }
+string Person::get_name(void) const { return name; }
+string Person::get_email_address(void) const { return email_address; }
+string Person::get_phone_number(void) const { return phone_number; }
+uint Person::get_birth_year(void) const { return birth_year; }
+uint Person::get_academic_ID(void) const { return academic_ID; }
 
 // Operator Overloading
 ostream &operator<<(ostream &str, Person &person) {
