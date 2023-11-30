@@ -194,13 +194,13 @@ ostream &operator<<(ostream &str, const Secretary &sec){
 
 Secretary Secretary::operator+(const Person& p) {
     Secretary sec = *this;
-    Person *new_person = new Person;
-    new_person->set_name(p.get_name());
-    new_person->set_academic_ID(p.get_academic_ID());
-    new_person->set_birth_year(p.get_birth_year());
-    new_person->set_email_address(p.get_email_address());
-    new_person->set_phone_number(p.get_phone_number());
-    sec.university[p.get_phone_number()] = new_person;
+    string name = p.get_name();
+    string email = p.get_email_address();
+    string phone = p.get_phone_number();
+    uint b_year = p.get_birth_year();
+    uint id = p.get_academic_ID();
+    Person *new_person = new Person(name, email, phone, b_year, id);
+    sec.university[phone] = new_person;
     return sec;
 }
 
