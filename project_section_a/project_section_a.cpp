@@ -78,6 +78,11 @@ int main(void) {
     Secretary sec2 = sec;
     cout << sec2;
 
+    Secretary sec3 = sec;
+    sec3 = sec2;
+    cout << sec3;
+
+
     return 0;
 }
 
@@ -221,6 +226,24 @@ istream &operator>>(istream &str, Secretary &sec) {
 
 Secretary Secretary::operator=(const Secretary &prev_sec) {
     
+    map<string, Person*>::const_iterator it_01;
+    for (it_01 = this->university.begin(); it_01 != this->university.end(); it_01++) {
+        if (it_01->second != NULL)
+            delete it_01->second;
+    }
+
+    map<string, Person*>::const_iterator it_02;
+    for (it_02 = prev_sec.university.begin(); it_02 != prev_sec.university.end(); it_02++) {
+        string name = it_02->second->get_name();
+        string email = it_02->second->get_email_address();
+        string phone = it_02->second->get_phone_number();
+        uint b_year = it_02->second->get_birth_year();
+        uint id = it_02->second->get_academic_ID();
+        Person *new_person = new Person(name, email, phone, b_year, id);       
+        this->university[phone] = new_person;
+    }
+
+    return *this;
 }
 
 Secretary::~Secretary() {
