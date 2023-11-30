@@ -43,14 +43,95 @@ class Secretary {
         uint size(void);
         friend ostream &operator<<(ostream &, const Secretary&);
         friend istream &operator>>(istream &, Secretary&);
-        void operator=(const Secretary&);
+        Secretary operator=(const Secretary&);
         Secretary operator+(const Person&);
         Secretary();
         Secretary(const Secretary&);
         ~Secretary();
 };
 
+int main(void) {
+
+    Person p1("Giannis", "foto@gmail.com", "6912345432", 2004, 2200207);
+    cout << p1 << endl;
+
+    Person p2;
+    cin >> p2;
+
+    Secretary sec;
+    sec.insert_person(&p1);
+    sec.insert_person(&p2);
+    
+    cin >> sec;
+
+    Person p3("Petros", "petros@mail.com", "6972521094", 2004, 2200208);
+
+    cout << sec;
+    
+    if (sec.find("6912345432"))
+        cout << "Found!" << endl;
+    else 
+        cout << "Not Found!" << endl;
+
+    cout << "Size of secretary is " << sec.size() << endl;
+
+    Secretary sec2 = sec;
+    cout << sec2;
+
+    return 0;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// FUNCTIONS FOR CLASS PERSON /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Person::count = 0;
+
+// Mutator Functions
+void Person::set_name(string n) { name = n; return; }
+void Person::set_email_address(string email) { email_address = email; return; }
+void Person::set_phone_number(string phone_num) { phone_number = phone_num; return; }
+void Person::set_birth_year(uint year) { birth_year = year; return; }
+void Person::set_academic_ID(uint id) { academic_ID = id; return; }
+
+// Accessor Functions
+string Person::get_name(void) const { return name; }
+string Person::get_email_address(void) const { return email_address; }
+string Person::get_phone_number(void) const { return phone_number; }
+uint Person::get_birth_year(void) const { return birth_year; }
+uint Person::get_academic_ID(void) const { return academic_ID; }
+
+// Operator Overloading
+ostream &operator<<(ostream &str, Person &person) {
+    str << person.name << endl;
+    str << person.academic_ID << endl;
+    str << person.phone_number << endl;
+    str << person.birth_year << endl;
+    str << person.email_address << endl;
+    return str;
+}
+istream &operator>>(istream &str, Person &person) {
+    cout << "Give Student's or Teacher's info in the following order: " << endl;
+    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+    str >> person.name;
+    str >> person.academic_ID;
+    str >> person.phone_number;
+    str >> person.birth_year;
+    str >> person.email_address;
+    return str;
+}
+
+// Constructors And Destructor
+Person::Person() { count++; } 
+Person::Person(string n, uint id) : name(n), academic_ID(id) { count++; }
+Person::Person(string n, string email, string number, uint year, uint id) : 
+        name(n), email_address(email), phone_number(number), birth_year(year), academic_ID(id) { count++; }
+Person::~Person() { count--; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// FUNCTIONS FOR CLASS SECRETARY //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Secretary::Secretary() {
     cout << "Secretary created." << endl;
@@ -138,6 +219,10 @@ istream &operator>>(istream &str, Secretary &sec) {
     return str;
 }
 
+Secretary Secretary::operator=(const Secretary &prev_sec) {
+    
+}
+
 Secretary::~Secretary() {
     map<string, Person*>::const_iterator it;
     for (it = university.begin(); it != university.end(); it++) {
@@ -146,81 +231,3 @@ Secretary::~Secretary() {
     }
     cout << "Secretary destroyed." << endl;
 }
-
-int main(void) {
-
-    Person p1("Giannis", "foto@gmail.com", "6912345432", 2004, 2200207);
-    cout << p1 << endl;
-
-    Person p2;
-    cin >> p2;
-
-    Secretary sec;
-    sec.insert_person(&p1);
-    sec.insert_person(&p2);
-    
-    cin >> sec;
-
-    Person p3("Petros", "petros@mail.com", "6972521094", 2004, 2200208);
-
-    cout << sec;
-    
-    if (sec.find("6912345432"))
-        cout << "Found!" << endl;
-    else 
-        cout << "Not Found!" << endl;
-
-    cout << "Size of secretary is " << sec.size() << endl;
-
-    Secretary sec2 = sec;
-    cout << sec2;
-
-    return 0;
-}
-
-
-
-////////////////////////////////// FUNCTIONS FOR CLASS PERSON //////////////////////////////////
-
-int Person::count = 0;
-
-// Mutator Functions
-void Person::set_name(string n) { name = n; return; }
-void Person::set_email_address(string email) { email_address = email; return; }
-void Person::set_phone_number(string phone_num) { phone_number = phone_num; return; }
-void Person::set_birth_year(uint year) { birth_year = year; return; }
-void Person::set_academic_ID(uint id) { academic_ID = id; return; }
-
-// Accessor Functions
-string Person::get_name(void) const { return name; }
-string Person::get_email_address(void) const { return email_address; }
-string Person::get_phone_number(void) const { return phone_number; }
-uint Person::get_birth_year(void) const { return birth_year; }
-uint Person::get_academic_ID(void) const { return academic_ID; }
-
-// Operator Overloading
-ostream &operator<<(ostream &str, Person &person) {
-    str << person.name << endl;
-    str << person.academic_ID << endl;
-    str << person.phone_number << endl;
-    str << person.birth_year << endl;
-    str << person.email_address << endl;
-    return str;
-}
-istream &operator>>(istream &str, Person &person) {
-    cout << "Give Student's or Teacher's info in the following order: " << endl;
-    cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
-    str >> person.name;
-    str >> person.academic_ID;
-    str >> person.phone_number;
-    str >> person.birth_year;
-    str >> person.email_address;
-    return str;
-}
-
-// Constructors And Destructor
-Person::Person() { count++; } 
-Person::Person(string n, uint id) : name(n), academic_ID(id) { count++; }
-Person::Person(string n, string email, string number, uint year, uint id) : 
-        name(n), email_address(email), phone_number(number), birth_year(year), academic_ID(id) { count++; }
-Person::~Person() { count--; }
