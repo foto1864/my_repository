@@ -56,14 +56,27 @@ Secretary::Secretary() {
     cout << "Secretary created." << endl;
 }
 
+Secretary::Secretary(const Secretary& prev_sec) {
+    map<string, Person*>::const_iterator it;
+    for (it = prev_sec.university.begin(); it != prev_sec.university.end(); it++) {
+        string name = it->second->get_name();
+        string email = it->second->get_email_address();
+        string phone = it->second->get_phone_number();
+        uint b_year = it->second->get_birth_year();
+        uint id = it->second->get_academic_ID();
+        Person *new_person = new Person(name, email, phone, b_year, id);       
+        university[phone] = new_person;
+    }
+}
+
 void Secretary::insert_person(Person *p) {
-    Person *new_person = new Person;
-    new_person->set_name(p->get_name());
-    new_person->set_academic_ID(p->get_academic_ID());
-    new_person->set_birth_year(p->get_birth_year());
-    new_person->set_email_address(p->get_email_address());
-    new_person->set_phone_number(p->get_phone_number());
-    university[new_person->get_phone_number()] = new_person;
+    string name = p->get_name();
+    string email = p->get_email_address();
+    string phone = p->get_phone_number();
+    uint b_year = p->get_birth_year();
+    uint id = p->get_academic_ID();
+    Person *new_person = new Person(name, email, phone, b_year, id);
+    university[phone] = new_person;
 }
 
 bool Secretary::find(string phone_number) {
@@ -150,11 +163,8 @@ int main(void) {
 
     Person p3("Petros", "petros@mail.com", "6972521094", 2004, 2200208);
 
-    sec = sec + p3;
-
     cout << sec;
     
-
     if (sec.find("6912345432"))
         cout << "Found!" << endl;
     else 
@@ -162,6 +172,8 @@ int main(void) {
 
     cout << "Size of secretary is " << sec.size() << endl;
 
+    Secretary sec2 = sec;
+    cout << sec2;
 
     return 0;
 }
