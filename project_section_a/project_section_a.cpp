@@ -52,28 +52,35 @@ class Secretary {
 
 int main(void) {
 
+    cout << "Testing to see if the person class is functional..." << endl; 
+
     Person p1("Giannis", "foto@gmail.com", "6912345432", 2004, 2200207);
     cout << p1 << endl;
 
     Person p2;
     cin >> p2;
 
+    cout << "Testing for person class completed." << endl << endl;
+
     Secretary sec;
     sec.insert_person(&p1);
     sec.insert_person(&p2);
     
     cin >> sec;
-
-    
-
     cout << sec;
-    
-    if (sec.find("6912345432"))
-        cout << "Found!" << endl;
-    else 
-        cout << "Not Found!" << endl;
 
-    cout << "Size of secretary is " << sec.size() << endl;
+    cout << endl << "The size of the University is " << sec.size() << endl << endl;
+
+    cout << "Search to see if some specific person is contained in the university." << endl;
+    cout << "Search is done based on the person's Phone number." << endl;
+    cout << "Please enter the phone number of the person you want to search for:" << endl;
+    string phone_number;
+    cin >> phone_number;
+
+    if (sec.find(phone_number))
+        cout << endl << "There exists a person with the given phone number in the university." << endl;
+    else 
+        cout << endl << "There does not exist a person with the given phone number in the university." << endl;
 
     Secretary sec2 = sec;
     cout << sec2;
@@ -139,7 +146,7 @@ Person::~Person() { count--; }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Secretary::Secretary() {
-    cout << "Secretary created." << endl;
+    cout << "University created." << endl;
 }
 
 Secretary::Secretary(const Secretary& prev_sec) {
@@ -253,5 +260,5 @@ Secretary::~Secretary() {
         if (it->second != NULL)
             delete it->second;
     }
-    cout << "Secretary destroyed." << endl;
+    cout << "University terminated." << endl;
 }
