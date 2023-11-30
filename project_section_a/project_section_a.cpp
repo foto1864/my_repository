@@ -64,7 +64,7 @@ int main(void) {
     
     cin >> sec;
 
-    Person p3("Petros", "petros@mail.com", "6972521094", 2004, 2200208);
+    
 
     cout << sec;
     
@@ -176,6 +176,7 @@ uint Secretary::size(void) {
 }
 
 ostream &operator<<(ostream &str, const Secretary &sec){
+    cout << "The university contains the following people:" << endl << endl;
     map<string, Person*>::const_iterator it;
     for (it = sec.university.begin(); it != sec.university.end(); it++) {
         Person *p = it->second;
@@ -206,12 +207,12 @@ istream &operator>>(istream &str, Secretary &sec) {
         cout << "Give Students' or Teachers' info in the following order: " << endl;
         cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
 
-        Person* person = new Person(); // Create a new Person object
+        Person* person = new Person(); 
         string name, phone_num, email;
         uint id, b_year;
         str >> name;
         str >> id;
-        str >>  phone_num; // Use the overloaded >> operator for Person
+        str >> phone_num; 
         str >> b_year;
         str >> email;
         person->set_phone_number(phone_num);
