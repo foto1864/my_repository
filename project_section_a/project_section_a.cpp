@@ -1,3 +1,5 @@
+// File: project_section_a.cpp
+
 #include <iostream>
 #include <cstdlib>
 #include <map>
@@ -54,11 +56,16 @@ int main(void) {
 
     cout << "Testing to see if the person class is functional..." << endl; 
 
-    Person p1("Giannis", "foto@gmail.com", "6912345432", 2004, 2200207);
+    Person p1("Giannis", "giannis@email.com", "6912345432", 2004, 2200207);
+    // Test of the << operator
     cout << p1 << endl;
 
     Person p2;
+    // Test of the >> operator
     cin >> p2;
+
+    // Test of keeping track of how many objects of type "Person" have been created
+    cout << "In total there are " << Person::count << "persons that have been created." << endl;
 
     cout << "Testing for person class completed." << endl << endl;
 
@@ -66,7 +73,9 @@ int main(void) {
     sec.insert_person(&p1);
     sec.insert_person(&p2);
     
+    // Testing to see that >> operator for class Secretary functions properly
     cin >> sec;
+    // Testing to see that << operator for class Secretary functions properly
     cout << sec;
 
     cout << endl << "The size of the University is " << sec.size() << endl << endl;
@@ -82,10 +91,19 @@ int main(void) {
     else 
         cout << endl << "There does not exist a person with the given phone number in the university." << endl;
 
+    Person p3("Nikos", "nikos@email.com", "6900102030", 2004, 2200208);
+
     Secretary sec2 = sec;
+    // Testing to see that overloading of + operator functions properly.
+    sec2 = sec2 + p3;
+
     cout << sec2;
 
-    Secretary sec3 = sec;
+    // Testing to see that the copy constructor and = operator both function properly.
+
+    // Since sec3 has not yet been created, the copy constructor gets called.
+    Secretary sec3 = sec; 
+    // Since sec3 has already been created, the = operator gets called.
     sec3 = sec2;
     cout << sec3;
 
@@ -234,6 +252,9 @@ istream &operator>>(istream &str, Secretary &sec) {
 
 Secretary Secretary::operator=(const Secretary &prev_sec) {
     
+    // Since some members of the map inside the instance of object "Secretary" have been
+    // statically inserted in the map (not dynamically allocated) there needs to be a 
+    // condition in order to prevent a potential un-needed call of the delete function.
     map<string, Person*>::const_iterator it_01;
     for (it_01 = this->university.begin(); it_01 != this->university.end(); it_01++) {
         if (it_01->second != NULL)
