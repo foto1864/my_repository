@@ -65,7 +65,7 @@ int main(void) {
     cin >> p2;
 
     // Test of keeping track of how many objects of type "Person" have been created
-    cout << "In total there are " << Person::count << "persons that have been created." << endl;
+    cout << "In total there are " << Person::count << " persons that have been created." << endl;
 
     cout << "Testing for person class completed." << endl << endl;
 
