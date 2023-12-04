@@ -3,7 +3,7 @@
 # Source
 OBJ = functions.cpp
 
-# Compiler
+# Compiler 
 CC = g++
 
 # Compiler Options
