@@ -6,8 +6,8 @@ CC = g++
 # Flags
 FLAGS = -Wall -Werror
 
-project: project.o
-	$(CC) -o project project.o $(FLAGS) 
+project: project.cpp
+	$(CC) -o project project.cpp $(FLAGS) 
 
 clean:
 	rm project

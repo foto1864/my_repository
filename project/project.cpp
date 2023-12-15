@@ -215,7 +215,7 @@ istream &operator>>(istream &str, Secretary &sec) {
     uint num_of_people;
     str >> num_of_people;
 
-    for (int i = 0; i < num_of_people; ++i) {
+    for (uint i = 0; i < num_of_people; ++i) {
         cout << "Give Students' or Teachers' info in the following order: " << endl;
         cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
 
