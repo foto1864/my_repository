@@ -1,6 +1,6 @@
 #include "class_rectangle_dp.h"
 
-///////////////////////////// Functions Of Class Rectangle //////////////////////////////
+////////////////////////////// Functions Of Class Rectangle ///////////////////////////////
 double Rectangle::getHeight(void) {
     return height;
 }
