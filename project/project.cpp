@@ -37,11 +37,27 @@ class Person {
 };
 
 class Student : public Person {
-
+    private:
+        uint year_joined_university;
+    public:
+        static int student_count;
+        Student();
+        Student(string, uint);
+        Student(string, string, string, uint, uint);
+        Student(string, string, string, uint, uint, uint);
+        ~Student();
 };
 
 class Professor : public Person {
-
+    private:
+        uint years_of_experience;
+    public:
+        static int professor_count;
+        Professor();
+        Professor(string, uint);
+        Professor(string, string, string, uint, uint);
+        Professor(string, string, string, uint, uint, uint);
+        ~Professor();
 };
 
 class Secretary {
@@ -299,3 +315,29 @@ Secretary::~Secretary() {
     }
     cout << "University terminated." << endl;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// FUNCTIONS FOR CLASS PROFESSOR //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Professor::professor_count = 0;
+
+Professor::Professor() { professor_count++; }
+Professor::Professor(string n,uint id) : Person(n, id) { professor_count++; }
+Professor::Professor(string n, string email, string number, uint year, uint id) : Person(n,email,number,year,id) { professor_count++; }
+Professor::Professor(string n, string email, string number, uint year, uint id, uint years_exp) 
+        :Person(n,email,number,year,id), years_of_experience(years_exp) { professor_count++; }
+Professor::~Professor() { professor_count--; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// FUNCTIONS FOR CLASS STUDENT ////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Student::student_count = 0;
+
+Student::Student() { student_count++; }
+Student::Student(string n,uint id) : Person(n, id) { student_count++; }
+Student::Student(string n, string email, string number, uint year, uint id) : Person(n,email,number,year,id) { student_count++; }
+Student::Student(string n, string email, string number, uint year, uint id, uint years_joined) 
+        :Person(n,email,number,year,id), year_joined_university(years_joined) { student_count++; }
+Student::~Student() { student_count--; }
