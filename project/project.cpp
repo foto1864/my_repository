@@ -36,6 +36,14 @@ class Person {
         ~Person();
 };
 
+class Student : public Person {
+
+};
+
+class Professor : public Person {
+
+};
+
 class Secretary {
     private:
         map<string, Person*> university;
