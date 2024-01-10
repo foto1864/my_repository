@@ -50,6 +50,8 @@ Student::Student(string n, int a, int id) : Person(n,a) , academic_ID(id) {
 
 int main(void) {
 
-    Student("Raskovnikov", 58, 207);
+    Student student_a("Rodion Raskolnikov", 58, 207);
+    cout << "Student's name is " << student_a.get_name() << endl;
+
     return 0;
 }
