@@ -1,5 +1,5 @@
-#include "class_secretary.h"
-#include "class_person.h"
+#include "include/class_secretary.h"
+#include "include/class_person.h"
 
 Secretary::Secretary() {
     cout << "University created." << endl;

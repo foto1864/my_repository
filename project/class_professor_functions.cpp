@@ -1,5 +1,5 @@
-#include "class_professor.h"
-#include "class_person.h"
+#include "include/class_professor.h"
+#include "include/class_person.h"
 
 int Professor::professor_count = 0;
 

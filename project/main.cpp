@@ -1,12 +1,10 @@
 // File: project_section_a.cpp
-
-#include "general.h"
-#include "class_person.h"
-#include "class_secretary.h"
-#include "class_course.h"
-#include "class_professor.h"
-#include "class_student.h"
-using namespace std;    
+#include "include/general.h"
+#include "include/class_person.h"
+#include "include/class_secretary.h"
+#include "include/class_course.h"
+#include "include/class_professor.h"
+#include "include/class_student.h"
 
 void show_menu(void);
 int get_user_input(void);

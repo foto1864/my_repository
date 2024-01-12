@@ -1,4 +1,4 @@
-#include "class_person.h"
+#include "include/class_person.h"
 
 int Person::count = 0;
 
