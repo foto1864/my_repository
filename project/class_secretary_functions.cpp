@@ -29,10 +29,15 @@ void Secretary::insert_professor(Professor *p) {
     professors[phone] = new_professor;
 }
 
-bool Secretary::find(string phone_number) {
-    map<string, Person*>::iterator map_iterator;
-    map_iterator = university.find(phone_number);
-    return map_iterator != university.end();
+bool Secretary::find_student(string phone_number) {
+    map<string, Student*>::iterator map_iterator;
+    map_iterator = students.find(phone_number);
+    return map_iterator != students.end();
+}
+bool Secretary::find_professor(string phone_number) {
+    map<string, Professor*>::iterator map_iterator;
+    map_iterator = professors.find(phone_number);
+    return map_iterator != professors.end();
 }
 
 uint Secretary::size(void) {
@@ -41,23 +46,46 @@ uint Secretary::size(void) {
 
 ostream &operator<<(ostream &str, const Secretary &sec){
     cout << "The university contains the following people:" << endl << endl;
-    map<string, Person*>::const_iterator it;
-    for (it = sec.university.begin(); it != sec.university.end(); it++) {
+
+    cout << "Professors:" << endl;
+    map<string, Professor*>::const_iterator it;
+    for (it = sec.professors.begin(); it != sec.professors.end(); it++) {
         Person *p = it->second;
+        str << *p << endl;
+    }
+
+    cout << endl << "Students:" << endl;
+    map<string, Student*>::const_iterator it_2;
+    for (it_2 = sec.students.begin(); it_2 != sec.students.end(); it_2++) {
+        Person *p = it_2->second;
         str << *p << endl;
     }
     return str;
 }
 
-Secretary Secretary::operator+(const Person& p) {
+Secretary Secretary::operator+(const Student& p) {
     Secretary sec = *this;
     string name = p.get_name();
     string email = p.get_email_address();
     string phone = p.get_phone_number();
     uint b_year = p.get_birth_year();
     uint id = p.get_academic_ID();
-    Person *new_person = new Person(name, email, phone, b_year, id);
-    sec.university[phone] = new_person;
+    uint years_joined = CURRENT_YEAR - (p.get_academic_ID())/100;
+    Student *new_student = new Student(name, email, phone, b_year, id, years_joined);
+    sec.students[phone] = new_student;
+    return sec;
+}
+
+Secretary Secretary::operator+(const Professor& p) {
+    Secretary sec = *this;
+    string name = p.get_name();
+    string email = p.get_email_address();
+    string phone = p.get_phone_number();
+    uint b_year = p.get_birth_year();
+    uint id = p.get_academic_ID();
+    uint years_experience = CURRENT_YEAR - (p.get_academic_ID())/100;
+    Professor *new_professor = new Professor(name, email, phone, b_year, id, years_experience);
+    sec.professors[phone] = new_professor;
     return sec;
 }
 
@@ -68,23 +96,54 @@ istream &operator>>(istream &str, Secretary &sec) {
     str >> num_of_people;
 
     for (uint i = 0; i < num_of_people; ++i) {
-        cout << "Give Students' or Teachers' info in the following order: " << endl;
-        cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+        cout << "Do you want to add a student(S/s) or a professor(P/p)?" << endl;
 
-        Person* person = new Person(); 
-        string name, phone_num, email;
-        uint id, b_year;
-        str >> name;
-        str >> id;
-        str >> phone_num; 
-        str >> b_year;
-        str >> email;
-        person->set_phone_number(phone_num);
-        person->set_name(name);
-        person->set_academic_ID(id);
-        person->set_birth_year(b_year);
-        person->set_email_address(email);
-        sec.university[person->get_phone_number()] = person;
+        char user_choice;
+        cin >> user_choice;
+        while (!(user_choice == 'S' || user_choice == 's' || user_choice == 'P' || user_choice == 'p')) {
+            cout << "Invalid character entered" << endl;
+            cin >> user_choice;
+        }
+
+        if (user_choice == 'S' || user_choice == 's') {
+            cout << "Enter student's info in the following order:" << endl;
+            cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+            Student* student = new Student(); 
+            string name, phone_num, email;
+            uint id, b_year;
+            str >> name;
+            str >> id;
+            str >> phone_num; 
+            str >> b_year;
+            str >> email;
+            student->set_phone_number(phone_num);
+            student->set_name(name);
+            student->set_academic_ID(id);
+            student->set_birth_year(b_year);
+            student->set_email_address(email);
+            student->set_years_joined(CURRENT_YEAR - (id/100));
+            sec.students[student->get_phone_number()] = student;
+        }
+
+        else if (user_choice == 'P' || user_choice == 'p') {
+            cout << "Enter professors's info in the following order:" << endl;
+            cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
+            Professor* professor = new Professor(); 
+            string name, phone_num, email;
+            uint id, b_year;
+            str >> name;
+            str >> id;
+            str >> phone_num; 
+            str >> b_year;
+            str >> email;
+            professor->set_phone_number(phone_num);
+            professor->set_name(name);
+            professor->set_academic_ID(id);
+            professor->set_birth_year(b_year);
+            professor->set_email_address(email);
+            professor->set_years_of_experience(CURRENT_YEAR - (id/100));
+            sec.professors[professor->get_phone_number()] = professor;
+        }
     }
     return str;
 }

@@ -8,6 +8,7 @@ class Student : public Person {
     public:
         static int student_count;
         uint get_years_joined(void);
+        void set_years_joined(uint);
         Student();
         Student(string, uint);
         Student(string, string, string, uint, uint);
