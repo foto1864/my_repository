@@ -333,6 +333,7 @@ void get_user_input(void) {
         cin >> pressed_key;
     }
 
+    // Should that be a new func?
     // Call a function depending on the user's input
     switch (pressed_key) {
         case 1:
