@@ -22,5 +22,10 @@ make: $(OBJ1) $(OBJ2)
 run: $(EXEC)
 	./$(EXEC)
 
+clean:
+	rm test_lib
+	rm test_lib.o 
+	rm functions.o
+
 valgrind: $(EXEC)
 	valgrind ./$(EXEC)
