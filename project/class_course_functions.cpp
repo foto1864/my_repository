@@ -22,4 +22,10 @@ void Course::course_move_semester(uint new_semester) {
     }
     return;
 }
+void Course::course_set_grade(uint score) {
+    grade = score;
+}
+uint Course::course_get_grade(void) {
+    return grade;
+}
 Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), semester(sem), mandatory(mand), ECTs(points) {}
