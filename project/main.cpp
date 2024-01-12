@@ -27,8 +27,8 @@ int main(void) {
 
 void load_database(void) {
     load_students();
-    //load_professors();
-    //load_courses();
+    load_professors();
+    load_courses();
     return;
 }
 
@@ -47,6 +47,52 @@ void load_students(void) {
         cout << year_joined_university << endl;
         Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
     }
+    students_file.close();
+}
+
+void load_professors(void) {
+    ifstream professors_file("database/professors.txt");
+    string line;
+    while (getline(professors_file, line)) {
+        istringstream iss(line);
+        string name;
+        string email_address;
+        string phone_number;
+        uint birth_year;
+        uint id;
+        iss >> name >> id >> phone_number >> birth_year >> email_address;
+        uint years_of_experience = CURRENT_YEAR - (id/100);
+        cout << years_of_experience << endl;
+        Professor professor(name, email_address, phone_number, birth_year, id, years_of_experience);
+    }
+    professors_file.close();
+}
+
+void load_courses(void) {
+    ifstream courses_file("database/courses.txt");
+    string line;
+    while (getline(courses_file, line)) {
+        istringstream iss(line);
+        string course_name;
+        uint semester;
+        string mandatory;
+        bool is_mandatory;
+        uint ECTs;
+
+        getline(iss, course_name, '-');
+        iss >> semester;
+        iss.ignore(); 
+        getline(iss, mandatory, '-');
+        iss >> ECTs;
+
+        if (mandatory == "Mandatory")
+            is_mandatory = true;
+        else 
+            is_mandatory = false;
+
+        Course course(course_name, semester, is_mandatory, ECTs);
+    }
+    courses_file.close();
 }
 
 void show_menu(void) {

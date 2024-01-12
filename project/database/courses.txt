@@ -2,17 +2,14 @@ Introduction To Programming-1-Mandatory-8
 Discrete Mathematics-1-Mandatory-8
 Applied Mathematics-2-Mandatory-8
 Data Structures And Programming Techniques-2-Mandatory-8
-
 Object Oriented Programming-3-Mandatory-8
 Game Theory-3-Optional-6
 Linear Algebra-4-Mandatory-8
 Electromagnetism Optical Physics-4-Optional-6
-
 Calculus I-5-Mandatory-8
 Network Security-5-Optional-6
 Calculus II-6-Mandatory-8
 Cryptography-6-Optional-6
-
 Computer Achitecture-7-Mandatory-8
 Differential Equations I-7-Optional-6
 Graphical Design-8-Mandatory-8
