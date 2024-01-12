@@ -4,9 +4,11 @@
 
 class Secretary {
     private:
-        map<string, Person*> university;
+        map<string, Student*> students;
+        map<string, Professor*> professors;
     public:
-        void insert_person(Person*);
+        void insert_student(Student*);
+        void insert_professor(Professor*);
         bool find(string);
         uint size(void);
         friend ostream &operator<<(ostream &, const Secretary&);

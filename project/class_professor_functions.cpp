@@ -3,6 +3,9 @@
 
 int Professor::professor_count = 0;
 
+uint Professor::get_years_experience(void) {
+        return years_of_experience;
+}
 Professor::Professor() { professor_count++; }
 Professor::Professor(string n,uint id) : Person(n, id) { professor_count++; }
 Professor::Professor(string n, string email, string number, uint year, uint id) : Person(n,email,number,year,id) { professor_count++; }

@@ -7,6 +7,7 @@ class Professor : public Person {
         uint years_of_experience;
     public:
         static int professor_count;
+        uint get_years_experience(void);
         Professor();
         Professor(string, uint);
         Professor(string, string, string, uint, uint);

@@ -3,6 +3,9 @@
 
 int Student::student_count = 0;
 
+uint Student::get_years_joined(void) {
+        return year_joined_university;
+}
 Student::Student() { student_count++; }
 Student::Student(string n,uint id) : Person(n, id) { student_count++; }
 Student::Student(string n, string email, string number, uint year, uint id) : Person(n,email,number,year,id) { student_count++; }

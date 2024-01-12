@@ -5,16 +5,48 @@
 #include "include/class_course.h"
 #include "include/class_professor.h"
 #include "include/class_student.h"
+#include <string>
+#include <fstream>
+#include <sstream>
 
 void show_menu(void);
 int get_user_input(void);
 void call_intended_function(int);
+void load_database(void);
+void load_students(void);
+void load_professors(void);
+void load_courses(void);
 
 int main(void) {
     show_menu();
     int key = get_user_input();
     call_intended_function(key);
+    load_database();
     return 0;
+}
+
+void load_database(void) {
+    load_students();
+    //load_professors();
+    //load_courses();
+    return;
+}
+
+void load_students(void) {
+    ifstream students_file("database/students.txt");
+    string line;
+    while (getline(students_file, line)) {
+        istringstream iss(line);
+        string name;
+        string email_address;
+        string phone_number;
+        uint birth_year;
+        uint id;
+        iss >> name >> id >> phone_number >> birth_year >> email_address;
+        uint year_joined_university = CURRENT_YEAR - (id/100);
+        cout << year_joined_university << endl;
+        Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
+    }
 }
 
 void show_menu(void) {
@@ -55,7 +87,6 @@ int get_user_input(void) {
 
 void call_intended_function(int key) {
     
-    // Should that be a new func?
     // Call a function depending on the user's input
     switch (key) {
         case 1:

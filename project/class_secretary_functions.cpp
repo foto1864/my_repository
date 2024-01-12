@@ -1,18 +1,32 @@
 #include "include/class_secretary.h"
 #include "include/class_person.h"
+#include "include/class_student.h"
+#include "include/class_professor.h"
 
 Secretary::Secretary() {
     cout << "University created." << endl;
 }
 
-void Secretary::insert_person(Person *p) {
+void Secretary::insert_student(Student *p) {
     string name = p->get_name();
     string email = p->get_email_address();
     string phone = p->get_phone_number();
     uint b_year = p->get_birth_year();
     uint id = p->get_academic_ID();
-    Person *new_person = new Person(name, email, phone, b_year, id);
-    university[phone] = new_person;
+    uint years_of_experience = p->get_years_joined();
+    Student *new_student = new Student(name, email, phone, b_year, id, years_of_experience);
+    students[phone] = new_student;
+}
+
+void Secretary::insert_professor(Professor *p) {
+    string name = p->get_name();
+    string email = p->get_email_address();
+    string phone = p->get_phone_number();
+    uint b_year = p->get_birth_year();
+    uint id = p->get_academic_ID();
+    uint years_of_experience = p->get_years_experience();
+    Professor *new_professor = new Professor(name, email, phone, b_year, id, years_of_experience);
+    professors[phone] = new_professor;
 }
 
 bool Secretary::find(string phone_number) {
@@ -22,7 +36,7 @@ bool Secretary::find(string phone_number) {
 }
 
 uint Secretary::size(void) {
-    return university.size();
+    return professors.size() + students.size();
 }
 
 ostream &operator<<(ostream &str, const Secretary &sec){
@@ -80,8 +94,14 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
     // Since some members of the map inside the instance of object "Secretary" have been
     // statically inserted in the map (not dynamically allocated) there needs to be a 
     // condition in order to prevent a potential un-needed call of the delete function.
-    map<string, Person*>::const_iterator it_01;
-    for (it_01 = this->university.begin(); it_01 != this->university.end(); it_01++) {
+    map<string, Student*>::const_iterator it_00;
+    for (it_00 = this->students.begin(); it_00 != this->students.end(); it_00++) {
+        if (it_00->second != NULL)
+            delete it_00->second;
+    }
+    
+    map<string, Professor*>::const_iterator it_01;
+    for (it_01 = this->professors.begin(); it_01 != this->professors.end(); it_01++) {
         if (it_01->second != NULL)
             delete it_01->second;
     }
@@ -89,15 +109,28 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
     // Now that the original map has been cleared, we dynamically allocate memory of all its
     // new members and add them to the map. Finally the function returns the new "Secretary"
     // object that will replace the old one after the call of the function.
-    map<string, Person*>::const_iterator it_02;
-    for (it_02 = prev_sec.university.begin(); it_02 != prev_sec.university.end(); it_02++) {
+    map<string, Student*>::const_iterator it_02;
+    for (it_02 = prev_sec.students.begin(); it_02 != prev_sec.students.end(); it_02++) {
         string name = it_02->second->get_name();
         string email = it_02->second->get_email_address();
         string phone = it_02->second->get_phone_number();
         uint b_year = it_02->second->get_birth_year();
         uint id = it_02->second->get_academic_ID();
-        Person *new_person = new Person(name, email, phone, b_year, id);       
-        this->university[phone] = new_person;
+        uint years_joined = it_02->second->get_years_joined();
+        Student *new_student = new Student(name, email, phone, b_year, id, years_joined);       
+        this->students[phone] = new_student;
+    }
+
+    map<string, Professor*>::const_iterator it_03;
+    for (it_03 = prev_sec.professors.begin(); it_03 != prev_sec.professors.end(); it_03++) {
+        string name = it_03->second->get_name();
+        string email = it_03->second->get_email_address();
+        string phone = it_03->second->get_phone_number();
+        uint b_year = it_03->second->get_birth_year();
+        uint id = it_03->second->get_academic_ID();
+        uint years_exprerience = it_03->second->get_years_experience();
+        Professor *new_professor = new Professor(name, email, phone, b_year, id, years_exprerience);       
+        this->professors[phone] = new_professor;
     }
 
     return *this;
@@ -106,15 +139,31 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
 // Whenever an object of type "Secretary" is created with the use of the copy constructor,
 // the memory of all of the members of the map of the new object is dynamically allocated. 
 Secretary::Secretary(const Secretary& prev_sec) {
-    map<string, Person*>::const_iterator it;
-    for (it = prev_sec.university.begin(); it != prev_sec.university.end(); it++) {
+    
+    // Copy-Paste the students
+    map<string, Student*>::const_iterator it;
+    for (it = prev_sec.students.begin(); it != prev_sec.students.end(); it++) {
         string name = it->second->get_name();
         string email = it->second->get_email_address();
         string phone = it->second->get_phone_number();
         uint b_year = it->second->get_birth_year();
         uint id = it->second->get_academic_ID();
-        Person *new_person = new Person(name, email, phone, b_year, id);       
-        university[phone] = new_person;
+        uint years_joined_university = it->second->get_years_joined();
+        Student *new_student = new Student(name, email, phone, b_year, id, years_joined_university);       
+        students[phone] = new_student;
+    }
+
+    // Copy-Paste the professors
+    map<string, Professor*>::const_iterator it_2;
+    for (it_2 = prev_sec.professors.begin(); it_2 != prev_sec.professors.end(); it_2++) {
+        string name = it_2->second->get_name();
+        string email = it_2->second->get_email_address();
+        string phone = it_2->second->get_phone_number();
+        uint b_year = it_2->second->get_birth_year();
+        uint id = it_2->second->get_academic_ID();
+        uint years_experience = it_2->second->get_years_experience();
+        Professor *new_professor = new Professor(name, email, phone, b_year, id, years_experience);       
+        professors[phone] = new_professor;
     }
 }
 
@@ -122,10 +171,16 @@ Secretary::Secretary(const Secretary& prev_sec) {
 Secretary::~Secretary() {
     // Again we want to make sure that we free only the members of the map, the memory for
     // which has been dynamically allocated.
-    map<string, Person*>::const_iterator it;
-    for (it = university.begin(); it != university.end(); it++) {
+    map<string, Professor*>::const_iterator it;
+    for (it = professors.begin(); it != professors.end(); it++) {
         if (it->second != NULL)
             delete it->second;
     }
+    map<string, Student*>::const_iterator it_2;
+    for (it_2 = students.begin(); it_2 != students.end(); it_2++) {
+        if (it_2->second != NULL)
+            delete it_2->second;
+    }
     cout << "University terminated." << endl;
+
 }
