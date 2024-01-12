@@ -5,6 +5,9 @@
 #include <map>
 using namespace std;    
 
+void show_menu(void);
+void get_user_input(void);
+
 class Person {
     private:
         string name;
@@ -77,64 +80,10 @@ class Secretary {
 };
 
 int main(void) {
-
-    cout << "Testing to see if the person class is functional..." << endl; 
-
-    Person p1("Giannis", "giannis@email.com", "6912345432", 2004, 2200207);
-    // Test of the << operator
-    cout << p1 << endl;
-
-    Person p2;
-    // Test of the >> operator
-    cin >> p2;
-
-    // Test of keeping track of how many objects of type "Person" have been created
-    cout << "In total there are " << Person::count << " persons that have been created." << endl;
-
-    cout << "Testing for person class completed." << endl << endl;
-
-    Secretary sec;
-    sec.insert_person(&p1);
-    sec.insert_person(&p2);
-    
-    // Testing to see that >> operator for class Secretary functions properly
-    cin >> sec;
-    // Testing to see that << operator for class Secretary functions properly
-    cout << sec;
-
-    cout << endl << "The size of the University is " << sec.size() << endl << endl;
-
-    cout << "Search to see if some specific person is contained in the university." << endl;
-    cout << "Search is done based on the person's Phone number." << endl;
-    cout << "Please enter the phone number of the person you want to search for:" << endl;
-    string phone_number;
-    cin >> phone_number;
-
-    if (sec.find(phone_number))
-        cout << endl << "There exists a person with the given phone number in the university." << endl;
-    else 
-        cout << endl << "There does not exist a person with the given phone number in the university." << endl;
-
-    Person p3("Nikos", "nikos@email.com", "6900102030", 2004, 2200208);
-
-    Secretary sec2 = sec;
-    // Testing to see that overloading of + operator functions properly.
-    sec2 = sec2 + p3;
-
-    cout << sec2;
-
-    // Testing to see that the copy constructor and = operator both function properly.
-
-    // Since sec3 has not yet been created, the copy constructor gets called.
-    Secretary sec3 = sec; 
-    // Since sec3 has already been created, the = operator gets called.
-    sec3 = sec2;
-    cout << sec3;
-
-
+    show_menu();
+    get_user_input();
     return 0;
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// FUNCTIONS FOR CLASS PERSON /////////////////////////////////////
@@ -341,3 +290,77 @@ Student::Student(string n, string email, string number, uint year, uint id) : Pe
 Student::Student(string n, string email, string number, uint year, uint id, uint years_joined) 
         :Person(n,email,number,year,id), year_joined_university(years_joined) { student_count++; }
 Student::~Student() { student_count--; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// GENERAL FUNCTIONS /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void show_menu(void) {
+    
+    // Show the menu of options to the User
+    cout << endl << "Welcome to our University! You have the following options:" << endl << endl;
+    cout << "1) Add - Remove - Edit Professor" << endl;
+    cout << "2) Add - Remove - Edit Student" << endl;
+    cout << "3) Add - Remove - Edit Course" << endl;
+    cout << "4) Set the professor of a course" << endl;
+    cout << "5) Register to a course (for students only)" << endl;
+    cout << "6) Print a list of the students that passed a course in the current semester" << endl; 
+    cout << "7) Print the statistics for all courses in the current semester (for Professors only)" << endl;
+    cout << "8) Print your average score (for students only)" << endl;
+    cout << "9) Print a list of all the students that are eligible to graduate from the University" << endl << endl;
+    cout << "You can select one of the options 1-9 by pressing the corresponding key." << endl;
+    
+}
+
+void get_user_input(void) {
+    
+    // Get input from the user
+    int count = 0;
+    int pressed_key;
+    cin >> pressed_key;
+    while ((pressed_key > 9) || (pressed_key < 0)) {
+        count++;  
+        if (count < 5) 
+            cout << "Invalid key entered. You can only select an option from 1-9." << endl;   
+        else if (count >= 5) {
+            pressed_key = 10;
+            break;
+        }
+        cin >> pressed_key;
+    }
+
+    // Call a function depending on the user's input
+    switch (pressed_key) {
+        case 1:
+            cout << "Ton pairnoute?" << endl;
+            break; 
+        case 2:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 3:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 4:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 5:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 6:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 7:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 8:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 9:
+            cout << "Ton pairnoute?" << endl;
+            break;
+        case 10:
+            cout << "Too many failed attempts. Please try again later." << endl;
+            break;
+    }
+
+}
