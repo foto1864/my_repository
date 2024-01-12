@@ -1,0 +1,5 @@
+George 202201 6900000001 2004 george@email.uni.gr
+Diego 202202 6900000002 2004 diego@email.uni.gr
+James 202103 6900000003 2003 james@email.uni.gr
+Maria 202204 6900000004 2004 maria@email.uni.gr
+Anna 202105 6900000005 2003 anna@email.uni.gr

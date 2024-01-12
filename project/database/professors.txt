@@ -1,0 +1,3 @@
+Konstantinos 200601 6900001001 1970 konstantinos@email.uni.gr
+Sokratis 200801 6900001002 1967 sokratis@email.uni.gr
+Margarita 200901 6900001003 1970 margarita@email.uni.gr
