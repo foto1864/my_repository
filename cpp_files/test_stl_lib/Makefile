@@ -1,7 +1,8 @@
 # Makefile for test_lib.cpp
 
 # Source
-OBJ = test_lib.cpp
+OBJ1 = test_lib.cpp
+OBJ2 = functions.cpp
 
 # Executable
 EXEC = test_lib
@@ -13,8 +14,10 @@ CC = g++
 FLAGS = -Wall -Werror
 
 # Compilation Process
-make: $(OBJ)
-	$(CC) -o $(EXEC) $(OBJ) $(FLAGS)
+make: $(OBJ1) $(OBJ2)
+	$(CC) -c $(OBJ1) $(FLAGS)
+	$(CC) -c $(OBJ2) $(FLAGS)
+	$(CC) -o $(EXEC) test_lib.o functions.o
 
 run: $(EXEC)
 	./$(EXEC)
