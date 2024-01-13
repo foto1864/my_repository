@@ -1,6 +1,5 @@
 #pragma once
 #include "general.h"
-#include "class_person.h"
 
 class Professor : public Person {
     private:

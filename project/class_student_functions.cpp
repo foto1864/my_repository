@@ -1,5 +1,4 @@
-#include "include/class_student.h"
-#include "include/class_person.h"
+#include "include/general.h"
 
 int Student::student_count = 0;
 

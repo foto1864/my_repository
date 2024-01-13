@@ -1,7 +1,4 @@
-#include "include/class_secretary.h"
-#include "include/class_person.h"
-#include "include/class_student.h"
-#include "include/class_professor.h"
+#include "include/general.h"
 
 Secretary::Secretary() {}
 

@@ -1,5 +1,4 @@
 #include "include/general.h"
-#include "include/class_course.h"
 
 string Course::course_get_name(void) {
     return course_name;
