@@ -1,4 +1,4 @@
-#include "include/general.h"
+#include "include/class_secretary.h"
 
 Secretary::Secretary() {}
 

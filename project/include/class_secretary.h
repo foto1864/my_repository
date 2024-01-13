@@ -1,5 +1,7 @@
 #pragma once
 #include "general.h"
+#include "class_student.h"
+#include "class_professor.h"
 
 class Secretary {
     private:
