@@ -77,18 +77,15 @@ void load_courses(void) {
         string mandatory;
         bool is_mandatory;
         uint ECTs;
-
         getline(iss, course_name, '-');
         iss >> semester;
         iss.ignore(); 
         getline(iss, mandatory, '-');
         iss >> ECTs;
-
         if (mandatory == "Mandatory")
             is_mandatory = true;
         else 
             is_mandatory = false;
-
         Course course(course_name, semester, is_mandatory, ECTs);
     }
     courses_file.close();

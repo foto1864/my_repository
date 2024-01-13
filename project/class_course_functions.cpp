@@ -27,6 +27,18 @@ void Course::course_set_grade(uint score) {
 uint Course::course_get_grade(void) {
     return grade;
 }
+
+ostream &operator<<(ostream &str, Course &course) {
+    str << course.course_name << " ";
+    str << course.semester << " ";
+    if (course.is_mandatory == true)
+        str << "Mandatory ";
+    else 
+        str << "Optional ";
+    str << course.ECTs;
+    return str;
+}
+
 Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), ECTs(points) {
     is_mandatory = mand;
     semester = sem;

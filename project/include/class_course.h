@@ -16,5 +16,6 @@ class Course {
         void course_move_semester(uint);
         void course_set_grade(uint);
         uint course_get_grade(void);
+        friend ostream &operator<<(ostream &, Course&); 
         Course(string, uint, bool, uint);
 };
