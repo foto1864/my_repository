@@ -18,10 +18,10 @@ uint Person::get_academic_ID(void) const { return academic_ID; }
 
 // Operator Overloading
 ostream &operator<<(ostream &str, Person &person) {
-    str << person.name << endl;
-    str << person.academic_ID << endl;
-    str << person.phone_number << endl;
-    str << person.birth_year << endl;
+    str << person.name << " ";
+    str << person.academic_ID << " ";
+    str << person.phone_number << " ";
+    str << person.birth_year << " ";
     str << person.email_address << endl;
     return str;
 }

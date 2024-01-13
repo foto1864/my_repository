@@ -3,9 +3,7 @@
 #include "include/class_student.h"
 #include "include/class_professor.h"
 
-Secretary::Secretary() {
-    cout << "University created." << endl;
-}
+Secretary::Secretary() {}
 
 void Secretary::insert_student(Student *p) {
     string name = p->get_name();
@@ -51,14 +49,14 @@ ostream &operator<<(ostream &str, const Secretary &sec){
     map<string, Professor*>::const_iterator it;
     for (it = sec.professors.begin(); it != sec.professors.end(); it++) {
         Person *p = it->second;
-        str << *p << endl;
+        str << *p;
     }
 
     cout << endl << "Students:" << endl;
     map<string, Student*>::const_iterator it_2;
     for (it_2 = sec.students.begin(); it_2 != sec.students.end(); it_2++) {
         Person *p = it_2->second;
-        str << *p << endl;
+        str << *p;
     }
     return str;
 }
@@ -240,6 +238,4 @@ Secretary::~Secretary() {
         if (it_2->second != NULL)
             delete it_2->second;
     }
-    cout << "University terminated." << endl;
-
 }

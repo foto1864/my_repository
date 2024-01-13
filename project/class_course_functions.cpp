@@ -28,4 +28,7 @@ void Course::course_set_grade(uint score) {
 uint Course::course_get_grade(void) {
     return grade;
 }
-Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), semester(sem), is_mandatory(mand), ECTs(points) {}
+Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), ECTs(points) {
+    is_mandatory = mand;
+    semester = sem;
+}

@@ -12,29 +12,29 @@
 void show_menu(void);
 int get_user_input(void);
 void call_intended_function(int);
-void load_database(void);
-void load_students(Secretary);
-void load_professors(void);
+void load_database(Secretary&);
+void load_students(Secretary&);
+void load_professors(Secretary&);
 void load_courses(void);
 
 int main(void) {
+    Secretary university;
+    load_database(university);
     show_menu();
     int key = get_user_input();
     call_intended_function(key);
-    load_database();
+    cout << university;
     return 0;
 }
 
-void load_database(void) {
-    Secretary university;
-    load_students(university);
-    cout << university;
-    load_professors();
+void load_database(Secretary &sec) {
+    load_students(sec);
+    load_professors(sec);
     load_courses();
     return;
 }
 
-void load_students(Secretary sec) {
+void load_students(Secretary &sec) {
     ifstream students_file("database/students.txt");
     string line;
     while (getline(students_file, line)) {
@@ -46,14 +46,13 @@ void load_students(Secretary sec) {
         uint id;
         iss >> name >> id >> phone_number >> birth_year >> email_address;
         uint year_joined_university = CURRENT_YEAR - (id/100);
-        cout << year_joined_university << endl;
         Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
         sec.insert_student(&student);
     }
     students_file.close();
 }
 
-void load_professors(void) {
+void load_professors(Secretary &sec) {
     ifstream professors_file("database/professors.txt");
     string line;
     while (getline(professors_file, line)) {
@@ -65,8 +64,8 @@ void load_professors(void) {
         uint id;
         iss >> name >> id >> phone_number >> birth_year >> email_address;
         uint years_of_experience = CURRENT_YEAR - (id/100);
-        cout << years_of_experience << endl;
         Professor professor(name, email_address, phone_number, birth_year, id, years_of_experience);
+        sec.insert_professor(&professor);
     }
     professors_file.close();
 }
@@ -139,31 +138,22 @@ void call_intended_function(int key) {
     // Call a function depending on the user's input
     switch (key) {
         case 1:
-            cout << "Ton pairnoute?" << endl;
             break; 
         case 2:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 3:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 4:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 5:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 6:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 7:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 8:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 9:
-            cout << "Ton pairnoute?" << endl;
             break;
         case 10:
             cout << "Too many failed attempts. Please try again later." << endl;

@@ -13,7 +13,7 @@ class Course {
         bool course_is_mandatory(void);
         uint course_get_semester(void);
         uint course_get_ECTS(void);
-        void course_move_semester(uint new_semester);
+        void course_move_semester(uint);
         void course_set_grade(uint);
         uint course_get_grade(void);
         Course(string, uint, bool, uint);
