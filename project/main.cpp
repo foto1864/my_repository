@@ -13,7 +13,7 @@ void show_menu(void);
 int get_user_input(void);
 void call_intended_function(int);
 void load_database(void);
-void load_students(void);
+void load_students(Secretary);
 void load_professors(void);
 void load_courses(void);
 
@@ -26,13 +26,15 @@ int main(void) {
 }
 
 void load_database(void) {
-    load_students();
+    Secretary university;
+    load_students(university);
+    cout << university;
     load_professors();
     load_courses();
     return;
 }
 
-void load_students(void) {
+void load_students(Secretary sec) {
     ifstream students_file("database/students.txt");
     string line;
     while (getline(students_file, line)) {
@@ -46,6 +48,7 @@ void load_students(void) {
         uint year_joined_university = CURRENT_YEAR - (id/100);
         cout << year_joined_university << endl;
         Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
+        sec.insert_student(&student);
     }
     students_file.close();
 }

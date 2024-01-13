@@ -5,7 +5,7 @@ string Course::course_get_name(void) {
     return course_name;
 }
 bool Course::course_is_mandatory(void) {
-    return mandatory;
+    return is_mandatory;
 }
 uint Course::course_get_semester(void) {
     return semester;
@@ -28,4 +28,4 @@ void Course::course_set_grade(uint score) {
 uint Course::course_get_grade(void) {
     return grade;
 }
-Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), semester(sem), mandatory(mand), ECTs(points) {}
+Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), semester(sem), is_mandatory(mand), ECTs(points) {}

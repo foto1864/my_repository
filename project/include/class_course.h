@@ -4,7 +4,7 @@
 class Course {
     private:
         string course_name;
-        bool mandatory;
+        bool is_mandatory;
         uint semester;
         uint ECTs;
         uint grade;
