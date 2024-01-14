@@ -8,18 +8,21 @@
 
 void show_menu(void);
 int get_user_input(int, int);
-void call_intended_function(int);
+void call_intended_function(Secretary&, int);
 void load_database(Secretary&);
 void load_students(Secretary&);
 void load_professors(Secretary&);
 void load_courses(void);
+void add_edit_remove_professor(Secretary&);
+void add_edit_remove_student(Secretary&);
+//void add_edit_remove_course(void);
 
 int main(void) {
     Secretary university;
     load_database(university);
     show_menu();
     int key = get_user_input(1,9);
-    call_intended_function(key);
+    call_intended_function(university, key);
     cout << university;
     return 0;
 }
@@ -117,9 +120,10 @@ int get_user_input(int from, int to) {
     while ((pressed_key > to) || (pressed_key < from)) {
         count++;  
         if (count < 5) 
-            cout << "Invalid key entered. You can only select an option from 1-9." << endl;   
+            cout << "Invalid key entered. You can only select an option from " << from << "-" << to << "." << endl;   
         else if (count >= 5) {
-            pressed_key = 10;
+            cout << "Too many failed attempts. Please try again later." << endl;
+            pressed_key = -1;
             break;
         }
         cin >> pressed_key;
@@ -127,15 +131,56 @@ int get_user_input(int from, int to) {
     return pressed_key;
 }
 
-void call_intended_function(int key) {
+void add_edit_remove_professor(Secretary &uni) {
+    cout << "Do you want to 1) add, 2) edit or 3) remove a professor from the university?" << endl;
+    cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+    int key = get_user_input(1,3);
+    
+    if (key == 1) {
+        Professor new_professor;
+        cin >> new_professor;
+        uni.insert_professor(&new_professor);
+    }
+    else if (key == 2) {
+    
+    }
+    else if (key == 3) {
+
+    }
+    else return;
+}
+
+
+void add_edit_remove_student(Secretary &uni) {
+    cout << "Do you want to 1) add, 2) edit or 3) remove a student from the university?" << endl;
+    cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+    int key = get_user_input(1,3);
+    
+    if (key == 1) {
+        Student new_student;
+        cin >> new_student;
+        uni.insert_student(&new_student);
+    }
+}
+// void add_edit_remove_course(void) {
+//     cout << "Do you want to 1) add, 2) edit or 3) remove a course from the university?" << endl;
+//     cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+//     int key = get_user_input(1,3);
+// }
+
+
+void call_intended_function(Secretary &uni, int key) {
     
     // Call a function depending on the user's input
     switch (key) {
         case 1:
+            add_edit_remove_professor(uni);
             break; 
         case 2:
+            add_edit_remove_student(uni);
             break;
         case 3:
+            //add_edit_remove_course();
             break;
         case 4:
             break;
@@ -149,8 +194,7 @@ void call_intended_function(int key) {
             break;
         case 9:
             break;
-        case 10:
-            cout << "Too many failed attempts. Please try again later." << endl;
+        default:
             break;
     }
 }
