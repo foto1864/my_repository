@@ -12,8 +12,8 @@ class Secretary {
         void insert_professor(Professor*);
         bool remove_professor(string);
         bool remove_student(string);
-        bool find_student(string);
-        bool find_professor(string);
+        Student* find_student(string);
+        Professor* find_professor(string);
         uint size(void);
         friend ostream &operator<<(ostream &, const Secretary&);
         friend istream &operator>>(istream &, Secretary&);
