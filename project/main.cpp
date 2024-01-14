@@ -7,7 +7,7 @@
 #include "include/class_student.h"
 
 void show_menu(void);
-int get_user_input(void);
+int get_user_input(int, int);
 void call_intended_function(int);
 void load_database(Secretary&);
 void load_students(Secretary&);
@@ -18,7 +18,7 @@ int main(void) {
     Secretary university;
     load_database(university);
     show_menu();
-    int key = get_user_input();
+    int key = get_user_input(1,9);
     call_intended_function(key);
     cout << university;
     return 0;
@@ -108,13 +108,13 @@ void show_menu(void) {
     
 }
 
-int get_user_input(void) {
+int get_user_input(int from, int to) {
     
     // Get input from the user
     int count = 0;
     int pressed_key;
     cin >> pressed_key;
-    while ((pressed_key > 9) || (pressed_key < 0)) {
+    while ((pressed_key > to) || (pressed_key < from)) {
         count++;  
         if (count < 5) 
             cout << "Invalid key entered. You can only select an option from 1-9." << endl;   
