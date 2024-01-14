@@ -219,11 +219,21 @@ void add_edit_remove_student(Secretary &uni) {
     }
 }
 
-// void add_edit_remove_course(void) {
-//     cout << "Do you want to 1) add, 2) edit or 3) remove a course from the university?" << endl;
-//     cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
-//     int key = get_user_input(1,3);
-// }
+void add_edit_remove_course(void) {
+    cout << "Do you want to 1) add, 2) edit or 3) remove a course from the university?" << endl;
+    cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+    int key = get_user_input(1,3);
+    if (key == ADD) {
+
+    }
+    else if (key == EDIT) {
+
+    }
+    else if (key == REMOVE) {
+
+    }
+    else return;
+}
 
 
 void call_intended_function(Secretary &uni, int key) {

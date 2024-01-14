@@ -14,5 +14,6 @@
 #define ADD_EDIT_REMOVE_COURSE 3
 #define STUDENT_DOES_NOT_EXIST nullptr
 #define PROFESSOR_DOES_NOT_EXIST nullptr
+#define COURSE_DOES_NOT_EXIST nullptr
 #define CURRENT_YEAR 2024
 using namespace std;

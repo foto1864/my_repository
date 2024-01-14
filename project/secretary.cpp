@@ -24,6 +24,16 @@ void Secretary::insert_professor(Professor *p) {
     professors[phone] = new_professor;
 }
 
+void Secretary::insert_course(Course *c) {
+    string course_name = c->course_get_name();
+    uint ECTs = c->course_get_ECTS();
+    uint semester = c->course_get_semester();
+    bool is_mandatory = c->course_is_mandatory();
+    Course *new_course = new Course(course_name, semester, is_mandatory, ECTs);
+    courses[course_name] = new_course;
+}
+
+
 bool Secretary::remove_professor(string phone_number) {
     if (professors.erase(phone_number) > 0) {
         return true;
@@ -38,6 +48,14 @@ bool Secretary::remove_student(string phone_number) {
     return false;
 }
 
+bool Secretary::remove_course(string course_name) {
+    if (courses.erase(course_name) > 0) {
+        return true;
+    }
+    return false;
+}
+
+
 Student* Secretary::find_student(string phone_number) {
     map<string, Student*>::iterator map_iterator;
     map_iterator = students.find(phone_number);
@@ -47,6 +65,11 @@ Professor* Secretary::find_professor(string phone_number) {
     map<string, Professor*>::iterator map_iterator;
     map_iterator = professors.find(phone_number);
     return (map_iterator == professors.end()) ? PROFESSOR_DOES_NOT_EXIST : map_iterator->second;
+}
+Course* Secretary::find_course(string course_name) {
+    map<string, Course*>::iterator map_iterator;
+    map_iterator = courses.find(course_name);
+    return (map_iterator == courses.end()) ? COURSE_DOES_NOT_EXIST : map_iterator->second;
 }
 
 uint Secretary::size(void) {
