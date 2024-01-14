@@ -1,4 +1,4 @@
-#include "include/class_professor.h"
+#include "include/professor.h"
 
 int Professor::professor_count = 0;
 

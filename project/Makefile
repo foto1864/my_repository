@@ -4,19 +4,19 @@
 CC = g++
 
 # Source Files
-OBJ1 = class_course_functions.cpp
-OBJ2 = class_person_functions.cpp
-OBJ3 = class_professor_functions.cpp
-OBJ4 = class_student_functions.cpp
-OBJ5 = class_secretary_functions.cpp
+OBJ1 = course.cpp
+OBJ2 = person.cpp
+OBJ3 = professor.cpp
+OBJ4 = student.cpp
+OBJ5 = secretary.cpp
 MAIN = main.cpp
 
 # Unlinked Files
-UNL1 = class_course_functions.o
-UNL2 = class_person_functions.o
-UNL3 = class_professor_functions.o
-UNL4 = class_student_functions.o
-UNL5 = class_secretary_functions.o
+UNL1 = course.o
+UNL2 = person.o
+UNL3 = professor.o
+UNL4 = student.o
+UNL5 = secretary.o
 UNLM = main.o 
 
 # Executable
@@ -35,10 +35,10 @@ make: $(OBJ1) $(OBJ2) $(OBJ3) $(OBJ4) $(OBJ5) $(MAIN)
 	@$(CC) -o $(EXEC) $(UNL1) $(UNL2) $(UNL3) $(UNL4) $(UNL5) $(UNLM) $(FLAGS)
 	@echo g++ -o university unlinked.o -Wall -Werror
 
-clean:
+clean: $(EXEC)
 	@echo Removed .o files and executable 
 	@rm $(EXEC)
-	@rm $(UNL1) $(UNL2) $(UNL3) $(UNL4) $(UNL5) $(UNLM)
+	@rm *.o
 
 run: $(EXEC)
 	./$(EXEC)

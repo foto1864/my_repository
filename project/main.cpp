@@ -1,10 +1,10 @@
 // File: project_section_a.cpp
 #include "include/general.h"
-#include "include/class_course.h"
-#include "include/class_person.h"
-#include "include/class_professor.h"
-#include "include/class_secretary.h"
-#include "include/class_student.h"
+#include "include/course.h"
+#include "include/person.h"
+#include "include/professor.h"
+#include "include/secretary.h"
+#include "include/student.h"
 
 void show_menu(void);
 int get_user_input(int, int);
@@ -153,5 +153,4 @@ void call_intended_function(int key) {
             cout << "Too many failed attempts. Please try again later." << endl;
             break;
     }
-
 }

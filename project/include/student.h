@@ -1,7 +1,7 @@
 #pragma once
 #include "general.h"
-#include "class_person.h"
-#include "class_course.h"
+#include "person.h"
+#include "course.h"
 
 class Student : public Person {
     private:
