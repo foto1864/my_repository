@@ -10,6 +10,8 @@ class Secretary {
     public:
         void insert_student(Student*);
         void insert_professor(Professor*);
+        bool remove_professor(string);
+        bool remove_student(string);
         bool find_student(string);
         bool find_professor(string);
         uint size(void);

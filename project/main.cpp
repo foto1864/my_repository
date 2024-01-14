@@ -141,8 +141,15 @@ void add_edit_remove_professor(Secretary &uni) {
         cin >> new_professor;
         uni.insert_professor(&new_professor);
     }
-    else if (key == 2) {
-    
+    else if (key == 3) {
+        cout << "Type in the phone_number of the professor you want to remove from the university" << endl;
+        string phone_number;
+        cin >> phone_number;
+        bool removed = uni.remove_professor(phone_number);
+        if (removed == true) 
+            cout << "Removal of professor was successful." << endl;
+        else 
+            cout << "There does not exist a professor with such a phone number in the university." << endl;
     }
     else if (key == 3) {
 
@@ -160,6 +167,16 @@ void add_edit_remove_student(Secretary &uni) {
         Student new_student;
         cin >> new_student;
         uni.insert_student(&new_student);
+    }
+    else if (key == 3) {
+        cout << "Type in the phone_number of the student you want to remove from the university" << endl;
+        string phone_number;
+        cin >> phone_number;
+        bool removed = uni.remove_student(phone_number);
+        if (removed == true) 
+            cout << "Removal of student was successful." << endl;
+        else 
+            cout << "There does not exist a student with such a phone number in the university." << endl;
     }
 }
 // void add_edit_remove_course(void) {

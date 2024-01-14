@@ -24,6 +24,20 @@ void Secretary::insert_professor(Professor *p) {
     professors[phone] = new_professor;
 }
 
+bool Secretary::remove_professor(string phone_number) {
+    if (professors.erase(phone_number) > 0) {
+        return true;
+    }
+    return false;
+}
+
+bool Secretary::remove_student(string phone_number) {
+    if (students.erase(phone_number) > 0) {
+        return true;
+    }
+    return false;
+}
+
 bool Secretary::find_student(string phone_number) {
     map<string, Student*>::iterator map_iterator;
     map_iterator = students.find(phone_number);
