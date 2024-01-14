@@ -41,12 +41,12 @@ bool Secretary::remove_student(string phone_number) {
 Student* Secretary::find_student(string phone_number) {
     map<string, Student*>::iterator map_iterator;
     map_iterator = students.find(phone_number);
-    return (map_iterator == students.end()) ? nullptr : map_iterator->second;
+    return (map_iterator == students.end()) ? STUDENT_DOES_NOT_EXIST : map_iterator->second;
 }
 Professor* Secretary::find_professor(string phone_number) {
     map<string, Professor*>::iterator map_iterator;
     map_iterator = professors.find(phone_number);
-    return (map_iterator == professors.end()) ? nullptr : map_iterator->second;
+    return (map_iterator == professors.end()) ? PROFESSOR_DOES_NOT_EXIST : map_iterator->second;
 }
 
 uint Secretary::size(void) {

@@ -95,7 +95,6 @@ void load_courses(void) {
 }
 
 void show_menu(void) {
-    
     // Show the menu of options to the User
     cout << endl << "Welcome to our University! You have the following options:" << endl << endl;
     cout << "1) Add - Edit - Remove Professor" << endl;
@@ -108,7 +107,6 @@ void show_menu(void) {
     cout << "8) Print your average score (for students only)" << endl;
     cout << "9) Print a list of all the students that are eligible to graduate from the University" << endl << endl;
     cout << "You can select one of the options 1-9 by pressing the corresponding key." << endl;
-    
 }
 
 int get_user_input(int from, int to) {
@@ -147,7 +145,7 @@ void add_edit_remove_professor(Secretary &uni) {
         string phone_number;
         cin >> phone_number;
         Professor *old_professor = uni.find_professor(phone_number);
-        if (old_professor == nullptr) {
+        if (old_professor == PROFESSOR_DOES_NOT_EXIST) {
             cout << "There does not exist a professor with such a phone number in the university." << endl;
         }
         else {
@@ -164,7 +162,7 @@ void add_edit_remove_professor(Secretary &uni) {
     }
     // Remove Professor
     else if (key == REMOVE) {
-        cout << "Type in the phone_number of the professor you want to remove from the university" << endl;
+        cout << "Type in the phone number of the professor you want to remove from the university" << endl;
         string phone_number;
         cin >> phone_number;
         bool removed = uni.remove_professor(phone_number);
@@ -194,7 +192,7 @@ void add_edit_remove_student(Secretary &uni) {
         string phone_number;
         cin >> phone_number;
         Student *old_student = uni.find_student(phone_number);
-        if (old_student == nullptr) {
+        if (old_student == STUDENT_DOES_NOT_EXIST) {
             cout << "There does not exist a student with such a phone number in the university." << endl;
         }
         else {
@@ -210,7 +208,7 @@ void add_edit_remove_student(Secretary &uni) {
     }
     // Remove Student
     else if (key == REMOVE) {
-        cout << "Type in the phone_number of the student you want to remove from the university" << endl;
+        cout << "Type in the phone number of the student you want to remove from the university" << endl;
         string phone_number;
         cin >> phone_number;
         bool removed = uni.remove_student(phone_number);
@@ -229,16 +227,15 @@ void add_edit_remove_student(Secretary &uni) {
 
 
 void call_intended_function(Secretary &uni, int key) {
-    
     // Call a function depending on the user's input
     switch (key) {
-        case 1:
+        case ADD_EDIT_REMOVE_PROFESSOR:
             add_edit_remove_professor(uni);
             break; 
-        case 2:
+        case ADD_EDIT_REMOVE_STUDENT:
             add_edit_remove_student(uni);
             break;
-        case 3:
+        case ADD_EDIT_REMOVE_COURSE:
             //add_edit_remove_course();
             break;
         case 4:
