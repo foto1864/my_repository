@@ -11,7 +11,7 @@ class Student : public Person {
         static int student_count;
         uint get_years_joined(void);
         void set_years_joined(uint);
-        void student_join_course(Course*);
+        bool student_join_course(Course*);
         void student_print_courses(void);
         Student();
         Student(string, uint);

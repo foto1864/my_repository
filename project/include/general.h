@@ -20,5 +20,5 @@
 #define STUDENT_DOES_NOT_EXIST nullptr
 #define PROFESSOR_DOES_NOT_EXIST nullptr
 #define COURSE_DOES_NOT_EXIST nullptr
-#define CURRENT_YEAR 2024
+#define CURRENT_YEAR 2022
 using namespace std;

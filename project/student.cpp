@@ -9,14 +9,17 @@ void Student::set_years_joined(uint years) {
         years_joined_university = years;
 }
 
-void Student::student_join_course(Course *new_course) {
+bool Student::student_join_course(Course *new_course) {
         // Check if student can join the course
         // Has to be in current semester or earlier
-        if (new_course->course_get_semester() >= years_joined_university) 
+        if (new_course->course_get_semester() <= years_joined_university + 1) {
                 student_courses[new_course->course_get_name()] = new_course;
-        else 
+                return true;
+        }
+        else {
                 cout << "You can't join a course in a later semester than the one you're already on." << endl;
-        
+                return false;
+        }
 }
 void Student::student_print_courses(void) {
         map<string, Course*>::const_iterator map_iterator;

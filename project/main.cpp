@@ -312,8 +312,8 @@ void student_join_course(Secretary &uni) {
         cout << "There does not exist a course with such name in the university." << endl;
         return;
     }
-    student->student_join_course(course);
-    cout << "Student has successfully joined course." << endl;
+    if (student->student_join_course(course))
+        cout << "Student has successfully joined course." << endl;
     return;
 }
 
