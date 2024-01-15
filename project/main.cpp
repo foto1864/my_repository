@@ -15,7 +15,7 @@ void load_professors(Secretary&);
 void load_courses(void);
 void add_edit_remove_professor(Secretary&);
 void add_edit_remove_student(Secretary&);
-//void add_edit_remove_course(void);
+void add_edit_remove_course(Secretary&);
 
 int main(void) {
     Secretary university;
@@ -219,7 +219,7 @@ void add_edit_remove_student(Secretary &uni) {
     }
 }
 
-void add_edit_remove_course(void) {
+void add_edit_remove_course(Secretary &uni) {
     cout << "Do you want to 1) add, 2) edit or 3) remove a course from the university?" << endl;
     cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
     int key = get_user_input(1,3);

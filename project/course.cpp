@@ -1,5 +1,7 @@
 #include "include/course.h"
 
+int Course::count = 0;
+
 string Course::course_get_name(void) {
     return course_name;
 }
@@ -24,8 +26,47 @@ void Course::course_move_semester(uint new_semester) {
 void Course::course_set_grade(uint score) {
     grade = score;
 }
+void Course::course_set_name(string name) {
+    course_name = name;
+}
+void Course::course_set_semester(uint sem) {
+    semester = sem;
+}
+void Course::course_set_ECTs(uint points) {
+    ECTs = points;
+}
+void Course::course_set_is_mandatory(bool mand) {
+    is_mandatory = mand;
+}
 uint Course::course_get_grade(void) {
     return grade;
+}
+
+istream &operator>>(istream &str, Course &course) {
+    cout << "Enter the Course's characteristics in the following order:" << endl;
+    cout << "Course name, semester, ECTs, M if course is mandatory or O if course is optional." << endl;
+    string course_name;
+    uint semester;
+    uint ECTs;
+    bool is_mandatory;
+    string is_mandatory_string;
+    str >> course_name;
+    str >> semester;
+    str >> ECTs;
+    str >> is_mandatory_string;
+    if (is_mandatory_string == "M") 
+        is_mandatory = true;
+    else if (is_mandatory_string == "O")
+        is_mandatory = false;
+    else {
+        cout << "Invalid character entered. Please try again later." << endl;
+        exit(1);
+    }
+    course.course_set_name(course_name);
+    course.course_set_semester(semester);
+    course.course_set_ECTs(ECTs);
+    course.course_set_is_mandatory(is_mandatory);
+    return str;
 }
 
 ostream &operator<<(ostream &str, Course &course) {
@@ -39,7 +80,16 @@ ostream &operator<<(ostream &str, Course &course) {
     return str;
 }
 
+Course::Course() {
+    count++;
+}
+
 Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), ECTs(points) {
+    count++;
     is_mandatory = mand;
     semester = sem;
+}
+
+Course::~Course() {
+    count--;
 }
