@@ -2,7 +2,6 @@
 #include <iostream>
 #include <map>
 #include <cstdlib>
-#include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -12,6 +11,12 @@
 #define ADD_EDIT_REMOVE_PROFESSOR 1
 #define ADD_EDIT_REMOVE_STUDENT 2
 #define ADD_EDIT_REMOVE_COURSE 3
+#define COURSE_SET_PROFESSOR 4
+#define STUDENT_JOIN_COURSE 5
+#define PRINT_SAVE_STUDENTS_PASSED_COURSE 6
+#define PROFESSOR_PRINT_STATS 7
+#define STUDENT_PRINT_STATS 8
+#define PRINT_STUDENTS_CAN_GRADUATE 9
 #define STUDENT_DOES_NOT_EXIST nullptr
 #define PROFESSOR_DOES_NOT_EXIST nullptr
 #define COURSE_DOES_NOT_EXIST nullptr
