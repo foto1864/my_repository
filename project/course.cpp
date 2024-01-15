@@ -45,14 +45,11 @@ uint Course::course_get_grade(void) {
 istream &operator>>(istream &str, Course &course) {
     cout << "Enter the Course's characteristics in the following order:" << endl;
     cout << "Course name, semester, ECTs, M if course is mandatory or O if course is optional." << endl;
-    string course_name;
-    uint semester;
-    uint ECTs;
     bool is_mandatory;
     string is_mandatory_string;
-    str >> course_name;
-    str >> semester;
-    str >> ECTs;
+    str >> course.course_name;
+    str >> course.semester;
+    str >> course.ECTs;
     str >> is_mandatory_string;
     if (is_mandatory_string == "M") 
         is_mandatory = true;
@@ -62,9 +59,6 @@ istream &operator>>(istream &str, Course &course) {
         cout << "Invalid character entered. Please try again later." << endl;
         exit(1);
     }
-    course.course_set_name(course_name);
-    course.course_set_semester(semester);
-    course.course_set_ECTs(ECTs);
     course.course_set_is_mandatory(is_mandatory);
     return str;
 }

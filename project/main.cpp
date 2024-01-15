@@ -117,7 +117,7 @@ int get_user_input(int from, int to) {
     while ((pressed_key > to) || (pressed_key < from)) {
         count++;  
         if (count < 5) 
-            cout << "Invalid key entered. You can only select an option from " << from << "-" << to << "." << endl;   
+            cout << "Invalid number entered. You can only select an option from " << from << "-" << to << "." << endl;   
         else if (count >= 5) {
             cout << "Too many failed attempts. Please try again later." << endl;
             pressed_key = -1;
@@ -147,6 +147,7 @@ void add_edit_remove_professor(Secretary &uni) {
         Professor *old_professor = uni.find_professor(phone_number);
         if (old_professor == PROFESSOR_DOES_NOT_EXIST) {
             cout << "There does not exist a professor with such a phone number in the university." << endl;
+            exit(1);
         }
         else {
             cout << "Type in the new phone number of the professor." << endl;
@@ -165,11 +166,15 @@ void add_edit_remove_professor(Secretary &uni) {
         cout << "Type in the phone number of the professor you want to remove from the university" << endl;
         string phone_number;
         cin >> phone_number;
-        bool removed = uni.remove_professor(phone_number);
-        if (removed == true) 
-            cout << "Removal of professor was successful." << endl;
-        else 
+        Professor *professor = uni.find_professor(phone_number);
+        if (professor == PROFESSOR_DOES_NOT_EXIST) {
             cout << "There does not exist a professor with such a phone number in the university." << endl;
+            exit(1);
+        }
+        else {
+            uni.remove_professor(phone_number);
+            cout << "Removal of Professor was successful." << endl;
+        }
     }
     else return;
 }
@@ -194,6 +199,7 @@ void add_edit_remove_student(Secretary &uni) {
         Student *old_student = uni.find_student(phone_number);
         if (old_student == STUDENT_DOES_NOT_EXIST) {
             cout << "There does not exist a student with such a phone number in the university." << endl;
+            exit(1);
         }
         else {
             cout << "Type in the new phone number of the student." << endl;
@@ -211,11 +217,15 @@ void add_edit_remove_student(Secretary &uni) {
         cout << "Type in the phone number of the student you want to remove from the university" << endl;
         string phone_number;
         cin >> phone_number;
-        bool removed = uni.remove_student(phone_number);
-        if (removed == true) 
-            cout << "Removal of student was successful." << endl;
-        else 
+        Student *student = uni.find_student(phone_number);
+        if (student == STUDENT_DOES_NOT_EXIST) {
             cout << "There does not exist a student with such a phone number in the university." << endl;
+            exit(1);
+        }
+        else {
+            uni.remove_student(phone_number);
+            cout << "Removal of Student was successful." << endl;
+        }
     }
 }
 
@@ -224,13 +234,52 @@ void add_edit_remove_course(Secretary &uni) {
     cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
     int key = get_user_input(1,3);
     if (key == ADD) {
-
+        Course new_course;
+        cin >> new_course;
+        uni.insert_course(&new_course);
     }
     else if (key == EDIT) {
-
+        cout << "Type in the name of the course you want to edit." << endl;
+        string course_name;
+        cin >> course_name;
+        Course *course = uni.find_course(course_name);
+        if (course == COURSE_DOES_NOT_EXIST) {
+            cout << "There does not exist a course with such name in the university." << endl;
+            exit(1);
+        }
+        else {
+            cout << "You can edit a course by entering the ECTs it attributes to a student when they pass the course." << endl;
+            cout << "The ECTs a course can attribute can be a number between 2-8. Please type in the number:" << endl;
+            int new_ECTs = get_user_input(2,8);
+            int old_ECTs = course->course_get_ECTS();
+            if (new_ECTs < 1) 
+                exit(1);
+            Course new_course = *course;
+            new_course.course_set_ECTs(new_ECTs);
+            uni.insert_course(&new_course);
+            uni.remove_course(course_name);
+            cout << "Changing the ECTs of Course '" << course->course_get_name()
+                 << "' from " << old_ECTs << " to " << new_ECTs << "was successful." << endl;
+        }
     }
     else if (key == REMOVE) {
-
+        cout << "Type in the name of the course you want to remove." << endl;
+        string course_name;
+        cin >> course_name;
+        Course *course = uni.find_course(course_name);
+        if (course == COURSE_DOES_NOT_EXIST) {
+            cout << "There does not exist a course with such name in the university." << endl;
+            exit(1);
+        }
+        else {
+            bool is_mandatory = course->course_is_mandatory();     
+            if (is_mandatory) 
+                cout << "Removal of a mandatory course is impossible." << endl;
+            else {
+                uni.remove_course(course_name);
+                cout << "Removal of Course was successful." << endl;
+            } 
+        }
     }
     else return;
 }
@@ -246,7 +295,7 @@ void call_intended_function(Secretary &uni, int key) {
             add_edit_remove_student(uni);
             break;
         case ADD_EDIT_REMOVE_COURSE:
-            //add_edit_remove_course();
+            add_edit_remove_course(uni);
             break;
         case 4:
             break;
