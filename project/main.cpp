@@ -291,7 +291,8 @@ void course_set_professor(Secretary &uni) {
         cout << "There does not exist a professor with such phone number in the university." << endl;
         return;
     }
-    
+    professor->professor_set_course(course);
+    cout << "Course '" << course_name << "' assigned to professor '" << professor->get_name() << "'." << endl; 
 }
 
 void student_join_course(Secretary &uni) {
