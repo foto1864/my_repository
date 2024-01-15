@@ -17,7 +17,7 @@ void Professor::professor_print_courses(void) {
         map<string, Course*>::const_iterator map_iterator;
         cout << "Currently the professor you selected is teaching the following courses:" << endl;
         for (map_iterator = professor_courses.begin(); map_iterator != professor_courses.end(); map_iterator++) {
-                cout << map_iterator->second;
+                cout << *(map_iterator->second) << endl;
         }
 }
 

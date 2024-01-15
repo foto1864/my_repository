@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <limits.h>
 #define ADD 1
 #define EDIT 2
 #define REMOVE 3
@@ -18,6 +19,7 @@
 #define STUDENT_PRINT_STATS 8
 #define PRINT_STUDENTS_CAN_GRADUATE 9
 #define PROFESSOR_SET_GRADE_TO_COURSE 10
+#define EXIT_MENU 11
 #define STUDENT_DOES_NOT_EXIST nullptr
 #define PROFESSOR_DOES_NOT_EXIST nullptr
 #define COURSE_DOES_NOT_EXIST nullptr

@@ -24,9 +24,13 @@ int main(void) {
     Secretary university;
     load_database(university);
     show_menu();
-    int key = get_user_input(1,10);
-    call_intended_function(university, key);
-    cout << university;
+    int key = get_user_input(1,11);
+    while (key != EXIT_MENU) {
+        call_intended_function(university, key);
+        show_menu();
+        key = get_user_input(1,11);
+    }
+    cout << "Thank you for using our university services!" << endl;
     return 0;
 }
 
@@ -108,8 +112,10 @@ void show_menu(void) {
     cout << "6) Print a list of the students that passed a course in the current semester" << endl; 
     cout << "7) Print the statistics for all courses in the current semester (for Professors only)" << endl;
     cout << "8) Print your average score (for students only)" << endl;
-    cout << "9) Print a list of all the students that are eligible to graduate from the University" << endl << endl;
-    cout << "You can select one of the options 1-9 by pressing the corresponding key." << endl;
+    cout << "9) Print a list of all the students that are eligible to graduate from the University" << endl;
+    cout << "10) Assign a grade to a course for a specific student (for professors only)." << endl;
+    cout << "11) EXIT MENU. " << endl << endl;
+    cout << "You can select one of the options 1-11 by pressing the corresponding key." << endl;
 }
 
 int get_user_input(int from, int to) {
@@ -195,7 +201,7 @@ void add_edit_remove_student(Secretary &uni) {
         cout << "Type in the phone number of the student you want to edit." << endl;
         string phone_number;
         cin >> phone_number;
-        Student *old_student = uni.find_student(phone_number);
+        Student *old_student = uni.find_student_by_phone_number(phone_number);
         if (old_student == STUDENT_DOES_NOT_EXIST) {
             cout << "There does not exist a student with such a phone number in the university." << endl;
             return;
@@ -215,7 +221,7 @@ void add_edit_remove_student(Secretary &uni) {
         cout << "Type in the phone number of the student you want to remove from the university" << endl;
         string phone_number;
         cin >> phone_number;
-        Student *student = uni.find_student(phone_number);
+        Student *student = uni.find_student_by_phone_number(phone_number);
         if (student == STUDENT_DOES_NOT_EXIST) {
             cout << "There does not exist a student with such a phone number in the university." << endl;
             return;
@@ -300,7 +306,7 @@ void student_join_course(Secretary &uni) {
     cout << "Type in the phone number of the student you want to join to a course." << endl;
     string phone_number;
     cin >> phone_number;
-    Student *student = uni.find_student(phone_number);
+    Student *student = uni.find_student_by_phone_number(phone_number);
     if (student == STUDENT_DOES_NOT_EXIST) {
         cout << "There does not exist a student with such phone number in the university." << endl;
         return;
@@ -328,7 +334,7 @@ void professor_set_grade_to_course(Secretary &uni) {
         return;
     }
     professor->professor_print_courses();
-    cout << "Type in the name of the course you want the professos to a assign a grade to a student." << endl;
+    cout << "Type in the name of the course you want the professor to a assign a grade to a student." << endl;
     string course_name;
     cin >> course_name;
     Course *course = professor->professor_find_course(course_name);
@@ -337,6 +343,33 @@ void professor_set_grade_to_course(Secretary &uni) {
         return;
     }
     cout << "The students who are taking this course are the following:" << endl;
+    Student **students_array = uni.find_students_by_course(course_name);
+    int array_size = 0;
+    for (int i=0; i<INT_MAX; i++) {
+        if (students_array[i] != nullptr) 
+            array_size++;
+        else 
+            break;
+    }
+    for (int i=0; i<array_size; i++) {
+        cout << *students_array[i];
+    }
+    // ADD CHECK
+    cout << "Select a student by entering their phone number:" << endl;
+    string student_phone_number;
+    cin >> student_phone_number;
+    for (int i=0; i<array_size; i++) {
+        if (students_array[i]->get_phone_number() == student_phone_number) {
+            cout << "Enter the grade you want to assign to the student." << endl;
+            uint grade;
+            cin >> grade;
+            students_array[i]->assign_grade_to_course(course_name, grade);
+            cout << "Assigned the grade '" << grade << "' to student '" << students_array[i]->get_name() << "'." << endl;
+        }
+        else {
+            cout << "There does not exist a student with such phone number that is taking the specific course." << endl;
+        }
+    }
 
 }
 

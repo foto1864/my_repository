@@ -57,11 +57,24 @@ bool Secretary::remove_course(string course_name) {
 }
 
 
-Student* Secretary::find_student(string phone_number) {
+Student* Secretary::find_student_by_phone_number(string phone_number) {
     map<string, Student*>::iterator map_iterator;
     map_iterator = students.find(phone_number);
     return (map_iterator == students.end()) ? STUDENT_DOES_NOT_EXIST : map_iterator->second;
 }
+Student** Secretary::find_students_by_course(string course_name) {
+    map<string, Student*>::iterator map_iterator;
+    string course_name_in_map;
+    Student **students_array = new Student*[students.size()];
+    int i=0;
+    for (map_iterator = students.begin(); map_iterator != students.end(); map_iterator++) {
+       students_array[i] = map_iterator->second->student_has_joined_course(course_name);
+       i++;
+    }
+    return students_array;
+}
+
+
 Professor* Secretary::find_professor(string phone_number) {
     map<string, Professor*>::iterator map_iterator;
     map_iterator = professors.find(phone_number);

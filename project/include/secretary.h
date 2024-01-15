@@ -15,7 +15,8 @@ class Secretary {
         bool remove_professor(string);
         bool remove_student(string);
         bool remove_course(string);
-        Student* find_student(string);
+        Student* find_student_by_phone_number(string);
+        Student** find_students_by_course(string);
         Professor* find_professor(string);
         Course* find_course(string);
         uint size(void);

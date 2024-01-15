@@ -12,7 +12,7 @@ void Student::set_years_joined(uint years) {
 Student* Student::student_has_joined_course(string course_name) {
         map<string, Course*>::const_iterator map_iterator;
         map_iterator = student_courses.find(course_name);
-        return (map_iterator == student_courses.end()) ? STUDENT_DOES_NOT_EXIST : map_iterator->second;
+        return (map_iterator == student_courses.end()) ? STUDENT_DOES_NOT_EXIST : this;
 }
 
 bool Student::student_join_course(Course *new_course) {
@@ -33,7 +33,11 @@ void Student::student_print_courses(void) {
                 cout << map_iterator->second;
         }
 }
-
+void Student::assign_grade_to_course(string course_name, uint grade) {
+        map<string, Course*>::iterator map_iterator;
+        map_iterator = student_courses.find(course_name);
+        map_iterator->second->course_set_grade(grade);
+}
 
 Student::Student() { student_count++; }
 Student::Student(string n,uint id) : Person(n, id) { student_count++; }
