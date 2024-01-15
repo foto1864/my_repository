@@ -12,7 +12,7 @@ void call_intended_function(Secretary&, int);
 void load_database(Secretary&);
 void load_students(Secretary&);
 void load_professors(Secretary&);
-void load_courses(void);
+void load_courses(Secretary&);
 void add_edit_remove_professor(Secretary&);
 void add_edit_remove_student(Secretary&);
 void add_edit_remove_course(Secretary&);
@@ -70,7 +70,7 @@ void load_professors(Secretary &sec) {
     professors_file.close();
 }
 
-void load_courses(void) {
+void load_courses(Secretary &sec) {
     ifstream courses_file("database/courses.txt");
     string line;
     while (getline(courses_file, line)) {
@@ -90,6 +90,7 @@ void load_courses(void) {
         else 
             is_mandatory = false;
         Course course(course_name, semester, is_mandatory, ECTs);
+        sec.insert_course(&course);
     }
     courses_file.close();
 }
