@@ -9,6 +9,12 @@ void Student::set_years_joined(uint years) {
         years_joined_university = years;
 }
 
+Student* Student::student_has_joined_course(string course_name) {
+        map<string, Course*>::const_iterator map_iterator;
+        map_iterator = student_courses.find(course_name);
+        return (map_iterator == student_courses.end()) ? STUDENT_DOES_NOT_EXIST : map_iterator->second;
+}
+
 bool Student::student_join_course(Course *new_course) {
         // Check if student can join the course
         // Has to be in current semester or earlier

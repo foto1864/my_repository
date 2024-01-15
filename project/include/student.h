@@ -13,6 +13,7 @@ class Student : public Person {
         void set_years_joined(uint);
         bool student_join_course(Course*);
         void student_print_courses(void);
+        Student* student_has_joined_course(string);
         Student();
         Student(string, uint);
         Student(string, string, string, uint, uint);

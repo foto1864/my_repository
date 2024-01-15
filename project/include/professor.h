@@ -12,6 +12,8 @@ class Professor : public Person {
         uint get_years_experience(void);
         void set_years_of_experience(uint);
         void professor_set_course(Course*);
+        void professor_print_courses(void);
+        Course *professor_find_course(string);
         Professor();
         Professor(string, uint);
         Professor(string, string, string, uint, uint);

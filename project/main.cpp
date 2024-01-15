@@ -18,12 +18,13 @@ void add_edit_remove_student(Secretary&);
 void add_edit_remove_course(Secretary&);
 void student_join_course(Secretary&);
 void course_set_professor(Secretary&);
+void professor_set_grade_to_course(Secretary&);
 
 int main(void) {
     Secretary university;
     load_database(university);
     show_menu();
-    int key = get_user_input(1,9);
+    int key = get_user_input(1,10);
     call_intended_function(university, key);
     cout << university;
     return 0;
@@ -317,6 +318,28 @@ void student_join_course(Secretary &uni) {
     return;
 }
 
+void professor_set_grade_to_course(Secretary &uni) {
+    cout << "Type in the phone number of the professor you want to assign a grade to a course for a student." << endl;
+    string phone_number;
+    cin >> phone_number;
+    Professor *professor = uni.find_professor(phone_number);
+    if (professor == PROFESSOR_DOES_NOT_EXIST) {
+        cout << "There does not exist a professor with such a phone number in the university." << endl;
+        return;
+    }
+    professor->professor_print_courses();
+    cout << "Type in the name of the course you want the professos to a assign a grade to a student." << endl;
+    string course_name;
+    cin >> course_name;
+    Course *course = professor->professor_find_course(course_name);
+    if (course == COURSE_DOES_NOT_EXIST) {
+        cout << "Professor does not teach this course." << endl;
+        return;
+    }
+    cout << "The students who are taking this course are the following:" << endl;
+
+}
+
 void call_intended_function(Secretary &uni, int key) {
     // Call a function depending on the user's input
     switch (key) {
@@ -342,6 +365,9 @@ void call_intended_function(Secretary &uni, int key) {
         case STUDENT_PRINT_STATS:
             break;
         case PRINT_STUDENTS_CAN_GRADUATE:
+            break;
+        case PROFESSOR_SET_GRADE_TO_COURSE:
+            professor_set_grade_to_course(uni);
             break;
         default:
             break;
