@@ -74,7 +74,22 @@ void load_courses(Secretary &sec) {
     ifstream courses_file("database/courses.txt");
     string line;
     while (getline(courses_file, line)) {
-        
+        istringstream iss(line);
+        uint course_id;
+        string course_name;
+        uint semester;
+        string mandatory;
+        bool is_mandatory;
+        uint ECTs;
+        iss >> course_id >> course_name >> semester >> mandatory >> ECTs;
+
+        if (mandatory == "Mandatory")
+            is_mandatory = true;
+        else 
+            is_mandatory = false;
+
+        Course course(course_id, course_name, semester, is_mandatory, ECTs);
+        sec.insert_course(&course);
     }
     courses_file.close();
 }
@@ -224,7 +239,7 @@ void add_edit_remove_course(Secretary &uni) {
         uni.insert_course(&new_course);
     }
     else if (key == EDIT) {
-        cout << "Type in the name of the course you want to edit." << endl;
+        cout << "Type in the name of the course you want to edit. Instead of spaces " " you have to use dashes '-'." << endl;
         string course_name;
         cin >> course_name;
         Course *course = uni.find_course(course_name);
@@ -246,7 +261,7 @@ void add_edit_remove_course(Secretary &uni) {
         }
     }
     else if (key == REMOVE) {
-        cout << "Type in the name of the course you want to remove." << endl;
+        cout << "Type in the name of the course you want to remove. Instead of spaces " " you have to use dashes '-'." << endl;
         string course_name;
         cin >> course_name;
         Course *course = uni.find_course(course_name);

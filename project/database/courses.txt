@@ -1,16 +1,16 @@
-01-Introduction To Programming-1-Mandatory-8
-02-Discrete Mathematics-1-Mandatory-8
-03-Applied Mathematics-2-Mandatory-8
-04-Data Structures And Programming Techniques-2-Mandatory-8
-05-Object Oriented Programming-3-Mandatory-8
-06-Game Theory-3-Optional-6
-07-Linear Algebra-4-Mandatory-8
-08-Electromagnetism Optical Physics-4-Optional-6
-09-Calculus I-5-Mandatory-8
-10-Network Security-5-Optional-6
-11-Calculus II-6-Mandatory-8
-12-Cryptography-6-Optional-6
-13-Computer Achitecture-7-Mandatory-8
-14-Differential Equations I-7-Optional-6
-15-Graphical Design-8-Mandatory-8
-16-Differential Equations II-8-Optional-6
+1 Introduction-To-Programming 1 Mandatory 8
+2 Discrete-Mathematics 1 Mandatory 8
+3 Applied-Mathematics 2 Mandatory 8
+4 Data-Structures 2 Mandatory 8
+5 Object-Oriented-Programming 3 Mandatory 8
+6 Game-Theory 3 Optional 6
+7 Linear-Algebra 4 Mandatory 8
+8 Electromagnetism 4 Optional 6
+9 Calculus-I 5 Mandatory 8
+10 Network-Security 5 Optional 6
+11 Calculus-II 6 Mandatory 8
+12 Cryptography 6 Optional 6
+13 Computer-Achitecture 7 Mandatory 8
+14 Differential-Equations-I 7 Optional 6
+15 Graphical-Design 8 Mandatory 8
+16 Differential-Equations-II 8 Optional 6
