@@ -25,11 +25,12 @@ void Secretary::insert_professor(Professor *p) {
 }
 
 void Secretary::insert_course(Course *c) {
+    uint course_id = c->course_get_id();
     string course_name = c->course_get_name();
     uint ECTs = c->course_get_ECTS();
     uint semester = c->course_get_semester();
     bool is_mandatory = c->course_is_mandatory();
-    Course *new_course = new Course(course_name, semester, is_mandatory, ECTs);
+    Course *new_course = new Course(course_id, course_name, semester, is_mandatory, ECTs);
     courses[course_name] = new_course;
 }
 

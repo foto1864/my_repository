@@ -14,6 +14,12 @@ uint Course::course_get_semester(void) {
 uint Course::course_get_ECTS(void) {
     return ECTs;
 }
+uint Course::course_get_grade(void) {
+    return grade;
+}
+uint Course::course_get_id(void) {
+    return course_id;
+}
 void Course::course_move_semester(uint new_semester) {
     if (new_semester > semester) {
         semester = new_semester;
@@ -38,15 +44,16 @@ void Course::course_set_ECTs(uint points) {
 void Course::course_set_is_mandatory(bool mand) {
     is_mandatory = mand;
 }
-uint Course::course_get_grade(void) {
-    return grade;
+void Course::course_set_id(uint id) {
+    course_id = id;
 }
 
 istream &operator>>(istream &str, Course &course) {
     cout << "Enter the Course's characteristics in the following order:" << endl;
-    cout << "Course name, semester, ECTs, M if course is mandatory or O if course is optional." << endl;
+    cout << "Course id, course name, semester, ECTs, M if course is mandatory or O if course is optional." << endl;
     bool is_mandatory;
     string is_mandatory_string;
+    str >> course.course_id;
     str >> course.course_name;
     str >> course.semester;
     str >> course.ECTs;
@@ -78,8 +85,9 @@ Course::Course() {
     count++;
 }
 
-Course::Course(string name, uint sem, bool mand, uint points) : course_name(name), ECTs(points) {
+Course::Course(uint id, string name, uint sem, bool mand, uint points) : course_name(name), ECTs(points) {
     count++;
+    course_id = id;
     is_mandatory = mand;
     semester = sem;
 }

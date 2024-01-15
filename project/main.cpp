@@ -30,7 +30,7 @@ int main(void) {
 void load_database(Secretary &sec) {
     load_students(sec);
     load_professors(sec);
-    load_courses();
+    load_courses(sec);
     return;
 }
 
@@ -74,23 +74,7 @@ void load_courses(Secretary &sec) {
     ifstream courses_file("database/courses.txt");
     string line;
     while (getline(courses_file, line)) {
-        istringstream iss(line);
-        string course_name;
-        uint semester;
-        string mandatory;
-        bool is_mandatory;
-        uint ECTs;
-        getline(iss, course_name, '-');
-        iss >> semester;
-        iss.ignore(); 
-        getline(iss, mandatory, '-');
-        iss >> ECTs;
-        if (mandatory == "Mandatory")
-            is_mandatory = true;
-        else 
-            is_mandatory = false;
-        Course course(course_name, semester, is_mandatory, ECTs);
-        sec.insert_course(&course);
+        
     }
     courses_file.close();
 }
@@ -121,7 +105,7 @@ int get_user_input(int from, int to) {
             cout << "Invalid number entered. You can only select an option from " << from << "-" << to << "." << endl;   
         else if (count >= 5) {
             cout << "Too many failed attempts. Please try again later." << endl;
-            pressed_key = -1;
+            exit(1);
             break;
         }
         cin >> pressed_key;
@@ -141,7 +125,7 @@ void add_edit_remove_professor(Secretary &uni) {
     }
     // Edit Professor
     else if (key == EDIT) {
-        cout << "You can edit a professor by changing his/her phone_number." << endl;
+        cout << "You can edit a professor by changing their phone_number." << endl;
         cout << "Type in the phone number of the professor you want to edit." << endl;
         string phone_number;
         cin >> phone_number;
@@ -193,7 +177,7 @@ void add_edit_remove_student(Secretary &uni) {
     }
     // Edit Student
     else if (key == EDIT) {
-        cout << "You can edit a student by changing his/her phone_number." << endl;
+        cout << "You can edit a student by changing their phone_number." << endl;
         cout << "Type in the phone number of the student you want to edit." << endl;
         string phone_number;
         cin >> phone_number;
@@ -232,7 +216,7 @@ void add_edit_remove_student(Secretary &uni) {
 
 void add_edit_remove_course(Secretary &uni) {
     cout << "Do you want to 1) add, 2) edit or 3) remove a course from the university?" << endl;
-    cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+    cout << "Select the option you want by pressing one of the above keys: 1,2,3." << endl;
     int key = get_user_input(1,3);
     if (key == ADD) {
         Course new_course;
@@ -253,14 +237,12 @@ void add_edit_remove_course(Secretary &uni) {
             cout << "The ECTs a course can attribute can be a number between 2-8. Please type in the number:" << endl;
             int new_ECTs = get_user_input(2,8);
             int old_ECTs = course->course_get_ECTS();
-            if (new_ECTs < 1) 
-                exit(1);
             Course new_course = *course;
             new_course.course_set_ECTs(new_ECTs);
             uni.insert_course(&new_course);
             uni.remove_course(course_name);
             cout << "Changing the ECTs of Course '" << course->course_get_name()
-                 << "' from " << old_ECTs << " to " << new_ECTs << "was successful." << endl;
+                 << "' from " << old_ECTs << " to " << new_ECTs << " was successful." << endl;
         }
     }
     else if (key == REMOVE) {
