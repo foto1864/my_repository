@@ -15,6 +15,14 @@ Student* Student::student_has_joined_course(string course_name) {
         return (map_iterator == student_courses.end()) ? STUDENT_DOES_NOT_EXIST : this;
 }
 
+bool Student::student_has_passed_course(string course_name) {
+        map<string, Course*>::const_iterator map_iterator;
+        map_iterator = student_courses.find(course_name);
+        if (map_iterator->second->course_get_grade() > PASSING_MARK) 
+                return true;
+        return false;
+}
+
 bool Student::student_join_course(Course *new_course) {
         // Check if student can join the course
         // Has to be in current semester or earlier
