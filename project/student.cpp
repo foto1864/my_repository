@@ -23,6 +23,12 @@ bool Student::student_has_passed_course(string course_name) {
         return false;
 }
 
+uint Student::student_get_course_grade(string course_name) {
+        map<string, Course*>::const_iterator map_iterator;
+        map_iterator = student_courses.find(course_name);
+        return (map_iterator->second->course_get_grade());
+}
+
 bool Student::student_join_course(Course *new_course) {
         // Check if student can join the course
         // Has to be in current semester or earlier

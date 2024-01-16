@@ -47,7 +47,7 @@ ostream &operator<<(ostream &str, Person &person) {
     str << person.academic_ID << " ";
     str << person.phone_number << " ";
     str << person.birth_year << " ";
-    str << person.email_address << endl;
+    str << person.email_address;
     return str;
 }
 istream &operator>>(istream &str, Person &person) {
