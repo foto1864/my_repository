@@ -53,9 +53,49 @@ void Student::assign_grade_to_course(string course_name, uint grade) {
         map_iterator->second->course_set_grade(grade);
 }
 
-Student::Student() { student_count++; }
-Student::Student(string n,uint id) : Person(n, id) { student_count++; }
-Student::Student(string n, string email, string number, uint year, uint id) : Person(n,email,number,year,id) { student_count++; }
+void Student::student_print_semester_stats(void) {
+        cout << "The statistics of student '" << this->get_name() << "' in the current semester are the following:" << endl; 
+        double average_score = 0;
+        uint total_courses = 0;
+        map<string, Course*>::const_iterator map_iterator;
+        for (map_iterator = student_courses.begin(); map_iterator != student_courses.end(); map_iterator++) {
+                Course *course = map_iterator->second;
+                cout << *course << " Grade:" << course->course_get_grade() << endl;
+                average_score += course->course_get_grade();
+                total_courses++;
+        }
+        cout << "Average score: " << average_score/total_courses << endl;
+}
+
+void Student::student_print_all_stats(void) {
+        cout << "The statistics of student '" << this->get_name() << "' in all semesters are the following:" << endl;
+        double average_score = 0;
+        uint total_courses = 0;
+        map<string, Course*>::const_iterator map_iterator;
+        for (map_iterator = student_courses.begin(); map_iterator != student_courses.end(); map_iterator++) {
+                Course *course = map_iterator->second;
+                if (course->course_get_semester() < years_joined_university + 2) {
+                        cout << *course << " Grade: " << course->course_get_grade() << endl;
+                        average_score += course->course_get_grade();
+                        total_courses++;
+                }
+        }
+        cout << "Average score: " << average_score/total_courses << endl;
+}
+
+Student::Student() { 
+        student_count++; 
+}
+Student::Student(string n,uint id) : Person(n, id) { 
+        student_count++; 
+}
+Student::Student(string n, string email, string number, uint year, uint id) : Person(n,email,number,year,id) { 
+        student_count++; 
+}
 Student::Student(string n, string email, string number, uint year, uint id, uint years_joined) 
-        :Person(n,email,number,year,id), years_joined_university(years_joined) { student_count++; }
-Student::~Student() { student_count--; }
+        :Person(n,email,number,year,id), years_joined_university(years_joined) { 
+        student_count++; 
+}
+Student::~Student() { 
+        student_count--; 
+}

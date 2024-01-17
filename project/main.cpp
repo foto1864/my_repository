@@ -21,6 +21,7 @@ void course_set_professor(Secretary&);
 void professor_set_grade_to_course(Secretary&);
 void print_save_students_passed_course(Secretary&);
 void professors_print_stats(Secretary&);
+void student_print_stats(Secretary&);
 
 int main(void) {
     Secretary university;
@@ -443,6 +444,19 @@ void professor_print_stats(Secretary &uni) {
     }
 }
 
+void student_print_stats(Secretary &uni) {
+    cout << "Type in the phone number of the student you want to view the statistics of:" << endl;
+    string phone_number;
+    cin >> phone_number;
+    Student *student = uni.find_student_by_phone_number(phone_number);
+    if (student == STUDENT_DOES_NOT_EXIST) {
+        cout << "There does not exist a student with such phone number in the university." << endl;
+        return;
+    }
+    student->student_print_semester_stats();
+    student->student_print_all_stats();
+}
+
 void call_intended_function(Secretary &uni, int key) {
     // Call a function depending on the user's input
     switch (key) {
@@ -468,6 +482,7 @@ void call_intended_function(Secretary &uni, int key) {
             professor_print_stats(uni);
             break;
         case STUDENT_PRINT_STATS:
+            student_print_stats(uni);
             break;
         case PRINT_STUDENTS_CAN_GRADUATE:
             break;

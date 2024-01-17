@@ -16,6 +16,8 @@ class Student : public Person {
         void assign_grade_to_course(string, uint);
         uint student_get_course_grade(string);
         bool student_has_passed_course(string);
+        void student_print_semester_stats(void);
+        void student_print_all_stats(void);
         Student* student_has_joined_course(string);
         Student();
         Student(string, uint);
