@@ -20,8 +20,6 @@ void student_join_course(Secretary&);
 void course_set_professor(Secretary&);
 void professor_set_grade_to_course(Secretary&);
 void print_save_students_passed_course(Secretary&);
-void professors_print_stats(Secretary&);
-void student_print_stats(Secretary&);
 
 int main(void) {
     Secretary university;
@@ -408,53 +406,6 @@ void print_save_students_passed_course(Secretary &uni) {
     if (count_of_students_that_passed == 0) {
         cout << "There are no students that have passed the said course in the last semester." << endl;
     }
-
-}
-
-void professor_print_stats(Secretary &uni) {
-    cout << "Type in the phone number of the professor you want to see the statistics of:" << endl;
-    string phone_number;
-    cin >> phone_number;
-    Professor *professor = uni.find_professor(phone_number);
-    if (professor == PROFESSOR_DOES_NOT_EXIST) {
-        cout << "There does not exist a professor with such phone number in the university." << endl;
-        return;
-    }
-    professor->professor_print_courses();
-    cout << "Type in the name of the course in which you want to view the statistics of the professor." << endl;
-    string course_name;
-    cin >> course_name;
-    Course *course = professor->professor_find_course(course_name);
-    if (course == COURSE_DOES_NOT_EXIST) {
-        cout << "Professor does not teach this course." << endl;
-        return;
-    }
-    cout << "The students that took this course are the following:" << endl;
-    cout << "Next to their email, at the right-most part of the screen is they grade they were assigned in the course." << endl;
-    Student **students_array = uni.find_students_by_course(course_name);
-    int array_size = 0;
-    for (int i=0; i<INT_MAX; i++) {
-        if (students_array[i] != nullptr) 
-            array_size++;
-        else 
-            break;
-    }
-    for (int i=0; i<array_size; i++) {
-        cout << *students_array[i] << " " << students_array[i]->student_get_course_grade(course_name) << endl;
-    }
-}
-
-void student_print_stats(Secretary &uni) {
-    cout << "Type in the phone number of the student you want to view the statistics of:" << endl;
-    string phone_number;
-    cin >> phone_number;
-    Student *student = uni.find_student_by_phone_number(phone_number);
-    if (student == STUDENT_DOES_NOT_EXIST) {
-        cout << "There does not exist a student with such phone number in the university." << endl;
-        return;
-    }
-    student->student_print_semester_stats();
-    student->student_print_all_stats();
 }
 
 void call_intended_function(Secretary &uni, int key) {
@@ -479,12 +430,12 @@ void call_intended_function(Secretary &uni, int key) {
             print_save_students_passed_course(uni);
             break;
         case PROFESSOR_PRINT_STATS:
-            professor_print_stats(uni);
+            uni.professor_print_stats();
             break;
         case STUDENT_PRINT_STATS:
-            student_print_stats(uni);
+            uni.student_print_stats();
             break;
-        case PRINT_STUDENTS_CAN_GRADUATE:
+        case PRINT_STUDENTS_THAT_CAN_GRADUATE:
             uni.print_students_that_can_graduate();
             break;
         case PROFESSOR_SET_GRADE_TO_COURSE:

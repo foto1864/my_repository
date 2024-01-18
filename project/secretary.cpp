@@ -135,6 +135,50 @@ Secretary Secretary::operator+(const Professor& p) {
     return sec;
 }
 
+void Secretary::professor_print_stats(void) {
+    cout << "Type in the phone number of the professor you want to see the statistics of:" << endl;
+    string phone_number;
+    cin >> phone_number;
+    Professor *professor = this->find_professor(phone_number);
+    if (professor == PROFESSOR_DOES_NOT_EXIST) {
+        cout << "There does not exist a professor with such phone number in the university." << endl;
+        return;
+    }
+    professor->professor_print_courses();
+    cout << "Type in the name of the course in which you want to view the statistics of the professor." << endl;
+    string course_name;
+    cin >> course_name;
+    Course *course = professor->professor_find_course(course_name);
+    if (course == COURSE_DOES_NOT_EXIST) {
+        cout << "Professor does not teach this course." << endl;
+        return;
+    }
+    uint count = 0;
+    map<string, Student*>::const_iterator map_iterator;
+    for (map_iterator = students.begin(); map_iterator != students.end(); map_iterator++) {
+        Student *student = map_iterator->second->student_has_joined_course(course_name);
+        if (student == STUDENT_DOES_NOT_EXIST)
+            continue;
+        if (count == 0)
+            cout << "Here is the list of all students that are taking this course followed by their grade:" << endl;
+        student->student_print_course_and_grade(course_name);
+        count = -1;
+    } 
+}
+
+void Secretary::student_print_stats(void) {
+    cout << "Type in the phone number of the student you want to view the statistics of:" << endl;
+    string phone_number;
+    cin >> phone_number;
+    Student *student = this->find_student_by_phone_number(phone_number);
+    if (student == STUDENT_DOES_NOT_EXIST) {
+        cout << "There does not exist a student with such phone number in the university." << endl;
+        return;
+    }
+    student->student_print_semester_stats();
+    student->student_print_all_stats();
+}
+
 void Secretary::print_students_that_can_graduate(void) {
     map<string, Student*>::const_iterator map_iterator;
     uint count_of_students_that_can_graduate = 0;

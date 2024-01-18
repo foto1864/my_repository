@@ -16,6 +16,8 @@ class Secretary {
         bool remove_student(string);
         bool remove_course(string);
         void print_students_that_can_graduate(void);
+        void student_print_stats(void);
+        void professor_print_stats(void);
         Student* find_student_by_phone_number(string);
         Student** find_students_by_course(string);
         Professor* find_professor(string);

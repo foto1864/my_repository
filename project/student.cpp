@@ -109,6 +109,16 @@ bool Student::student_can_graduate(void) {
         return false;        
 }
 
+void Student::student_print_course_and_grade(string course_name) {
+        map<string, Course*>::const_iterator map_iterator;
+        map_iterator = student_courses.find(course_name);
+        Course *course = map_iterator->second;
+        if (course == COURSE_DOES_NOT_EXIST)
+                return;
+        cout << this->get_name() << " " << course->course_get_grade() << endl;
+        return;
+}
+
 Student::Student() { 
         student_count++; 
 }
