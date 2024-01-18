@@ -135,17 +135,22 @@ Secretary Secretary::operator+(const Professor& p) {
     return sec;
 }
 
-uint Secretary::print_students_to_graduate(void) {
+void Secretary::print_students_that_can_graduate(void) {
     map<string, Student*>::const_iterator map_iterator;
     uint count_of_students_that_can_graduate = 0;
     for (map_iterator = students.begin(); map_iterator != students.end(); map_iterator++) {
         Student *potential_student = map_iterator->second;
-        if (potential_student->student_can_graduate()) {
+        if (potential_student->student_can_graduate() && count_of_students_that_can_graduate == 0) {
+            cout << "The students that have completed their studies and can graduate from the University are the following:" << endl;
             cout << *potential_student;
             count_of_students_that_can_graduate++;
         }
+        else if (potential_student->student_can_graduate() && count_of_students_that_can_graduate > 0) {
+            cout << *potential_student;
+        }
     }
-    return count_of_students_that_can_graduate;
+    if (count_of_students_that_can_graduate == 0) 
+        cout << "As of now there does not exist a student that can graduate from the university." << endl;
 }
 
 istream &operator>>(istream &str, Secretary &sec) {
