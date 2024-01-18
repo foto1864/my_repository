@@ -135,22 +135,31 @@ Secretary Secretary::operator+(const Professor& p) {
     return sec;
 }
 
+uint Secretary::print_students_to_graduate(void) {
+    map<string, Student*>::const_iterator map_iterator;
+    uint count_of_students_that_can_graduate = 0;
+    for (map_iterator = students.begin(); map_iterator != students.end(); map_iterator++) {
+        Student *potential_student = map_iterator->second;
+        if (potential_student->student_can_graduate()) {
+            cout << *potential_student;
+            count_of_students_that_can_graduate++;
+        }
+    }
+    return count_of_students_that_can_graduate;
+}
 
 istream &operator>>(istream &str, Secretary &sec) {
     cout << "How many people do you want to add to the university?" << endl;
     uint num_of_people;
     str >> num_of_people;
-
     for (uint i = 0; i < num_of_people; ++i) {
         cout << "Do you want to add a student(S/s) or a professor(P/p)?" << endl;
-
         char user_choice;
         cin >> user_choice;
         while (!(user_choice == 'S' || user_choice == 's' || user_choice == 'P' || user_choice == 'p')) {
             cout << "Invalid character entered" << endl;
             cin >> user_choice;
         }
-
         if (user_choice == 'S' || user_choice == 's') {
             cout << "Enter student's info in the following order:" << endl;
             cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
@@ -170,7 +179,6 @@ istream &operator>>(istream &str, Secretary &sec) {
             student->set_years_joined(CURRENT_YEAR - (id/100));
             sec.students[student->get_phone_number()] = student;
         }
-
         else if (user_choice == 'P' || user_choice == 'p') {
             cout << "Enter professors's info in the following order:" << endl;
             cout << "Name, Academic ID, Phone Number, Birth Year Email Address." << endl;
@@ -204,13 +212,11 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
         if (it_00->second != NULL)
             delete it_00->second;
     }
-    
     map<string, Professor*>::const_iterator it_01;
     for (it_01 = this->professors.begin(); it_01 != this->professors.end(); it_01++) {
         if (it_01->second != NULL)
             delete it_01->second;
     }
-
     // Now that the original map has been cleared, we dynamically allocate memory of all its
     // new members and add them to the map. Finally the function returns the new "Secretary"
     // object that will replace the old one after the call of the function.
@@ -225,7 +231,6 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
         Student *new_student = new Student(name, email, phone, b_year, id, years_joined);       
         this->students[phone] = new_student;
     }
-
     map<string, Professor*>::const_iterator it_03;
     for (it_03 = prev_sec.professors.begin(); it_03 != prev_sec.professors.end(); it_03++) {
         string name = it_03->second->get_name();
@@ -237,14 +242,12 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
         Professor *new_professor = new Professor(name, email, phone, b_year, id, years_exprerience);       
         this->professors[phone] = new_professor;
     }
-
     return *this;
 }
 
 // Whenever an object of type "Secretary" is created with the use of the copy constructor,
 // the memory of all of the members of the map of the new object is dynamically allocated. 
 Secretary::Secretary(const Secretary& prev_sec) {
-    
     // Copy-Paste the students
     map<string, Student*>::const_iterator it;
     for (it = prev_sec.students.begin(); it != prev_sec.students.end(); it++) {
@@ -257,7 +260,6 @@ Secretary::Secretary(const Secretary& prev_sec) {
         Student *new_student = new Student(name, email, phone, b_year, id, years_joined_university);       
         students[phone] = new_student;
     }
-
     // Copy-Paste the professors
     map<string, Professor*>::const_iterator it_2;
     for (it_2 = prev_sec.professors.begin(); it_2 != prev_sec.professors.end(); it_2++) {

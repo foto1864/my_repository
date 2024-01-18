@@ -12,7 +12,7 @@ class Person {
         static int count;
         // Mutator Functions
         void set_name(string);
-        void set_email_address(string );
+        void set_email_address(string);
         void set_phone_number(string);
         void set_birth_year(uint);
         void set_academic_ID(uint);

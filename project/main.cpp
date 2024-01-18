@@ -22,6 +22,7 @@ void professor_set_grade_to_course(Secretary&);
 void print_save_students_passed_course(Secretary&);
 void professors_print_stats(Secretary&);
 void student_print_stats(Secretary&);
+void print_students_can_graduate(Secretary&);
 
 int main(void) {
     Secretary university;
@@ -457,6 +458,10 @@ void student_print_stats(Secretary &uni) {
     student->student_print_all_stats();
 }
 
+void print_students_can_graduate(Secretary &uni) {
+    cout << "The students that have completed their studies and can graduate from the University are the following:" << endl;
+}
+
 void call_intended_function(Secretary &uni, int key) {
     // Call a function depending on the user's input
     switch (key) {
@@ -485,6 +490,7 @@ void call_intended_function(Secretary &uni, int key) {
             student_print_stats(uni);
             break;
         case PRINT_STUDENTS_CAN_GRADUATE:
+            print_students_can_graduate(uni);
             break;
         case PROFESSOR_SET_GRADE_TO_COURSE:
             professor_set_grade_to_course(uni);

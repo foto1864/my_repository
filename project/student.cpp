@@ -83,6 +83,32 @@ void Student::student_print_all_stats(void) {
         cout << "Average score: " << average_score/total_courses << endl;
 }
 
+// In order to graduate, student has to have passed all mandatory classes, plus a certain number of 
+// optional classes. The number of optional classes he has to have passed in order to graduate is one 
+// such that the total number of ECT points (ECTs) adds up to the value of 98. The value of 98 essentially
+// means that the student has passed all of the mandatory classes and at least half of the optional ones.
+// The value 98 is defined in the general.h library and is represented as GRADUATION_MINIMUM_SCORE
+// The number of total mandatory classes in the university is 8 and is defined in the general.h library with 
+// the name TOTAL_MANDATORY_COURSES. So in order to graduate, a student must have passed all TOTAL_MANDATORY_COURSES
+// and have a total score greater than or equal to the GRADUATION_MINIMUM_SCORE
+
+bool Student::student_can_graduate(void) {
+        map<string, Course*>::const_iterator map_iterator;
+        uint total_ECTs = 0;
+        uint total_mandatory_courses_passed = 0;
+        for (map_iterator = student_courses.begin(); map_iterator != student_courses.end(); map_iterator++) {
+                Course *course = map_iterator->second;
+                if (student_has_passed_course(course->course_get_name())) {
+                        total_ECTs += course->course_get_ECTS();
+                        if (course->course_is_mandatory())
+                                total_mandatory_courses_passed++;
+                }
+        }
+        if (total_ECTs >= GRADUATION_MINIMUM_SCORE && total_mandatory_courses_passed == TOTAL_MANDATORY_COURSES)
+                return true;
+        return false;        
+}
+
 Student::Student() { 
         student_count++; 
 }
