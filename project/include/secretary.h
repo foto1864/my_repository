@@ -21,6 +21,10 @@ class Secretary {
         void add_edit_remove_course(void);
         void add_edit_remove_professor(void);
         void add_edit_remove_student(void);
+        void student_join_course(void);
+        void professor_set_grade_to_course(void);
+        void course_set_professor(void);
+        void print_save_students_passed_course(void);
         Student* find_student_by_phone_number(string);
         Student** find_students_by_course(string);
         Professor* find_professor(string);

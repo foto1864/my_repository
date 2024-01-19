@@ -173,6 +173,134 @@ void Secretary::add_edit_remove_course(void) {
     else return;
 }
 
+void Secretary::professor_set_grade_to_course(void) {
+    cout << "Type in the phone number of the professor you want to assign a grade to a course for a student." << endl;
+    string phone_number;
+    cin >> phone_number;
+    Professor *professor = this->find_professor(phone_number);
+    if (professor == PROFESSOR_DOES_NOT_EXIST) {
+        cout << "There does not exist a professor with such a phone number in the university." << endl;
+        return;
+    }
+    professor->professor_print_courses();
+    cout << "Type in the name of the course you want the professor to a assign a grade to a student." << endl;
+    string course_name;
+    cin >> course_name;
+    Course *course = professor->professor_find_course(course_name);
+    if (course == COURSE_DOES_NOT_EXIST) {
+        cout << "Professor does not teach this course." << endl;
+        return;
+    }
+    cout << "The students who are taking this course are the following:" << endl;
+    Student **students_array = this->find_students_by_course(course_name);
+    int array_size = 0;
+    for (int i=0; i<INT_MAX; i++) {
+        if (students_array[i] != nullptr) 
+            array_size++;
+        else 
+            break;
+    }
+    for (int i=0; i<array_size; i++) {
+        cout << *students_array[i] << endl;
+    }
+    // ADD CHECK
+    cout << "Select a student by entering their phone number:" << endl;
+    string student_phone_number;
+    cin >> student_phone_number;
+    for (int i=0; i<array_size; i++) {
+        if (students_array[i]->get_phone_number() == student_phone_number) {
+            cout << "Enter the grade you want to assign to the student." << endl;
+            uint grade;
+            cin >> grade;
+            students_array[i]->assign_grade_to_course(course_name, grade);
+            cout << "Assigned the grade '" << grade << "' to student '" << students_array[i]->get_name() << "'." << endl;
+        }
+        else {
+            cout << "There does not exist a student with such phone number that is taking the specific course." << endl;
+        }
+    }
+
+}
+
+void Secretary::print_save_students_passed_course(void) {
+    cout << "Type in the name of the course you want to see what students have passed." << endl;
+    string course_name;
+    cin >> course_name;
+    Course *course = this->find_course(course_name);
+    if (course == COURSE_DOES_NOT_EXIST) {
+        cout << "There does not exist a course with such name in the university." << endl;
+        return;
+    }
+    cout << "The students who are taking this course are the following:" << endl;
+    Student **students_array = this->find_students_by_course(course_name);
+    int array_size = 0;
+    for (int i=0; i<INT_MAX; i++) {
+        if (students_array[i] != nullptr) 
+            array_size++;
+        else 
+            break;
+    }
+    for (int i=0; i<array_size; i++) {
+        cout << *students_array[i] << endl;
+    }
+    uint count_of_students_that_passed = 0;
+    cout << "The students that passed the course in the last semester are the following:" << endl;
+    for (int i=0; i<array_size; i++) {
+        if (students_array[i]->student_has_passed_course(course_name)) {
+            cout << *students_array[i] << endl;
+            count_of_students_that_passed++;
+        }
+    }
+    if (count_of_students_that_passed == 0) {
+        cout << "There are no students that have passed the said course in the last semester." << endl;
+    }
+}
+
+void Secretary::course_set_professor(void) {
+    cout << "Type in the name of the course you want to assign to a professor. Instead of spaces ' ' you have to use dashes '-'." << endl;
+    string course_name;
+    cin >> course_name;
+    Course *course = this->find_course(course_name);
+    if (course == COURSE_DOES_NOT_EXIST) {
+        cout << "There does not exist a course with such name in the university." << endl;
+        return;   
+    }
+    cout << "Type in the phone number of the professor you want to assign to a course." << endl;
+    string phone_number;
+    cin >> phone_number;
+    Professor *professor = this->find_professor(phone_number);
+    if (professor == PROFESSOR_DOES_NOT_EXIST) {
+        cout << "There does not exist a professor with such phone number in the university." << endl;
+        return;
+    }
+    professor->professor_set_course(course);
+    cout << "Course '" << course_name << "' assigned to professor '" << professor->get_name() << "'." << endl; 
+}
+
+
+
+void Secretary::student_join_course(void) {
+    cout << "Type in the phone number of the student you want to join to a course." << endl;
+    string phone_number;
+    cin >> phone_number;
+    Student *student = this->find_student_by_phone_number(phone_number);
+    if (student == STUDENT_DOES_NOT_EXIST) {
+        cout << "There does not exist a student with such phone number in the university." << endl;
+        return;
+    }
+    cout << "Type in the name of the course you want the student to join. Instead of spaces " " you have to use dashes '-'." << endl;
+    string course_name;
+    cin >> course_name;
+    Course *course = this->find_course(course_name);
+    if (course == COURSE_DOES_NOT_EXIST) {
+        cout << "There does not exist a course with such name in the university." << endl;
+        return;
+    }
+    if (student->student_join_course(course))
+        cout << "Student has successfully joined course." << endl;
+    return;
+}
+
 void Secretary::add_edit_remove_professor(void) {
     cout << "Do you want to 1) add, 2) edit or 3) remove a professor from the university?" << endl;
     cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
