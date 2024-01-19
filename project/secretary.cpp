@@ -123,6 +123,103 @@ Secretary Secretary::operator+(const Student& p) {
     return sec;
 }
 
+void Secretary::add_edit_remove_course(void) {
+    cout << "Do you want to 1) add, 2) edit or 3) remove a course from the university?" << endl;
+    cout << "Select the option you want by pressing one of the above keys: 1,2,3." << endl;
+    int key = get_user_input(1,3);
+    if (key == ADD) {
+        Course new_course;
+        cin >> new_course;
+        this->insert_course(&new_course);
+    }
+    else if (key == EDIT) {
+        cout << "Type in the name of the course you want to edit. Instead of spaces " " you have to use dashes '-'." << endl;
+        string course_name;
+        cin >> course_name;
+        Course *course = this->find_course(course_name);
+        if (course == COURSE_DOES_NOT_EXIST) {
+            cout << "There does not exist a course with such name in the university." << endl;
+            return;
+        }
+        cout << "You can edit a course by entering the ECTs it attributes to a student when they pass the course." << endl;
+        cout << "The ECTs a course can attribute can be a number between 2-8. Please type in the number:" << endl;
+        int new_ECTs = get_user_input(2,8);
+        int old_ECTs = course->course_get_ECTS();
+        Course new_course = *course;
+        new_course.course_set_ECTs(new_ECTs);
+        this->insert_course(&new_course);
+        this->remove_course(course_name);
+        cout << "Changing the ECTs of Course '" << course->course_get_name()
+             << "' from " << old_ECTs << " to " << new_ECTs << " was successful." << endl;
+    }
+    else if (key == REMOVE) {
+        cout << "Type in the name of the course you want to remove. Instead of spaces " " you have to use dashes '-'." << endl;
+        string course_name;
+        cin >> course_name;
+        Course *course = this->find_course(course_name);
+        if (course == COURSE_DOES_NOT_EXIST) {
+            cout << "There does not exist a course with such name in the university." << endl;
+            return;
+        }
+        bool is_mandatory = course->course_is_mandatory();     
+        if (is_mandatory) 
+            cout << "Removal of a mandatory course is impossible." << endl;
+        else {
+            this->remove_course(course_name);
+            cout << "Removal of Course was successful." << endl;
+        } 
+        
+    }
+    else return;
+}
+
+void Secretary::add_edit_remove_professor(void) {
+    cout << "Do you want to 1) add, 2) edit or 3) remove a professor from the university?" << endl;
+    cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+    int key = get_user_input(1,3);
+    // Add Professor
+    if (key == ADD) {
+        Professor new_professor;
+        cin >> new_professor;
+        this->insert_professor(&new_professor);
+    }
+    // Edit Professor
+    else if (key == EDIT) {
+        cout << "You can edit a professor by changing their phone_number." << endl;
+        cout << "Type in the phone number of the professor you want to edit." << endl;
+        string phone_number;
+        cin >> phone_number;
+        Professor *old_professor = this->find_professor(phone_number);
+        if (old_professor == PROFESSOR_DOES_NOT_EXIST) {
+            cout << "There does not exist a professor with such a phone number in the university." << endl;
+            return;
+        }
+        cout << "Type in the new phone number of the professor." << endl;
+        string new_phone_number;
+        cin >> new_phone_number;
+        Professor new_professor = *old_professor;
+        new_professor.set_phone_number(new_phone_number);
+        this->insert_professor(&new_professor);
+        this->remove_professor(phone_number);
+        cout << "The change of the phone number of the professor was successful." << endl;
+
+    }
+    // Remove Professor
+    else if (key == REMOVE) {
+        cout << "Type in the phone number of the professor you want to remove from the university" << endl;
+        string phone_number;
+        cin >> phone_number;
+        Professor *professor = this->find_professor(phone_number);
+        if (professor == PROFESSOR_DOES_NOT_EXIST) {
+            cout << "There does not exist a professor with such a phone number in the university." << endl;
+            return;
+        }
+        this->remove_professor(phone_number);
+        cout << "Removal of Professor was successful." << endl;
+    }
+    else return;
+}
+
 void Secretary::add_edit_remove_student(void) {
     cout << "Do you want to 1) add, 2) edit or 3) remove a student from the university?" << endl;
     cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
