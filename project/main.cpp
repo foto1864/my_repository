@@ -24,7 +24,6 @@ int main(void) {
 }
 
 void call_intended_function(Secretary &uni, int key) {
-    // Call a function depending on the user's input
     switch (key) {
         case ADD_EDIT_REMOVE_PROFESSOR:
             uni.add_edit_remove_professor();
@@ -55,6 +54,8 @@ void call_intended_function(Secretary &uni, int key) {
             break;
         case PROFESSOR_SET_GRADE_TO_COURSE:
             uni.professor_set_grade_to_course();
+            break;
+        case EXIT_MENU:
             break;
         default:
             break;
