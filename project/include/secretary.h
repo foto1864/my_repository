@@ -18,6 +18,9 @@ class Secretary {
         void print_students_that_can_graduate(void);
         void student_print_stats(void);
         void professor_print_stats(void);
+        void add_edit_remove_course(void);
+        void add_edit_remove_professor(void);
+        void add_edit_remove_student(void);
         Student* find_student_by_phone_number(string);
         Student** find_students_by_course(string);
         Professor* find_professor(string);

@@ -1,4 +1,5 @@
 #include "include/secretary.h"
+#include "include/utilities.h"
 
 Secretary::Secretary() {}
 
@@ -120,6 +121,52 @@ Secretary Secretary::operator+(const Student& p) {
     Student *new_student = new Student(name, email, phone, b_year, id, years_joined);
     sec.students[phone] = new_student;
     return sec;
+}
+
+void Secretary::add_edit_remove_student(void) {
+    cout << "Do you want to 1) add, 2) edit or 3) remove a student from the university?" << endl;
+    cout << "Select the option you want by pressing one of the above keys, 1,2 or 3." << endl;
+    int key = get_user_input(1,3);
+    // Add student
+    if (key == ADD) {
+        Student new_student;
+        cin >> new_student;
+        this->insert_student(&new_student);
+    }
+    // Edit Student
+    else if (key == EDIT) {
+        cout << "You can edit a student by changing their phone_number." << endl;
+        cout << "Type in the phone number of the student you want to edit." << endl;
+        string phone_number;
+        cin >> phone_number;
+        Student *old_student = this->find_student_by_phone_number(phone_number);
+        if (old_student == STUDENT_DOES_NOT_EXIST) {
+            cout << "There does not exist a student with such a phone number in the university." << endl;
+            return;
+        }
+        cout << "Type in the new phone number of the student." << endl;
+        string new_phone_number;
+        cin >> new_phone_number;
+        Student new_student = *old_student;
+        new_student.set_phone_number(new_phone_number);
+        this->insert_student(&new_student);
+        this->remove_student(phone_number);
+        cout << "The change of the phone number of the professor was successful." << endl;
+        
+    }
+    // Remove Student
+    else if (key == REMOVE) {
+        cout << "Type in the phone number of the student you want to remove from the university" << endl;
+        string phone_number;
+        cin >> phone_number;
+        Student *student = this->find_student_by_phone_number(phone_number);
+        if (student == STUDENT_DOES_NOT_EXIST) {
+            cout << "There does not exist a student with such a phone number in the university." << endl;
+            return;
+        }
+        this->remove_student(phone_number);
+        cout << "Removal of Student was successful." << endl;
+    }
 }
 
 Secretary Secretary::operator+(const Professor& p) {
