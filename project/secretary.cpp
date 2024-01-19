@@ -1,8 +1,6 @@
 #include "include/secretary.h"
 #include "include/utilities.h"
 
-Secretary::Secretary() {}
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// FUNCTIONS OF THE UNIVERSITY MENU //////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -352,7 +350,6 @@ void Secretary::professor_set_grade_to_course(void) {
 ////////////////////////////////// COMPLIMENTARY HELPER FUNCTIONS ////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 void Secretary::insert_student(Student *p) {
     string name = p->get_name();
     string email = p->get_email_address();
@@ -385,7 +382,6 @@ void Secretary::insert_course(Course *c) {
     courses[course_name] = new_course;
 }
 
-
 bool Secretary::remove_professor(string phone_number) {
     if (professors.erase(phone_number) > 0) {
         return true;
@@ -407,12 +403,12 @@ bool Secretary::remove_course(string course_name) {
     return false;
 }
 
-
 Student* Secretary::find_student_by_phone_number(string phone_number) {
     map<string, Student*>::iterator map_iterator;
     map_iterator = students.find(phone_number);
     return (map_iterator == students.end()) ? STUDENT_DOES_NOT_EXIST : map_iterator->second;
 }
+
 Student** Secretary::find_students_by_course(string course_name) {
     map<string, Student*>::iterator map_iterator;
     string course_name_in_map;
@@ -425,7 +421,6 @@ Student** Secretary::find_students_by_course(string course_name) {
     return students_array;
 }
 
-
 Professor* Secretary::find_professor(string phone_number) {
     map<string, Professor*>::iterator map_iterator;
     map_iterator = professors.find(phone_number);
@@ -436,6 +431,10 @@ Course* Secretary::find_course(string course_name) {
     map_iterator = courses.find(course_name);
     return (map_iterator == courses.end()) ? COURSE_DOES_NOT_EXIST : map_iterator->second;
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////// ESSENTIAL CLASS FUNCTIONS (CONSTRUCTORS, OPERATION OVERLOADING ETC.) //////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 uint Secretary::size(void) {
     return professors.size() + students.size();
@@ -583,6 +582,8 @@ Secretary Secretary::operator=(const Secretary &prev_sec) {
     return *this;
 }
 
+Secretary::Secretary() {}
+
 // Whenever an object of type "Secretary" is created with the use of the copy constructor,
 // the memory of all of the members of the map of the new object is dynamically allocated. 
 Secretary::Secretary(const Secretary& prev_sec) {
@@ -611,7 +612,6 @@ Secretary::Secretary(const Secretary& prev_sec) {
         professors[phone] = new_professor;
     }
 }
-
 
 Secretary::~Secretary() {
     // Again we want to make sure that we free only the members of the map, the memory for
