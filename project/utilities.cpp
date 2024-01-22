@@ -9,6 +9,10 @@ void load_database(Secretary &sec) {
 
 void load_students(Secretary &sec) {
     ifstream students_file("database/students.txt");
+    if (!students_file.is_open()) {
+        cout << "Error occured in opening 'students.txt' file." << endl;
+        exit(1);
+    }
     string line;
     while (getline(students_file, line)) {
         istringstream iss(line);
@@ -27,6 +31,10 @@ void load_students(Secretary &sec) {
 
 void load_professors(Secretary &sec) {
     ifstream professors_file("database/professors.txt");
+    if (!professors_file.is_open()) {
+        cout << "Error occured in opening 'professors.txt' file." << endl;
+        exit(1);
+    }
     string line;
     while (getline(professors_file, line)) {
         istringstream iss(line);
@@ -45,6 +53,10 @@ void load_professors(Secretary &sec) {
 
 void load_courses(Secretary &sec) {
     ifstream courses_file("database/courses.txt");
+    if (!courses_file.is_open()) {
+        cout << "Error occured in opening 'courses.txt' file." << endl;
+        exit(1);
+    }
     string line;
     while (getline(courses_file, line)) {
         istringstream iss(line);
@@ -85,7 +97,6 @@ void show_menu(void) {
 }
 
 int get_user_input(int from, int to) {
-    // Get input from the user
     int count = 0;
     int pressed_key;
     cin >> pressed_key;
