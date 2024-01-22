@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -Werror
-EXECUTABLE = project
+EXECUTABLE = university
 
 SRCS = $(wildcard *.cpp)
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
@@ -19,4 +19,4 @@ run:
 	./$(EXECUTABLE)
 
 clean:
-	rm -f $(EXECUTABLE) $(OBJ_DIR)/*.o
+	rm -f $(EXECUTABLE) *.o Makefile
