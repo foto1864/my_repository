@@ -50,7 +50,7 @@ void Secretary::add_edit_remove_professor(void) {
         this->remove_professor(phone_number);
         cout << "Removal of Professor was successful." << endl;
     }
-    else return;
+    return;
 }
 
 // 02. Add - Edit - Remove Student
@@ -83,7 +83,6 @@ void Secretary::add_edit_remove_student(void) {
         this->insert_student(&new_student);
         this->remove_student(phone_number);
         cout << "The change of the phone number of the professor was successful." << endl;
-        
     }
     // Remove Student
     else if (key == REMOVE) {
@@ -383,10 +382,12 @@ void Secretary::insert_course(Course *c) {
 }
 
 bool Secretary::remove_professor(string phone_number) {
-    if (professors.erase(phone_number) > 0) {
-        return true;
-    }
-    return false;
+    map<string, Professor*>::iterator it;
+    it = professors.find(phone_number);
+    if (it == professors.end()) 
+        return false;
+    delete it->second;
+    return true;    
 }
 
 bool Secretary::remove_student(string phone_number) {
@@ -616,14 +617,19 @@ Secretary::Secretary(const Secretary& prev_sec) {
 Secretary::~Secretary() {
     // Again we want to make sure that we free only the members of the map, the memory for
     // which has been dynamically allocated.
-    map<string, Professor*>::const_iterator it;
+    map<string, Professor*>::iterator it;
     for (it = professors.begin(); it != professors.end(); it++) {
         if (it->second != NULL)
             delete it->second;
     }
-    map<string, Student*>::const_iterator it_2;
+    map<string, Student*>::iterator it_2;
     for (it_2 = students.begin(); it_2 != students.end(); it_2++) {
         if (it_2->second != NULL)
             delete it_2->second;
+    }
+    map<string, Course*>::iterator it_3;
+    for (it_3 = courses.begin(); it_3 != courses.end(); it_3++) {
+        if (it_3->second != NULL)
+            delete it_3->second;
     }
 }
