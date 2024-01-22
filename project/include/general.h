@@ -28,3 +28,9 @@
 #define COURSE_DOES_NOT_EXIST nullptr
 #define CURRENT_YEAR 2022
 using namespace std;
+
+#ifdef _WIN32
+    #define clear system("clr") 
+#else
+    #define clear system("clear")
+#endif
