@@ -25,4 +25,4 @@ time:
 	time ./$(EXECUTABLE)
 
 clean:
-	rm -f $(EXECUTABLE) *.o Makefile
+	rm -f $(EXECUTABLE) *.o *.txt

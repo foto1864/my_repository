@@ -16,12 +16,16 @@ void load_students(Secretary &sec) {
     string line;
     while (getline(students_file, line)) {
         istringstream iss(line);
-        string name;
-        string email_address;
-        string phone_number;
-        uint birth_year;
-        uint id;
+        string name, email_address, phone_number;
+        uint birth_year, id;
         iss >> name >> id >> phone_number >> birth_year >> email_address;
+
+        string student_profiles_path = "student_profiles/";
+        string filename = name + ".txt";
+        string full_path = student_profiles_path + filename;
+        ofstream out_file(full_path);
+        out_file << name << endl << email_address << endl << phone_number << endl << birth_year << endl << id << endl;
+
         uint year_joined_university = CURRENT_YEAR - (id/100);
         Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
         sec.insert_student(&student);
@@ -38,11 +42,8 @@ void load_professors(Secretary &sec) {
     string line;
     while (getline(professors_file, line)) {
         istringstream iss(line);
-        string name;
-        string email_address;
-        string phone_number;
-        uint birth_year;
-        uint id;
+        string name, email_address, phone_number;
+        uint birth_year, id;
         iss >> name >> id >> phone_number >> birth_year >> email_address;
         uint years_of_experience = CURRENT_YEAR - (id/100);
         Professor professor(name, email_address, phone_number, birth_year, id, years_of_experience);
@@ -60,10 +61,8 @@ void load_courses(Secretary &sec) {
     string line;
     while (getline(courses_file, line)) {
         istringstream iss(line);
-        uint course_id;
-        string course_name;
-        uint semester;
-        string mandatory;
+        uint course_id, semester;
+        string course_name, mandatory;
         bool is_mandatory;
         uint ECTs;
         iss >> course_id >> course_name >> semester >> mandatory >> ECTs;

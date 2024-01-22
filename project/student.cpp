@@ -34,6 +34,14 @@ bool Student::student_join_course(Course *new_course) {
         // Has to be in current semester or earlier
         if (new_course->course_get_semester() <= years_joined_university + 1) {
                 student_courses[new_course->course_get_name()] = new_course;
+
+                string name = this->get_name();
+                string filename = name + ".txt";
+                string student_profiles_path = "student_profiles/";
+                string full_path = student_profiles_path + filename;
+                ofstream out_file(full_path, ios::app);
+                out_file << new_course->course_get_name() << endl; 
+
                 return true;
         }
         else {
