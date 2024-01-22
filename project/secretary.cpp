@@ -5,6 +5,11 @@
 ////////////////////////////////// FUNCTIONS OF THE UNIVERSITY MENU //////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+void Secretary::print_uni_student_num(void) {
+    cout << students.size() << endl;
+}
+
 // 01. Add - Edit - Remove Professor
 void Secretary::add_edit_remove_professor(void) {
     cout << "Do you want to 1) add, 2) edit or 3) remove a professor from the university?" << endl;

@@ -9,6 +9,7 @@ class Secretary {
         map<string, Professor*> professors;
         map<string, Course*> courses;
     public:
+        void print_uni_student_num(void);
         void insert_student(Student*);
         void insert_professor(Professor*);
         void insert_course(Course*);

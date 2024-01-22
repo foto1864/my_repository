@@ -1,4 +1,5 @@
 #include "include/utilities.h"
+#include <vector>
 
 void load_database(Secretary &sec) {
     load_students(sec);
@@ -7,30 +8,35 @@ void load_database(Secretary &sec) {
     return;
 }
 
-void load_students(Secretary &sec) {
-    ifstream students_file("database/students.txt");
-    if (!students_file.is_open()) {
-        cout << "Error occured in opening 'students.txt' file." << endl;
-        exit(1);
-    }
+void read_file(const string &file_path, Secretary &sec) {
+
+    ifstream file(file_path);
     string line;
-    while (getline(students_file, line)) {
+    while(getline(file, line)) {
         istringstream iss(line);
         string name, email_address, phone_number;
         uint birth_year, id;
-        iss >> name >> id >> phone_number >> birth_year >> email_address;
-
-        string student_profiles_path = "student_profiles/";
-        string filename = name + ".txt";
-        string full_path = student_profiles_path + filename;
-        ofstream out_file(full_path);
-        out_file << name << endl << email_address << endl << phone_number << endl << birth_year << endl << id << endl;
-
-        uint year_joined_university = CURRENT_YEAR - (id/100);
-        Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
+        iss >> name >> email_address >> phone_number >> birth_year >> id;
+        uint years_joined = CURRENT_YEAR - (id/100);
+        Student student(name, email_address, phone_number, birth_year, id, years_joined);
         sec.insert_student(&student);
     }
-    students_file.close();
+    file.close();
+}
+
+void load_students(Secretary &sec) {
+    
+    ifstream students("database/students.txt");
+    string file_path = "student_profiles/";
+    string file_extension = ".txt";
+
+    string name;
+    while (students >> name) {
+        string full_path = file_path + name + file_extension;
+        read_file(full_path, sec);
+    }    
+
+    return;
 }
 
 void load_professors(Secretary &sec) {
