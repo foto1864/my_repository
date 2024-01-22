@@ -1,5 +1,4 @@
 #include "include/utilities.h"
-#include <vector>
 
 void load_database(Secretary &sec) {
     load_students(sec);

@@ -12,7 +12,6 @@ void call_intended_function(Secretary&, int);
 int main(void) {
     Secretary university;
     load_database(university);
-    university.print_uni_student_num();
     show_menu();
     int key = get_user_input(1,11);
     while (key != EXIT_MENU) {
