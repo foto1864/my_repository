@@ -25,18 +25,22 @@ void read_file(const string &file_path, Secretary &sec) {
 }
 
 void load_students(Secretary &sec) {
-    
-    ifstream students("database/students.txt");
-    string file_path = "student_profiles/";
-    string file_extension = ".txt";
-
-    string name;
-    while (students >> name) {
-        string full_path = file_path + name + file_extension;
-        read_file(full_path, sec);
+    ifstream students_file("database/students.txt");
+    if (!students_file.is_open()) {
+        cout << "Error occured in opening 'students.txt' file." << endl;
+        exit(1);
+    }
+    string line;
+    while (getline(students_file, line)) {
+        istringstream iss(line);
+        string name, email_address, phone_number;
+        uint birth_year, id;
+        iss >> name >> id >> phone_number >> birth_year >> email_address;
+        uint year_joined_university = CURRENT_YEAR - (id/100);
+        Student student(name, email_address, phone_number, birth_year, id, year_joined_university);
+        sec.insert_student(&student);    
     }    
-
-    return;
+    students_file.close();
 }
 
 void load_professors(Secretary &sec) {
