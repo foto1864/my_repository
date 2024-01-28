@@ -29,6 +29,18 @@ The menu is shown to the user each time that he finishes a process he has alread
 the user selects option 4 (Set the professor to a course), when he's done with that option he is again shown the
 menu and can exit it by entering the number 11 on the keyboard, meaning he selects option 11 (Exit Menu.)
 
+# PROGRAM FORMAT #
+
+Due to the size of the program, it would not be suitable for it to be in one file, thus it is split into many 
+smaller ones. There exists a folder called "database", inside which lie the input files (students.txt, courses.txt,
+professors.txt), and also a folder called "include", which contains all of the .h files needed for the program. 
+All of the .cpp files are in the main folder, along with the Makefile and the README.md you are reading now.
+
+# BUILD #
+
+In order to run the program, all you have to do is be in the project's repository in terminal and type in the 
+command "make". If you want to remove the .o files and the executable at the end you can type "make clean".
+
 # NOTES #
 
 In order to graduate, student has to have passed all mandatory classes, plus a certain number of 
