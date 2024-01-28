@@ -18,11 +18,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 run:
 	./$(EXECUTABLE)
 
-valgrind:
-	valgrind ./$(EXECUTABLE)
-
 time:
 	time ./$(EXECUTABLE)
 
 clean:
-	rm -f $(EXECUTABLE) *.o *.txt
+	rm -f $(EXECUTABLE) *.o 

@@ -43,6 +43,10 @@ command "make". If you want to remove the .o files and the executable at the end
 
 # NOTES #
 
+In contrast to what is written in the project's instructions, I have not made a main function that showcases the 
+use of the first 4 bullet-points (class student, set professor to course..etc). The reason is simply because of the 
+fact the all of the program's utilities are shown and used in the menu that is shown to the user. 
+
 In order to graduate, student has to have passed all mandatory classes, plus a certain number of 
 optional classes. The number of optional classes he has to have passed in order to graduate is one 
 such that the total number of ECT points (ECTs) adds up to the value of 98. The value of 98 essentially
