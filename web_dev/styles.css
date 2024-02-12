@@ -35,10 +35,6 @@ ul.home_properties li.logo {
     top: -120px;
     left: -30px;
 }
-
-div {
-    color: rgb(55, 15, 115);
-}
 div.start {
     position: relative;
     top: -40px;
@@ -53,23 +49,26 @@ div.city_image_with_text {
     top: -60px;
     background-image: url(image_city.jpg);
     background-size: 100%;
-    padding: 450px;
+    height: 800px;
+}
+div.purple_background {
+    background-color: rgb(55, 15, 115);
+    height: 1000px;
+    position: relative;
+    top: -120px;
 }
 div.paragraph_01 {
     font-size: 20px;
-    position:relative;
-    top: -150px;
-    background-color: rgb(55, 15, 115);
-    padding-left: 600px;
-    padding-right: 600px;
-    padding-top: 60px;
-    height: 1000px;
+    position: relative;
+    top: -1050px;
+    left: 600px;
+    width: 650px;
     color: white;
 }
 div.green_line_01 {
     background-color: rgb(52, 170, 52);
     position: relative;
-    top: -830px;
+    top: -1000px;
     left: 590px;
     width: 740px;
     height: 8px;
@@ -82,21 +81,21 @@ div.object_cube_01 {
     background-size: 100%;
     text-indent: -99999999px;
     position: relative;
-    top: -1050px;
+    top: -1220px;
     left: 590px;
 }
 div.vision {
     font-size: 30px;
     color: white;
     position: relative;
-    top: -980px;
+    top: -1150px;
     left: 660px;
 }
 div.vision_text {
     font-size: 18px;
     color: white;
     position: relative;
-    top: -810px;
+    top: -980px;
     left: 850px;
     width: 450px;
     display: flex;
@@ -106,7 +105,7 @@ div.vision_text {
 div.green_line_02 {
     background-color: rgb(52, 170, 52);
     position: relative;
-    top: -760px;
+    top: -930px;
     left: 590px;
     width: 740px;
     height: 8px;
@@ -119,7 +118,7 @@ div.object_cube_02 {
     background-size: 100%;
     text-indent: -99999999px;
     position: relative;
-    top: -960px;
+    top: -1130px;
     left: 590px;
 }
 div.mission_text {
@@ -127,7 +126,7 @@ div.mission_text {
     color: white;
     position: relative;
     left: 850px;
-    top: -730px;
+    top: -900px;
     width: 450px;
     display: flex;
     flex-wrap: wrap;
@@ -136,8 +135,35 @@ div.mission {
     font-size: 30px;
     color: white;
     position: relative;
-    top: -870px;
+    top: -1040px;
     left: 660px;
+}
+
+div.green_last_mile_solutions {
+    background-image: url(green_last_mile_solutions.jpg);
+    position: relative;
+    top: -960px;
+    width: 1300px;
+    height: 470px;
+    background-size: 100%;
+    background-position: center;
+    left: 300px;
+}
+div.green_line_03 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -960px;
+    left: 800px;
+    width: 800px;
+    height: 8px;
+}
+div.green_line_04 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -960px;
+    left: 300px;
+    width: 800px;
+    height: 8px;
 }
 
 
