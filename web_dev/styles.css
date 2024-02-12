@@ -13,6 +13,7 @@ ul.home_properties {
     position: relative;
     top: 135px;
     margin-right: 10px;
+    font-size: smaller;
 }
 
 ul.home_properties li {
@@ -52,14 +53,14 @@ div.body_00 {
     top: -60px;
     background-image: url(image_city.jpg);
     background-size: 100%;
-    padding: 15%;
+    padding: 450px;
 }
 div.body_01 {
     position:relative;
-    top: -60px;
+    top: -100px;
     background-color: rgb(55, 15, 115);
-    padding-left: 200px;
-    padding-right: 200px;
+    padding-left: 600px;
+    padding-right: 600px;
     padding-top: 40px;
     padding-bottom: 40px;
     color: white;
