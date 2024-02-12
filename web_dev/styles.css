@@ -48,23 +48,99 @@ div.start {
     padding-top: 0px;
     padding-bottom: 0px;
 }
-div.body_00 {
+div.city_image_with_text {
     position: relative;
     top: -60px;
     background-image: url(image_city.jpg);
     background-size: 100%;
     padding: 450px;
 }
-div.body_01 {
+div.paragraph_01 {
+    font-size: 20px;
     position:relative;
-    top: -100px;
+    top: -150px;
     background-color: rgb(55, 15, 115);
     padding-left: 600px;
     padding-right: 600px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 60px;
+    height: 1000px;
     color: white;
 }
+div.green_line_01 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -830px;
+    left: 590px;
+    width: 740px;
+    height: 8px;
+}
+div.object_cube_01 {
+    background-color: red;
+    background-image: url(object_cube.png);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    text-indent: -99999999px;
+    position: relative;
+    top: -1050px;
+    left: 590px;
+}
+div.vision {
+    font-size: 30px;
+    color: white;
+    position: relative;
+    top: -980px;
+    left: 660px;
+}
+div.vision_text {
+    font-size: 18px;
+    color: white;
+    position: relative;
+    top: -810px;
+    left: 850px;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.green_line_02 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -760px;
+    left: 590px;
+    width: 740px;
+    height: 8px;
+}
+div.object_cube_02 {
+    background-color: red;
+    background-image: url(object_cube.png);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    text-indent: -99999999px;
+    position: relative;
+    top: -960px;
+    left: 590px;
+}
+div.mission_text {
+    font-size: 18px;
+    color: white;
+    position: relative;
+    left: 850px;
+    top: -730px;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+}
+div.mission {
+    font-size: 30px;
+    color: white;
+    position: relative;
+    top: -870px;
+    left: 660px;
+}
+
+
 div.body_02 {
     background-color: white;
     padding: 100px;
