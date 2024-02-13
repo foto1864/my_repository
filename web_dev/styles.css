@@ -6,6 +6,7 @@ body {
     font-size: x-large;
     margin: 0;
     padding: 0;
+    height: 15px;
 }
 
 ul.home_properties {
@@ -265,24 +266,27 @@ div.gray_box {
     position: relative;
     text-indent: -9999999px;
     height: 65px;
+    top: -600px;
 }
 div.purple_box {
     background-color: rgb(55, 15, 115);
     position: relative;
     text-indent: -999999px;
     height: 550px;
+    top: -600px;
 }
 div.green_box {
     background-color: rgb(63, 189, 63); 
     position: relative;
     text-indent: -99999999px;
     height: 150px;
+    top: 30px;
 }
 
 
 div.end {
     position: relative;
-    top: -40px;
+    top: -1080px;
     text-align: center;
     padding: 0%;
     padding-top: 0px;
