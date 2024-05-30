@@ -27,3 +27,4 @@ class Student : public Person {
         Student(string, string, string, uint, uint, uint);
         ~Student();
 };
+
