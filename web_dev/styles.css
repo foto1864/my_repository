@@ -6,6 +6,7 @@ body {
     font-size: x-large;
     margin: 0;
     padding: 0;
+    height: 15px;
 }
 
 ul.home_properties {
@@ -13,6 +14,7 @@ ul.home_properties {
     position: relative;
     top: 135px;
     margin-right: 10px;
+    font-size: smaller;
 }
 
 ul.home_properties li {
@@ -34,10 +36,6 @@ ul.home_properties li.logo {
     top: -120px;
     left: -30px;
 }
-
-div {
-    color: rgb(55, 15, 115);
-}
 div.start {
     position: relative;
     top: -40px;
@@ -47,35 +45,255 @@ div.start {
     padding-top: 0px;
     padding-bottom: 0px;
 }
-div.body_00 {
+div.city_image_with_text {
     position: relative;
     top: -60px;
     background-image: url(image_city.jpg);
     background-size: 100%;
-    padding: 15%;
+    height: 800px;
 }
-div.body_01 {
-    position:relative;
-    top: -60px;
+div.purple_background {
     background-color: rgb(55, 15, 115);
-    padding-left: 200px;
-    padding-right: 200px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    height: 1000px;
+    position: relative;
+    top: -120px;
+}
+div.paragraph_01 {
+    font-size: 20px;
+    position: relative;
+    top: -1050px;
+    left: 600px;
+    width: 650px;
     color: white;
 }
-div.body_02 {
-    background-color: white;
-    padding: 100px;
-
+div.green_line_01 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -1000px;
+    left: 590px;
+    width: 740px;
+    height: 8px;
 }
-div.body_03 {
+div.object_cube_01 {
+    background-color: red;
+    background-image: url(object_cube.png);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    text-indent: -99999999px;
+    position: relative;
+    top: -1220px;
+    left: 590px;
+}
+div.vision {
+    font-size: 30px;
+    color: white;
+    position: relative;
+    top: -1150px;
+    left: 660px;
+}
+div.vision_text {
+    font-size: 18px;
+    color: white;
+    position: relative;
+    top: -980px;
+    left: 850px;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.green_line_02 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -930px;
+    left: 590px;
+    width: 740px;
+    height: 8px;
+}
+div.object_cube_02 {
+    background-color: red;
+    background-image: url(object_cube.png);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    text-indent: -99999999px;
+    position: relative;
+    top: -1130px;
+    left: 590px;
+}
+div.mission_text {
+    font-size: 18px;
+    color: white;
+    position: relative;
+    left: 850px;
+    top: -900px;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+}
+div.mission {
+    font-size: 30px;
+    color: white;
+    position: relative;
+    top: -1040px;
+    left: 660px;
+}
+
+div.green_last_mile_solutions {
+    background-image: url(green_last_mile_solutions.jpg);
+    position: relative;
+    top: -960px;
+    width: 1300px;
+    height: 470px;
+    background-size: 100%;
+    background-position: center;
+    left: 300px;
+}
+div.green_line_03 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -960px;
+    left: 800px;
+    width: 800px;
+    height: 8px;
+}
+div.green_line_04 {
+    background-color: rgb(52, 170, 52);
+    position: relative;
+    top: -960px;
+    left: 300px;
+    width: 800px;
+    height: 8px;
+}
+
+
+
+
+div.object_cube_03 {
+    background-color: red;
+    background-image: url(object_cube_white.png);
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    text-indent: -99999999px;
+    position: relative;
+    top: -870px;
+    left: 590px;
+}
+div.fundamental_principles {
+    position: relative;
+    font-size: 30px;
+    color: rgb(55, 15, 115);
+    top: -910px;
+    left: 660px;
+}
+
+div.sustainability {
+    background-color: red;
+    background-image: url(sustainabilty.jpg);
+    position: relative;
+    top: -850px;
+    left: 700px;
+    width: 250px;
+    height: 238px;
+    text-indent: -9999999px;
+    background-size: 100%;
+}
+
+div.innovation {
+    background-color: red;
+    background-image: url(innovation.jpg);
+    position: relative;
+    text-indent: -999999px;
+    background-size: 100%;
+    width: 250px;
+    height: 238px;
+    left: 1000px;
+    top: -1088px;
+}
+
+div.collaboration {
+    background-color: red;
+    background-image: url(collaboration.jpg);
+    position: relative;
+    text-indent: -999999px;
+    background-size: 100%;
+    width: 250px;
+    height: 238px;
+    left: 1000px;
+    top: -1042px;
+}
+
+div.customer_centric {
+    background-color: red;
+    background-image: url(customer_centric.jpg);
+    position: relative;
+    text-indent: -999999px;
+    background-size: 100%;
+    width: 250px;
+    height: 238px;
+    left: 700px;
+    top: -1280px;
+}
+
+div.sustainability_02 {
+    background-color: red;
+    background-image: url(sustainabilty.jpg);
+    position: relative;
+    top: -1230px;
+    left: 700px;
+    width: 250px;
+    height: 238px;
+    text-indent: -9999999px;
+    background-size: 100%;
+}
+div.innovation_02 {
+    background-color: red;
+    background-image: url(innovation.jpg);
+    position: relative;
+    text-indent: -999999px;
+    background-size: 100%;
+    width: 250px;
+    height: 238px;
+    left: 1000px;
+    top: -1468px;
+}
+
+
+div.gray_box {
+    background-color: rgb(215, 215, 215);
+    position: relative;
+    text-indent: -9999999px;
+    height: 65px;
+    top: -600px;
+}
+div.purple_box {
     background-color: rgb(55, 15, 115);
-    padding: 100px;
-    
+    position: relative;
+    text-indent: -999999px;
+    height: 550px;
+    top: -600px;
 }
-div.body_04 {
-    background-color: rgb(63, 189, 63);
-    padding: 100px;
+div.green_box {
+    background-color: rgb(63, 189, 63); 
+    position: relative;
+    text-indent: -99999999px;
+    height: 150px;
+    top: 30px;
+}
 
+
+div.end {
+    position: relative;
+    top: -1080px;
+    text-align: center;
+    padding: 0%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    list-style-type: none;
+}
+ul.end_properties li a{
+    list-style-type: none;
+    color: white;
 }
