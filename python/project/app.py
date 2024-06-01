@@ -17,6 +17,8 @@ def updateRank(rank1, rank2, movieTitle):
     # Create a cursor on the connection
     cur=con.cursor()
 
+    sql = "select * from movie"
+
     try:
         float(rank1)
     except ValueError:
@@ -76,3 +78,5 @@ def traceActorInfluence(actorId):
 
 
     return [("influencedActorId",),]
+
+updateRank(2, 3, "any")
