@@ -1,7 +1,11 @@
 # First python program
 
+def add(a,b):
+    return a+b
+
 a = 5
+b = 6
 
-b = 10
+c = add(a,b)
 
-print(a+b)
+print(c)

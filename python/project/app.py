@@ -56,65 +56,39 @@ def updateRank(rank1, rank2, movieTitle):
 
     return [("status",),("ok",),]
 
-
 def colleaguesOfColleagues(actorId1, actorId2):
 
     # Create a new connection
     con=connection()
-    cursor = con.cursor()
 
-    # Βρίσκουμε τους ηθοποιούς που έχουν παίξει με τον a
-    query1 = """
-    SELECT DISTINCT actor_id 
-    FROM role 
-    WHERE movie_id IN (SELECT movie_id FROM role WHERE actor_id = %s)
-    AND actor_id != %s
-    """
-    cursor.execute(query1, (actorId1, actorId1))
-    actors_with_a = cursor.fetchall()
-    actors_with_a = [row[0] for row in actors_with_a]
+    # Create a cursor on the connection
+    cur=con.cursor()
+    # lathos gia 1 tainia exei permutations ton ithopion
+    sql = '''SELECT m.title, r1.actor_id, r2.actor_id
+             FROM role r1, role r2, movie m
+             WHERE r1.movie_id = r2.movie_id AND m.movie_id = r1.movie_id AND r1.actor_id != r2.actor_id 
+             AND r1.actor_id != %s AND r1.actor_id != %s AND r2.actor_id != %s AND r2.actor_id != %s AND
+             r1.actor_id IN (
+                SELECT r4.actor_id FROM role r4 WHERE r4.movie_id IN(
+                    SELECT movie_id FROM role  WHERE actor_id = %s  
+                )
+             ) AND
+             r2.actor_id IN (
+                SELECT r4.actor_id FROM role r4 WHERE r4.movie_id IN(
+                    SELECT movie_id FROM role  WHERE actor_id = %s
+                )
+             )'''
+    
+    cur.execute(sql,(actorId1,actorId2,actorId1,actorId2,actorId1,actorId2))
+    res = cur.fetchall()
 
-    # Βρίσκουμε τους ηθοποιούς που έχουν παίξει με τον b
-    query2 = """
-    SELECT DISTINCT actor_id 
-    FROM role 
-    WHERE movie_id IN (SELECT movie_id FROM role WHERE actor_id = %s)
-    AND actor_id != %s
-    """
-    cursor.execute(query2, (actorId2, actorId2))
-    actors_with_b = cursor.fetchall()
-    actors_with_b = [row[0] for row in actors_with_b]
+    lst = list(res)
+    print(lst)
 
-    results = []
+    print (actorId1, actorId2)
 
-    # Βρίσκουμε τις ταινίες στις οποίες οι ηθοποιοί c και d έχουν παίξει μαζί
-    for c in actors_with_a:
-        for d in actors_with_b:
-            query3 = """
-            SELECT DISTINCT m.title, %s, %s, %s, %s
-            FROM movie m
-            WHERE m.movie_id IN (
-                SELECT movie_id
-                FROM role
-                WHERE actor_id = %s
-            )
-            AND m.movie_id IN (
-                SELECT movie_id
-                FROM role
-                WHERE actor_id = %s
-            )
-            """
-            cursor.execute(query3, (c, d, actorId1, actorId2, c, d))
-            movies = cursor.fetchall()
-            for movie in movies:
-                results.append(movie)
-  
-
-    cursor.close()
-    con.close()
-
-    return [("Movie Title", "Actor C ID", "Actor D ID", "Actor A ID", "Actor B ID")] + results
     return [("movieTitle", "colleagueOfActor1", "colleagueOfActor2", "actor1","actor2",),]
+
 
 def actorPairs(actorId):
 
@@ -215,42 +189,4 @@ def traceActorInfluence(actorId):
 def sort(tuple):
     return tuple[2]
 
-
-def colleaguesOfColleagues(actorId1, actorId2):
-    # Create a new connection
-    con = connection()
-
-    # Create a cursor on the connection
-    cur = con.cursor()
-
-    sql = '''SELECT m.title, r1.actor_id AS colleagueOfActor1, r2.actor_id AS colleagueOfActor2, %s AS actor1, %s AS actor2
-            FROM role r1, role r2, movie m
-            WHERE r1.movie_id = r2.movie_id
-            AND m.movie_id = r1.movie_id
-            AND r1.actor_id != r2.actor_id
-            AND r1.actor_id IN (
-                SELECT r4.actor_id
-                FROM role r4
-                WHERE r4.movie_id IN (
-                    SELECT movie_id FROM role WHERE actor_id = %s
-                )
-            )
-            AND r2.actor_id IN (
-                SELECT r5.actor_id
-                FROM role r5
-                WHERE r5.movie_id IN (
-                    SELECT movie_id FROM role WHERE actor_id = %s
-                )
-            )'''
-
-    cur.execute(sql, (actorId1, actorId2, actorId1, actorId2))
-    res = cur.fetchall()
-
-    # Convert the result into the desired format
-    results = [(row[0], row[1], row[2], row[3], row[4]) for row in res]
-
-    # Close the cursor and the connection
-    cur.close()
-    con.close()
-
-    return results
+colleaguesOfColleagues(376249,22591)
