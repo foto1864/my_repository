@@ -58,64 +58,37 @@ def updateRank(rank1, rank2, movieTitle):
 
 
 def colleaguesOfColleagues(actorId1, actorId2):
+
     # Create a new connection
-    con = connection()
+    con=connection()
 
     # Create a cursor on the connection
-    cur = con.cursor()
-
-    sql = '''
-    SELECT DISTINCT m.title, r1.actor_id AS colleagueOfActor1, r2.actor_id AS colleagueOfActor2, %s AS actor1, %s AS actor2
-    FROM role r1, role r2, movie m
-    WHERE r1.movie_id = r2.movie_id
-      AND m.movie_id = r1.movie_id
-      AND r1.actor_id != r2.actor_id
-      AND r1.actor_id != %s
-      AND r1.actor_id != %s
-      AND r2.actor_id != %s
-      AND r2.actor_id != %s
-      AND r1.actor_id IN (
-          SELECT r4.actor_id
-          FROM role r4
-          WHERE r4.movie_id IN (
-              SELECT movie_id FROM role WHERE actor_id = %s
-          )
-      )
-      AND r2.actor_id IN (
-          SELECT r5.actor_id
-          FROM role r5
-          WHERE r5.movie_id IN (
-              SELECT movie_id FROM role WHERE actor_id = %s
-          )
-      )
-      AND r1.actor_id < r2.actor_id
-    '''
-
-    cur.execute(sql, (actorId1, actorId2, actorId1, actorId2, actorId1, actorId2))
+    cur=con.cursor()
+    # lathos gia 1 tainia exei permutations ton ithopion
+    sql = '''SELECT m.title, r1.actor_id, r2.actor_id
+             FROM role r1, role r2, movie m
+             WHERE r1.movie_id = r2.movie_id AND m.movie_id = r1.movie_id AND r1.actor_id != r2.actor_id 
+             AND r1.actor_id != %s AND r1.actor_id != %s AND r2.actor_id != %s AND r2.actor_id != %s AND
+             r1.actor_id IN (
+                SELECT r4.actor_id FROM role r4 WHERE r4.movie_id IN(
+                    SELECT movie_id FROM role  WHERE actor_id = %s  
+                )
+             ) AND
+             r2.actor_id IN (
+                SELECT r4.actor_id FROM role r4 WHERE r4.movie_id IN(
+                    SELECT movie_id FROM role  WHERE actor_id = %s
+                )
+             )'''
+    
+    cur.execute(sql,(actorId1,actorId2,actorId1,actorId2,actorId1,actorId2))
     res = cur.fetchall()
 
-    # Initialize the counter
-    result_count = 0
+    lst = list(res)
+    print(lst)
 
-    # Convert the result into the desired format
-    results = []
-    for row in res:
-        results.append((row[0], row[1], row[2], row[3], row[4]))
-        result_count += 1
+    print (actorId1, actorId2)
 
-    # Print the number of results
-    print(f"Number of results: {result_count}")
-
-    # Print results in the terminal
-    for result in results:
-        print(f"Movie Title: {result[0]}, Colleague of Actor 1: {result[1]}, Colleague of Actor 2: {result[2]}, Actor 1: {result[3]}, Actor 2: {result[4]}")
-
-    # Close the cursor and the connection
-    cur.close()
-    con.close()
-
-    return results
-
+    return [("movieTitle", "colleagueOfActor1", "colleagueOfActor2", "actor1","actor2",),]
 
 def actorPairs(actorId):
 
