@@ -32,7 +32,7 @@ def longest_palindromic_substring(s):
     return max_length, start_index
 
 # Παράδειγμα χρήσης
-s = "adcbbabbca"
+s = "nisonanomimatamimonanosin"
 max_length, start_index = longest_palindromic_substring(s)
 print("Length of starting string:", len(s))
 print("Maximum length of palindrome substring:", max_length)
