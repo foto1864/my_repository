@@ -18,9 +18,6 @@ int longest_palindromic_substring(char* s, int* max_length, int* start_index) {
         }
     }
 
-    *max_length = 1;
-    *start_index = 0;
-
     // Όλες οι συμβολοσειρές μήκους 1 είναι παλινδρομικές
     for (int i = 0; i < n; i++) {
         dp[i][i] = true;
@@ -41,7 +38,7 @@ int longest_palindromic_substring(char* s, int* max_length, int* start_index) {
 }
 
 int main() {
-    char s[] = "nisonanomimatamimonanosin";
+    char* s = "nabanof";
     int max_length;
     int start_index;
 
