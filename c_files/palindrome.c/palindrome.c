@@ -41,7 +41,7 @@ int longest_palindromic_substring(char* s, int* max_length, int* start_index) {
 }
 
 int main() {
-    char s[] = "FaceFabdFabddecaF";
+    char s[] = "nisonanomimatamimonanosin";
     int max_length;
     int start_index;
 
