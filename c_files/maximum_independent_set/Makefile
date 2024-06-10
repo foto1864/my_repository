@@ -3,8 +3,13 @@
 # Compiler
 CC = gcc
 
-# Object file (source)
-OBJ = max_independent_set.c
+# Object files (source)
+OBJ1 = max_independent_set.c
+OBJ2 = functions.c
+
+# Unlinked files
+UNL1 = max_independent_set.o
+UNL2 = functions.o
 
 # Executable
 EXEC = max_independent_set
@@ -12,8 +17,10 @@ EXEC = max_independent_set
 # Compiler options
 FLAGS = -Wall -Werror
 
-make: $(OBJ)
-	$(CC) -o $(EXEC) $(OBJ) $(FLAGS)
+make: $(OBJ1) $(OBJ2)
+	$(CC) -c $(OBJ1) $(FLAGS)
+	$(CC) -c $(OBJ2) $(FLAGS)
+	$(CC) -o $(EXEC) $(UNL1) $(UNL2) $(FLAGS)
 
 run: $(EXEC)
 	./$(EXEC)
