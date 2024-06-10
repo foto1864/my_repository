@@ -19,7 +19,7 @@ Node* new_node(Pointer data) {
 }
 
 void print_tree(Node* root) {
-    printf("%s ", (char*)root->value);
+    printf("%d ", *(int*) root->value);
     if(root->left != NULL)
         print_tree(root->left);
     if(root->right != NULL)
@@ -28,22 +28,16 @@ void print_tree(Node* root) {
 }
 
 Node* initialize_tree() {
-    Node* root = new_node("A");
-    Node* left = new_node("B");
-    Node* right = new_node("C");
-    Node* left_left = new_node("D");
-    Node* left_right = new_node("E");
-    Node* right_left = new_node("F");
-    Node* right_right = new_node("G");
+    Node* node_A = new_node("A");
+    Node* node_B = new_node("B");
+    Node* node_C = new_node("C");
+    Node* node_D = new_node("D");
+    Node* node_E = new_node("E");
+    Node* node_F = new_node("F");
+    Node* node_G = new_node("G");
+    Node* node_H = new_node("H");
+    Node* node_I = new_node("I");
 
-    right->right = right_right;
-    right->left = right_left;
-    left->left = left_left;
-    left->right = left_right;
-    root->left = left;
-    root->right = right;
-
-    return root;
 }
 
 int main(void) {
