@@ -19,11 +19,15 @@ Node* new_node(Pointer data) {
 }
 
 void print_tree(Node* root) {
-    printf("%s ", (char*) root->value);
-    if(root->left != NULL)
+    printf("%s\n", (char*) root->value);
+    if(root->left != NULL) {
+        printf("left:");
         print_tree(root->left);
-    if(root->right != NULL)
+    }
+    if(root->right != NULL) {
+        printf("right:");
         print_tree(root->right);
+    }
     return;
 }
 
@@ -50,6 +54,19 @@ Node* initialize_tree() {
     return node_A;
 }
 
+void free_node(Node* node) {
+    free(node->value);
+    free(node);
+}
+
+void free_tree_memory(Node* root) {
+    if(root->left != NULL)
+        free_tree_memory(root->left);
+    if(root->right != NULL)
+        free_tree_memory(root->right);
+    free_node(root);
+}
+
 int main(void) {
 
     Node* root = initialize_tree();
@@ -57,5 +74,8 @@ int main(void) {
     putchar(10);
     print_tree(root);
     putchar(10);
+
+    free_tree_memory(root);
+    free(root);
     return 0;
 }

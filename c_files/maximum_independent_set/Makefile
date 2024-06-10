@@ -17,3 +17,6 @@ make: $(OBJ)
 
 run: $(EXEC)
 	./$(EXEC)
+
+valgrind: $(EXEC)
+	valgrind ./$(EXEC)
