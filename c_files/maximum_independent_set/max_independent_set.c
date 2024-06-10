@@ -2,86 +2,56 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Δομή δεδομένων για έναν κόμβο του δέντρου
+typedef void* Pointer;
+
 typedef struct Node {
-    int data;
+    Pointer value;
     struct Node* left;
     struct Node* right;
 } Node;
 
-// Συνάρτηση για να δημιουργήσουμε έναν νέο κόμβο
-Node* newNode(int data) {
-    Node* node = (Node*)malloc(sizeof(Node));
-    node->data = data;
+Node* new_node(Pointer data) {
+    Node* node = (Node*) malloc(sizeof(Node));
+    node->value = data;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
-// Συνάρτηση για τον υπολογισμό του μέγιστου ανεξάρτητου συνόλου
-int MIS(Node* root, int* memo_incl, int* memo_excl) {
-    if (root == NULL)
-        return 0;
-
-    // Αν έχει ήδη υπολογιστεί το αποτέλεσμα, επιστρέφουμε
-    if (memo_incl[root->data] != -1 && memo_excl[root->data] != -1)
-        return memo_incl[root->data] > memo_excl[root->data] ? memo_incl[root->data] : memo_excl[root->data];
-
-    // Υπολογίζουμε το MIS όταν ο κόμβος περιλαμβάνεται
-    int incl = 1;
-    if (root->left != NULL)
-        incl += MIS(root->left, memo_excl, memo_incl);
-    if (root->right != NULL)
-        incl += MIS(root->right, memo_excl, memo_incl);
-
-    // Υπολογίζουμε το MIS όταν ο κόμβος δεν περιλαμβάνεται
-    int excl = 0;
-    if (root->left != NULL)
-        excl += MIS(root->left, memo_incl, memo_excl);
-    if (root->right != NULL)
-        excl += MIS(root->right, memo_incl, memo_excl);
-
-    // Αποθηκεύουμε τα αποτελέσματα
-    memo_incl[root->data] = incl;
-    memo_excl[root->data] = excl;
-
-    return incl > excl ? incl : excl;
+void print_tree(Node* root) {
+    printf("%s ", (char*)root->value);
+    if(root->left != NULL)
+        print_tree(root->left);
+    if(root->right != NULL)
+        print_tree(root->right);
+    return;
 }
 
-// Συνάρτηση για την εκκίνηση της διαδικασίας του MIS
-int getMaxIndependentSet(Node* root) {
-    if (root == NULL)
-        return 0;
+Node* initialize_tree() {
+    Node* root = new_node("A");
+    Node* left = new_node("B");
+    Node* right = new_node("C");
+    Node* left_left = new_node("D");
+    Node* left_right = new_node("E");
+    Node* right_left = new_node("F");
+    Node* right_right = new_node("G");
 
-    // Δημιουργία και αρχικοποίηση των πινάκων μνήμης
-    int n = 1000; // Ας υποθέσουμε ότι τα δεδομένα των κόμβων είναι < 1000 για απλότητα
-    int* memo_incl = (int*)malloc(n * sizeof(int));
-    int* memo_excl = (int*)malloc(n * sizeof(int));
-    for (int i = 0; i < n; i++) {
-        memo_incl[i] = -1;
-        memo_excl[i] = -1;
-    }
+    right->right = right_right;
+    right->left = right_left;
+    left->left = left_left;
+    left->right = left_right;
+    root->left = left;
+    root->right = right;
 
-    int result = MIS(root, memo_incl, memo_excl);
-
-    // Καθαρισμός μνήμης
-    free(memo_incl);
-    free(memo_excl);
-
-    return result;
+    return root;
 }
 
-int main() {
-    // Δημιουργία του δέντρου
-    Node* root = newNode(10);
-    root->left = newNode(20);
-    root->right = newNode(30);
-    root->left->left = newNode(40);
-    root->left->right = newNode(50);
-    root->right->right = newNode(60);
+int main(void) {
 
-    int maxIS = getMaxIndependentSet(root);
-    printf("The maximum independent set has size: %d\n", maxIS);
+    Node* root = initialize_tree();
 
+    putchar(10);
+    print_tree(root);
+    putchar(10);
     return 0;
 }
