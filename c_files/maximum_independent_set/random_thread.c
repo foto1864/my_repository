@@ -28,18 +28,13 @@ int LISS(struct node *root)
  
     if (root->left == NULL && root->right == NULL)
         return (root->liss = 1);
- 
-    // Calculate size excluding the current node
+
     int liss_excl = LISS(root->left) + LISS(root->right);
- 
-    // Calculate size including the current node
     int liss_incl = 1;
     if (root->left)
         liss_incl += LISS(root->left->left) + LISS(root->left->right);
     if (root->right)
         liss_incl += LISS(root->right->left) + LISS(root->right->right);
- 
-    // Maximum of two sizes is LISS, store it for future uses.
     return root->liss;
 }
  

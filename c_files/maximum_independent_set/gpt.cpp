@@ -7,14 +7,15 @@ class Node {
 public:
     int data;
     int liss_size;
-    std::shared_ptr<Node> left, right;
+    Node* left;
+    Node* right;
     std::vector<int> liss_nodes; // Vector to store LISS nodes
 
     Node(int data) : data(data), liss_size(0), left(nullptr), right(nullptr) {}
 };
 
 // Function to find the Largest Independent Set (LIS)
-int LISS(std::shared_ptr<Node> root) {
+int LISS(Node* root) {
     if (!root)
         return 0;
 
