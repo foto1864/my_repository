@@ -1,123 +1,125 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-// Δομή δεδομένων για έναν κόμβο του δέντρου
-typedef struct Node {
+// Define the structure for tree node
+struct node {
     int data;
-    struct Node* left;
-    struct Node* right;
-} Node;
+    int liss_size;
+    struct node *left, *right;
+    int *liss_nodes; // Array to store LISS nodes
+    int liss_nodes_count;
+};
 
-// Συνάρτηση για να δημιουργήσουμε έναν νέο κόμβο
-Node* newNode(int data) {
-    Node* node = (Node*)malloc(sizeof(Node));
-    node->data = data;
-    node->left = NULL;
-    node->right = NULL;
-    return node;
+// Utility function to create a new tree node
+struct node* newNode(int data) {
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = data;
+    temp->left = temp->right = NULL;
+    temp->liss_size = 0;
+    temp->liss_nodes = NULL;
+    temp->liss_nodes_count = 0;
+    return temp;
 }
 
-// Συνάρτηση για τον υπολογισμό του μέγιστου ανεξάρτητου συνόλου αν περιλαμβάνεται ο κόμβος v
-int MIS_incl(Node* root, int* memo_incl, int* memo_excl);
+// Utility function to copy LISS nodes
+void copyLISSNodes(int *dest, int *src, int count) {
+    for (int i = 0; i < count; i++) {
+        dest[i] = src[i];
+    }
+}
 
-// Συνάρτηση για τον υπολογισμό του μέγιστου ανεξάρτητου συνόλου αν δεν περιλαμβάνεται ο κόμβος v
-int MIS_excl(Node* root, int* memo_incl, int* memo_excl);
+// Utility function to append node to LISS nodes array
+int* appendLISSNode(int *nodes, int count, int data) {
+    int *new_nodes = (int*)malloc((count + 1) * sizeof(int));
+    for (int i = 0; i < count; i++) {
+        new_nodes[i] = nodes[i];
+    }
+    new_nodes[count] = data;
+    free(nodes);
+    return new_nodes;
+}
 
-// Συνάρτηση για τον υπολογισμό του μέγιστου ανεξάρτητου συνόλου
-int MIS(Node* root, int* memo_incl, int* memo_excl) {
+// Function to find the Largest Independent Set (LIS)
+int LISS(struct node *root) {
     if (root == NULL)
         return 0;
 
-    // Αν έχει ήδη υπολογιστεί το αποτέλεσμα, επιστρέφουμε
-    if (memo_incl[root->data] != -1 && memo_excl[root->data] != -1)
-        return memo_incl[root->data] > memo_excl[root->data] ? memo_incl[root->data] : memo_excl[root->data];
+    if (root->liss_size != 0)
+        return root->liss_size;
 
-    int incl = MIS_incl(root, memo_incl, memo_excl);
-    int excl = MIS_excl(root, memo_incl, memo_excl);
-
-    memo_incl[root->data] = incl;
-    memo_excl[root->data] = excl;
-
-    return incl > excl ? incl : excl;
-}
-
-// Συνάρτηση για τον υπολογισμό του μέγιστου ανεξάρτητου συνόλου αν περιλαμβάνεται ο κόμβος v
-int MIS_incl(Node* root, int* memo_incl, int* memo_excl) {
-    if (root == NULL)
-        return 0;
-
-    // Αν έχει ήδη υπολογιστεί το αποτέλεσμα, επιστρέφουμε
-    if (memo_incl[root->data] != -1)
-        return memo_incl[root->data];
-
-    int incl = 1; // Περιλαμβάνουμε τον τρέχοντα κόμβο
-    if (root->left != NULL)
-        incl += MIS_excl(root->left, memo_incl, memo_excl);
-    if (root->right != NULL)
-        incl += MIS_excl(root->right, memo_incl, memo_excl);
-
-    memo_incl[root->data] = incl;
-    return incl;
-}
-
-// Συνάρτηση για τον υπολογισμό του μέγιστου ανεξάρτητου συνόλου αν δεν περιλαμβάνεται ο κόμβος v
-int MIS_excl(Node* root, int* memo_incl, int* memo_excl) {
-    if (root == NULL)
-        return 0;
-
-    // Αν έχει ήδη υπολογιστεί το αποτέλεσμα, επιστρέφουμε
-    if (memo_excl[root->data] != -1)
-        return memo_excl[root->data];
-
-    int excl = 0; // Δεν περιλαμβάνουμε τον τρέχοντα κόμβο
-    if (root->left != NULL)
-        excl += MIS(root->left, memo_incl, memo_excl);
-    if (root->right != NULL)
-        excl += MIS(root->right, memo_incl, memo_excl);
-
-    memo_excl[root->data] = excl;
-    return excl;
-}
-
-// Συνάρτηση για την εκκίνηση της διαδικασίας του MIS
-int getMaxIndependentSet(Node* root) {
-    if (root == NULL)
-        return 0;
-
-    // Δημιουργία και αρχικοποίηση των πινάκων μνήμης
-    int n = 1000; // Ας υποθέσουμε ότι τα δεδομένα των κόμβων είναι < 1000 για απλότητα
-    int* memo_incl = (int*)malloc(n * sizeof(int));
-    int* memo_excl = (int*)malloc(n * sizeof(int));
-    for (int i = 0; i < n; i++) {
-        memo_incl[i] = -1;
-        memo_excl[i] = -1;
+    if (root->left == NULL && root->right == NULL) {
+        root->liss_size = 1;
+        root->liss_nodes = appendLISSNode(NULL, 0, root->data);
+        root->liss_nodes_count = 1;
+        return root->liss_size;
     }
 
-    int result = MIS(root, memo_incl, memo_excl);
+    // Calculate size excluding the current node
+    int liss_excl = LISS(root->left) + LISS(root->right);
 
-    // Καθαρισμός μνήμης
-    free(memo_incl);
-    free(memo_excl);
+    // Calculate size including the current node
+    int liss_incl = 1;
+    int *liss_incl_nodes = appendLISSNode(NULL, 0, root->data);
+    int liss_incl_count = 1;
+    if (root->left) {
+        liss_incl += LISS(root->left->left) + LISS(root->left->right);
+        liss_incl_nodes = (int*)realloc(liss_incl_nodes, (liss_incl_count + root->left->liss_nodes_count) * sizeof(int));
+        copyLISSNodes(liss_incl_nodes + liss_incl_count, root->left->liss_nodes, root->left->liss_nodes_count);
+        liss_incl_count += root->left->liss_nodes_count;
+    }
+    if (root->right) {
+        liss_incl += LISS(root->right->left) + LISS(root->right->right);
+        liss_incl_nodes = (int*)realloc(liss_incl_nodes, (liss_incl_count + root->right->liss_nodes_count) * sizeof(int));
+        copyLISSNodes(liss_incl_nodes + liss_incl_count, root->right->liss_nodes, root->right->liss_nodes_count);
+        liss_incl_count += root->right->liss_nodes_count;
+    }
 
-    return result;
+    // Select the maximum of two sizes and store the nodes for future use
+    if (liss_incl > liss_excl) {
+        root->liss_size = liss_incl;
+        root->liss_nodes = liss_incl_nodes;
+        root->liss_nodes_count = liss_incl_count;
+    } else {
+        root->liss_size = liss_excl;
+        root->liss_nodes = (int*)malloc((root->left ? root->left->liss_nodes_count : 0) + (root->right ? root->right->liss_nodes_count : 0) * sizeof(int));
+        root->liss_nodes_count = 0;
+        if (root->left) {
+            copyLISSNodes(root->liss_nodes, root->left->liss_nodes, root->left->liss_nodes_count);
+            root->liss_nodes_count += root->left->liss_nodes_count;
+        }
+        if (root->right) {
+            copyLISSNodes(root->liss_nodes + root->liss_nodes_count, root->right->liss_nodes, root->right->liss_nodes_count);
+            root->liss_nodes_count += root->right->liss_nodes_count;
+        }
+        free(liss_incl_nodes); // Free the included nodes list
+    }
+
+    return root->liss_size;
+}
+
+// Utility function to print the LIS nodes
+void printLISSNodes(struct node* root) {
+    if (root == NULL) return;
+    for (int i = 0; i < root->liss_nodes_count; i++) {
+        printf("%d ", root->liss_nodes[i]);
+    }
+    printf("\n");
 }
 
 int main() {
-    // Δημιουργία του δέντρου
-    Node* root = newNode(10);
-    root->left = newNode(20);
-    root->right = newNode(30);
-    root->left->left = newNode(40);
-    root->left->right = newNode(50);
-    root->right->right = newNode(60);
-    root->right->left = newNode(70);
-    root->right->left->left = newNode(80);
-    root->right->left->left->left = newNode(90);
-    root->right->left->left->right = newNode(100);
+    // Let's construct the binary tree shown in the example
+    struct node *root = newNode(20);
+    root->left = newNode(8);
+    root->right = newNode(22);
+    root->left->left = newNode(4);
+    root->left->right = newNode(12);
+    root->right->right = newNode(25);
+    root->left->right->left = newNode(10);
+    root->left->right->right = newNode(14);
 
-    int maxIS = getMaxIndependentSet(root);
-    printf("Το μέγιστο ανεξάρτητο σύνολο έχει μέγεθος: %d\n", maxIS);
+    printf("Size of the Largest Independent Set is %d\n", LISS(root));
+    printf("Nodes in the Largest Independent Set are: ");
+    printLISSNodes(root);
 
     return 0;
 }

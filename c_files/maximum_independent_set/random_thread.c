@@ -1,6 +1,7 @@
 /* Dynamic programming based program for Largest Independent Set problem */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
  
 // A utility function to find max of two integers
 int max(int x, int y) { return (x > y)? x: y; }
@@ -12,7 +13,9 @@ struct node {
     int liss;
     struct node *left, *right;
 };
- 
+
+struct node* array[10];
+
 // A memoization function returns size of the largest independent set in
 // a given binary tree
 int LISS(struct node *root)
@@ -37,8 +40,6 @@ int LISS(struct node *root)
         liss_incl += LISS(root->right->left) + LISS(root->right->right);
  
     // Maximum of two sizes is LISS, store it for future uses.
-    root->liss = max(liss_incl, liss_excl);
- 
     return root->liss;
 }
  
@@ -52,6 +53,13 @@ struct node* newNode(int data)
     return temp;
 }
  
+void print_node_set(void) {
+    for (int i=0; i<10; i++) {
+        if (array[i] != NULL) 
+            printf("%d\n", array[i]->data);
+    }
+}
+
 // Driver program to test above functions
 int main()
 {
@@ -65,7 +73,8 @@ int main()
     root->right               = newNode(22);
     root->right->right        = newNode(25);
  
-    printf ("Size of the Largest Independent Set is %d \n", LISS(root));
- 
+    printf("Size of the Largest Independent Set is %d \n", LISS(root));
+    printf("The nodes which make up this set have data:\n");
+    print_node_set();
     return 0;
 }
