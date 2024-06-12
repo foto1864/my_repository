@@ -21,10 +21,13 @@ bool can_be_split(int* array, int size) {
     // fill the array
     for (int i = 0; i < size; i++) {
         for (int j = half_sum; j >= array[i]; j--) {
-            dp[j] = (dp[j] || dp[j - array[i]]);
+            if (dp[j] || dp[j - array[i]])
+                dp[j] = true;
+            else   
+                dp[j] = false;
         }
     }
-    // return true if dp[half_sum] > 0.
+    // return true if dp[half_sum] is true.
     return dp[half_sum];
 }
 
