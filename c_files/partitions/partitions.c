@@ -2,30 +2,30 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool can_be_split(int* nums, int numsSize) {
+bool can_be_split(int* array, int size) {
     int total_sum = 0;
-    for (int i = 0; i < numsSize; i++) {
-        total_sum += nums[i];
+    for (int i = 0; i < size; i++) {
+        total_sum += array[i];
     }
     // if total sum is odd, then it can't be split in half (optimization)
     if (total_sum % 2 != 0) {
         return false;
     }
-    int target = total_sum / 2;
-    // create dynamic programming array
-    bool dp[target + 1];
-    for (int i = 0; i <= target; i++) {
+    int half_sum = total_sum / 2;
+    // create dynamic programming array, set it to false
+    bool dp[half_sum + 1];
+    for (int i = 0; i < half_sum + 1; i++) {
         dp[i] = false;
     }
     dp[0] = true;
     // fill the array
-    for (int i = 0; i < numsSize; i++) {
-        for (int j = target; j >= nums[i]; j--) {
-            dp[j] = dp[j] || dp[j - nums[i]];
+    for (int i = 0; i < size; i++) {
+        for (int j = half_sum; j >= array[i]; j--) {
+            dp[j] = (dp[j] || dp[j - array[i]]);
         }
     }
-    // return true if dp[target] > 0.
-    return dp[target];
+    // return true if dp[half_sum] > 0.
+    return dp[half_sum];
 }
 
 int main() {
