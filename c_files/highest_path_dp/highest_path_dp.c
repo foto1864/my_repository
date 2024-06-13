@@ -5,9 +5,8 @@
 int **alloc2D(int n, int m) {
     int **matrix;
     matrix = malloc(n * sizeof(int *));
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++)
         matrix[i] = malloc(m * sizeof(int));
-    }
     return matrix;
 }
 
@@ -18,9 +17,9 @@ int highest_path_dp(int n, int m, int** right, int** down, int** grid) {
         grid[0][j] = grid[0][j-1] + right[0][j-1];
     for (i = 1; i <= n; i++) {
         grid[i][0] = grid[i-1][0] + down[i-1][0];
-        for (j = 1; j <= m; j++) {
-            grid[i][j] = MAX(grid[i][j-1] + right[i][j-1], grid[i-1][j] + down[i-1][j]);
-        }
+        for (j = 1; j <= m; j++)
+            grid[i][j] = MAX(grid[i][j-1] + right[i][j-1], 
+                             grid[i-1][j] + down[i-1][j]);
     }
     return grid[n][m];
 }
@@ -42,9 +41,8 @@ int main(void) {
         free(right[i]);
         free(grid[i]);
     }
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         free(down[i]);
-    }
     free(right);
     free(down);
     free(grid);
