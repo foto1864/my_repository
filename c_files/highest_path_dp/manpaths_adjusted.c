@@ -1,73 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define MAXN 100  // Μέγιστο μέγεθος του πίνακα
-#define MAXS 1000 // Μέγιστο άθροισμα, προσαρμόστε ανάλογα
+#define MAX_SUM 1000  // Adjust this based on the expected maximum sum
 
-int countPaths(int m, int n, int A[MAXN][MAXN], int S) {
-    int offset = S + MAXS; // Μετατοπίζουμε το άθροισμα για να είναι μη αρνητικό
-    int **current = (int **)malloc((m + 1) * sizeof(int *));
-    int **previous = (int **)malloc((m + 1) * sizeof(int *));
-    for (int i = 0; i <= m; i++) {
-        current[i] = (int *)malloc((2 * MAXS + 1) * sizeof(int));
-        previous[i] = (int *)malloc((2 * MAXS + 1) * sizeof(int));
-    }
-
-    // Αρχικοποίηση των πινάκων
-    for (int i = 0; i <= m; i++) {
-        for (int k = 0; k <= 2 * MAXS; k++) {
-            current[i][k] = 0;
-            previous[i][k] = 0;
+int ***alloc3D(int n, int m, int s) {
+    int ***matrix = malloc((n+1) * sizeof(int **));
+    for (int i = 0; i <= n; i++) {
+        matrix[i] = malloc((m+1) * sizeof(int *));
+        for (int j = 0; j <= m; j++) {
+            matrix[i][j] = calloc(s + 1, sizeof(int));
         }
     }
+    return matrix;
+}
 
-    // Αρχικοποίηση για τη θέση [1][1]
-    previous[1][A[1][1] + offset] = 1;
+void free3D(int ***matrix, int n, int m) {
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= m; j++) {
+            free(matrix[i][j]);
+        }
+        free(matrix[i]);
+    }
+    free(matrix);
+}
 
-    // Υπολογισμός του πίνακα δυναμικού προγραμματισμού
-    for (int j = 1; j <= n; j++) {
-        for (int i = 1; i <= m; i++) {
-            if (i == 1 && j == 1) continue; // Παραλείπουμε τη θέση αρχικοποίησης
-            for (int s = -MAXS; s <= MAXS; s++) {
-                int adjusted_sum = s + offset;
-                if (adjusted_sum < 0 || adjusted_sum > 2 * MAXS) continue;
-                current[i][adjusted_sum] = 0;
-                if (i > 1 && adjusted_sum - A[i][j] >= 0 && adjusted_sum - A[i][j] <= 2 * MAXS) 
-                    current[i][adjusted_sum] += previous[i-1][adjusted_sum - A[i][j]];
-                if (j > 1 && adjusted_sum - A[i][j] >= 0 && adjusted_sum - A[i][j] <= 2 * MAXS) 
-                    current[i][adjusted_sum] += previous[i][adjusted_sum - A[i][j]];
+int count_paths_dp(int n, int m, int S, int** right, int** down) {
+    int ***dp = alloc3D(n, m, S);
+    dp[0][0][0] = 1;  // One way to have sum 0 at the start
+
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= m; j++) {
+            for (int s = 0; s <= S; s++) {
+                if (i > 0 && s >= down[i-1][j])
+                    dp[i][j][s] += dp[i-1][j][s - down[i-1][j]];
+                if (j > 0 && s >= right[i][j-1])
+                    dp[i][j][s] += dp[i][j-1][s - right[i][j-1]];
             }
         }
-        // Αντιγραφή του current στον previous
-        int **temp = previous;
-        previous = current;
-        current = temp;
     }
 
-    // Αποθήκευση του αποτελέσματος
-    int result = previous[m][S + offset];
-
-    // Αποδέσμευση μνήμης
-    for (int i = 0; i <= m; i++) {
-        free(current[i]);
-        free(previous[i]);
-    }
-    free(current);
-    free(previous);
-
+    int result = dp[n][m][S];
+    free3D(dp, n, m);
     return result;
 }
 
-int main() {
-    int A[MAXN][MAXN] = {
-        {0, 0, 0, 0},
-        {0, 1, 2, 3},
-        {0, 4, 5, 6},
-        {0, 7, 8, 9}
-    };
-    int m = 3, n = 3;
-    int S = 27;
-    printf("Number of paths with sum %d: %d\n", S, countPaths(m, n, A, S));
+int **alloc2D(int n, int m) {
+    int **matrix = malloc(n * sizeof(int *));
+    for (int i = 0; i < n; i++)
+        matrix[i] = malloc(m * sizeof(int));
+    return matrix;
+}
+
+void free2D(int **matrix, int n) {
+    for (int i = 0; i < n; i++)
+        free(matrix[i]);
+    free(matrix);
+}
+
+int main(void) {
+    int n = 3, m = 4;
+    int S = 15;  // Example target sum
+    int** right = alloc2D(n+1, m);
+    int** down =  alloc2D(n, m+1);
+
+    // Random initialization of right and down matrices
+    for (int i = 0; i < n + 1; i++)
+        for (int j = 0; j < m; j++)
+            right[i][j] = rand() % 10;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m + 1; j++)
+            down[i][j] = rand() % 10;
+
+    int path_count = count_paths_dp(n, m, S, right, down);
+    printf("Number of paths with sum %d: %d\n", S, path_count);
+
+    free2D(right, n + 1);
+    free2D(down, n);
     return 0;
 }
