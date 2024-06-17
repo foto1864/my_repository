@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Decision Tree</title>
+    <link rel="stylesheet" type="text/css" href="chatbot.css">
+   
+</head>
+<body>
+    <div id="chatbox"></div>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+
+        const decisionTree = {
+            message: "Welcome! Please choose an option:",
+            options: {
+                "1": {
+                    message: "You selected 1. Now choose 1a, 1b, or 1c:",
+                    options: {
+                        "1a": {
+                                message: "You selected 1a. Now choose 1a1, 1a2, or 1a3:",
+                                options: {
+                                    "1a1": "You chose 1a1.",
+                                    "1a2": "You chose 1a2.",
+                                    "1a3": "You chose 1a3."
+                                }
+                            },
+                        "1b": "You chose 1b.",
+                        "1c": "You chose 1c."
+                    }
+                },
+                "2": {
+                    message: "You selected 2. Now choose 2a or 2b:",
+                    options: {
+                        "2a": "You chose 2a.",
+                        "2b": "You chose 2b."
+                    }
+                },
+                "3": {
+                    message: "You selected 3. This is the final option.",
+                    options: {}
+                }
+            }
+        };
+
+        function displayMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = message;
+            chatbox.appendChild(messageDiv);
+        }
+
+        function displayOptions(options, path = []) {
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options';
+
+            for (const [key, value] of Object.entries(options)) {
+                const optionItem = document.createElement('li');
+                const optionButton = document.createElement('button');
+                optionButton.className = 'option-btn';
+                optionButton.textContent = key;
+                optionButton.onclick = () => {
+                    handleOptionClick(key, value, path.concat(key));
+                };
+                optionItem.appendChild(optionButton);
+                optionsList.appendChild(optionItem);
+            }
+
+            chatbox.appendChild(optionsList);
+        }
+
+        function handleOptionClick(option, value, path) {
+            chatbox.innerHTML = '';
+            if (typeof value === 'object') {
+                displayMessage(value.message);
+                displayOptions(value.options, path);
+            } else {
+                displayMessage(value);
+            }
+        }
+
+        // Initialize chatbot
+        displayMessage(decisionTree.message);
+        displayOptions(decisionTree.options);
+    </script>
+</body>
+</html>
