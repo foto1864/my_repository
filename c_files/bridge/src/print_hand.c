@@ -1,13 +1,27 @@
 #include "print_hand.h"
 
 // will print the hand depending on where the player sits
-bool print_hand(Hand* hand, int* dist) {
-    print_suit(hand->spades, dist[0], 0);
-    print_suit(hand->hearts, dist[1], 1);
-    print_suit(hand->diamonds, dist[2], 2);
-    print_suit(hand->clubs, dist[3], 3);
+bool print_hand_north_or_south(Hand* hand, int* dist) {
+    printf("\n                "); print_suit(hand->spades, dist[0], 0);
+    printf("\n                "); print_suit(hand->hearts, dist[1], 1);
+    printf("\n                "); print_suit(hand->diamonds, dist[2], 2);
+    printf("\n                "); print_suit(hand->clubs, dist[3], 3);
+    putchar(10);
     return true;
 }
+
+bool print_hand_east_and_west(Hand* hand_east, Hand* hand_west, int* dist_east, int* dist_west) {
+    print_suit(hand_east->spades, dist_east[0], 0); printf("                           ");  print_suit(hand_west->spades, dist_west[0], 0);
+    putchar(10);
+    print_suit(hand_east->spades, dist_east[1], 1); printf("                           ");  print_suit(hand_west->spades, dist_west[1], 1);
+    putchar(10);
+    print_suit(hand_east->spades, dist_east[2], 2); printf("                           ");  print_suit(hand_west->spades, dist_west[2], 2);
+    putchar(10);
+    print_suit(hand_east->spades, dist_east[3], 3); printf("                           ");  print_suit(hand_west->spades, dist_west[3], 3);
+    putchar(10);
+    return true;
+}
+
 // Takes an array of cards and the suit (S=0, H=1, D=2, C=3)
 bool print_suit(int *array, int size, int suit) {
     
@@ -24,7 +38,6 @@ bool print_suit(int *array, int size, int suit) {
     for(int i=0; i<size; i++) {
         printf("%d", array[i]);
     }
-    printf("\n");
     return true;
 }
 

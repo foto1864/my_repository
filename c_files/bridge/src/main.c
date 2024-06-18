@@ -20,7 +20,9 @@ int main(void) {
 
     int dist[] = {4,4,4,4};
 
-    print_hand(first_hand, dist);
+    print_hand_north_or_south(first_hand, dist);
+    print_hand_east_and_west(first_hand, first_hand, dist, dist);
+    print_hand_north_or_south(first_hand, dist);
 
     return 0;
 }
