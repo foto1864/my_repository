@@ -11,13 +11,13 @@ bool print_hand_north_or_south(Hand* hand, int* dist) {
 }
 
 bool print_hand_east_and_west(Hand* hand_east, Hand* hand_west, int* dist_east, int* dist_west) {
-    print_suit(hand_east->spades, dist_east[0], 0); printf("                           ");  print_suit(hand_west->spades, dist_west[0], 0);
+    print_suit(hand_east->spades, dist_east[0], 0);   printf("                           ");  print_suit(hand_west->spades, dist_west[0], 0);
     putchar(10);
-    print_suit(hand_east->spades, dist_east[1], 1); printf("                           ");  print_suit(hand_west->spades, dist_west[1], 1);
+    print_suit(hand_east->hearts, dist_east[1], 1);   printf("                           ");  print_suit(hand_west->hearts, dist_west[1], 1);
     putchar(10);
-    print_suit(hand_east->spades, dist_east[2], 2); printf("                           ");  print_suit(hand_west->spades, dist_west[2], 2);
+    print_suit(hand_east->diamonds, dist_east[2], 2); printf("                           ");  print_suit(hand_west->diamonds, dist_west[2], 2);
     putchar(10);
-    print_suit(hand_east->spades, dist_east[3], 3); printf("                           ");  print_suit(hand_west->spades, dist_west[3], 3);
+    print_suit(hand_east->clubs, dist_east[3], 3);    printf("                           ");  print_suit(hand_west->clubs, dist_west[3], 3);
     putchar(10);
     return true;
 }
