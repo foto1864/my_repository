@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Decision Tree</title>
+</head>
+<body>
+    <div id="chatbox"></div>
+    <div id="chat-input">
+        <button id="back-button" onclick="goBack()" disabled>Back</button>
+    </div>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const backButton = document.getElementById('back-button');
+        const history = [];
+
+        const decisionTree = {
+            message: "Welcome! Please choose an option:",
+            options: {
+                "1": {
+                    message: "You selected 1. Now choose 1a, 1b, or 1c:",
+                    options: {
+                        "1a": {
+                            message: "You selected 1a. Now choose 1a1, 1a2, or 1a3:",
+                            options: {
+                                "1a1": "You chose 1a1.",
+                                "1a2": "You chose 1a2.",
+                                "1a3": "You chose 1a3."
+                            }
+                        },
+                        "1b": "You chose 1b.",
+                        "1c": "You chose 1c."
+                    }
+                },
+                "2": {
+                    message: "You selected 2. Now choose 2a or 2b:",
+                    options: {
+                        "2a": "You chose 2a.",
+                        "2b": "You chose 2b."
+                    }
+                },
+                "3": {
+                    message: "You selected 3. This is the final option.",
+                    options: {}
+                }
+            }
+        };
+
+        function displayMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = message;
+            chatbox.appendChild(messageDiv);
+        }
+
+        function displayOptions(options, path = []) {
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options';
+
+            for (const [key, value] of Object.entries(options)) {
+                const optionItem = document.createElement('li');
+                const optionButton = document.createElement('button');
+                optionButton.className = 'option-btn';
+                optionButton.textContent = key;
+                optionButton.onclick = () => {
+                    handleOptionClick(key, value, path.concat(key));
+                };
+                optionItem.appendChild(optionButton);
+                optionsList.appendChild(optionItem);
+            }
+
+            chatbox.appendChild(optionsList);
+        }
+
+        function handleOptionClick(option, value, path) {
+            history.push({ node: currentNode, path: path.slice(0, -1) });
+            backButton.disabled = false;
+            chatbox.innerHTML = '';
+            if (typeof value === 'object') {
+                currentNode = value;
+                displayMessage(value.message);
+                displayOptions(value.options, path);
+            } else {
+                currentNode = null;
+                displayMessage(value);
+            }
+        }
+
+        function goBack() {
+            if (history.length > 0) {
+                const lastState = history.pop();
+                chatbox.innerHTML = '';
+                currentNode = lastState.node;
+                displayMessage(currentNode.message);
+                displayOptions(currentNode.options, lastState.path);
+                backButton.disabled = history.length === 0;
+            }
+        }
+
+        let currentNode = decisionTree;
+
+        // Initialize chatbot
+        displayMessage(decisionTree.message);
+        displayOptions(decisionTree.options);
+    </script>
+</body>
+</html>
