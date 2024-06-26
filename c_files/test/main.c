@@ -1,11 +1,22 @@
-#include "functions.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char *argv[]) {
-    
-    int a = 5, b = 10;
-    int highest_int = max(a, b);
+unsigned int count = 0;
 
-    printf("The highest int given is %d\n", highest_int);
+int fibonacci(int n) {    
+    count++;
+    if (n==0) { 
+        return 0;
+    }
+    else if (n==1) {
+        return 1;
+    } 
+    return fibonacci(n-2)+fibonacci(n-1);
+}
 
+int main(int argc, char **argv) {
+    int n = atoi(argv[1]);
+    printf("Fib(%d) is %d\n", n, fibonacci(n));
+    printf("Function was called %d times.\n", count);
     return 0;
 }
