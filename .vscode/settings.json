@@ -6,7 +6,9 @@
     "iostream": "cpp",
     "cstring": "cpp",
     "iosfwd": "cpp",
-    "functions.h": "c"
+    "functions.h": "c",
+    "general.h": "c",
+    "stdlib.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
