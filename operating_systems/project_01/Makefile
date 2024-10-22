@@ -1,5 +1,7 @@
 make:
 	gcc -o main main.c
-
-run:
 	./main
+
+valgrind:
+	gcc -o main main.c
+	valgrind ./main
