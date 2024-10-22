@@ -1,6 +1,6 @@
-#include "general.h"
-#include "display_menu.h"
-#include "hash_map.h"
+#include "../lib/general.h"
+#include "../lib/display_menu.h"
+#include "../lib/hash_map.h"
 
 // Structure representing an edge (transaction)
 typedef struct Edge {
