@@ -25,8 +25,7 @@ int main() {
   HP_info* hp_info2=HP_OpenFile(FILE_NAME, &file_desc);
   
   Record record;
-  srand(12569874);
-  int r;
+  srand(125698744);
   printf("Insert Entries\n");
   for (int id = 0; id < RECORDS_NUM; ++id) {
     record = randomRecord();
@@ -34,8 +33,10 @@ int main() {
   }
 
   printf("RUN PrintAllEntries\n");
-  int id = rand() % RECORDS_NUM;
-  printf("\nSearching for: %d\n",id);
+  //int id = rand() % RECORDS_NUM;
+  int id = 0;
+  int returned = scanf("%d", &id);
+  printf("Searching for: %d\n",id);
   HP_GetAllEntries(file_desc,hp_info2, id);
 
   HP_CloseFile(file_desc,hp_info2);

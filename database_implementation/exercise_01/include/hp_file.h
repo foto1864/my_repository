@@ -6,8 +6,8 @@
 
 /* Η δομή HP_info κρατάει μεταδεδομένα που σχετίζονται με το αρχείο σωρού*/
 typedef struct {
-    int lastBlock;    // Το ID του τελευταίου block στο οποίο έγινε εισαγωγή
-    int recordCount;  // Συνολικός αριθμός εγγραφών στο αρχείο σωρού
+    int last_block;    // Το ID του τελευταίου block στο οποίο έγινε εισαγωγή
+    int record_count;  // Συνολικός αριθμός εγγραφών στο αρχείο σωρού
 } HP_info;
 
 #define MAX_RECORDS_PER_BLOCK (BF_BLOCK_SIZE - sizeof(int)) / sizeof(Record)

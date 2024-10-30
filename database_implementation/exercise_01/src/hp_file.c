@@ -161,7 +161,7 @@ int HP_InsertEntry(int file_desc, HP_info *header_info, Record record) {
     BF_Block *block;
     BF_Block_Init(&block);
 
-    int block_num = header_info->lastBlock;  // Το τελευταίο block με εγγραφές
+    int block_num = header_info->last_block;  // Το τελευταίο block με εγγραφές
     code = BF_GetBlock(file_desc, block_num, block);
     if (code != BF_OK) {
         BF_PrintError(code);
@@ -211,8 +211,8 @@ int HP_InsertEntry(int file_desc, HP_info *header_info, Record record) {
     BF_Block_Destroy(&block);
 
     // Ενημέρωση των μεταδεδομένων στο header_info
-    header_info->recordCount++;
-    header_info->lastBlock = block_num;
+    header_info->record_count++;
+    header_info->last_block = block_num;
 
     return block_num;  // Επιστρέφουμε τον αριθμό του block όπου έγινε η εισαγωγή
 }
