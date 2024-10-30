@@ -6,10 +6,11 @@
 
 /* Η δομή HP_info κρατάει μεταδεδομένα που σχετίζονται με το αρχείο σωρού*/
 typedef struct {
-    int last_block;    // ID of the last block were an insertion happened 
-    int record_count;  // Total number of entries in the heap file
+    int last_block;    // ID of the last block were an insertion happened, so that we know where to write next.
+    int record_count;  // Total number of entries in the heap file, keeps us infromed about the size of the file
 } HP_info;
 
+// Maximum number of records that can be kept in a block.
 #define MAX_RECORDS_PER_BLOCK (BF_BLOCK_SIZE - sizeof(int)) / sizeof(Record)
 
 /*Η συνάρτηση HP_CreateFile χρησιμοποιείται για τη δημιουργία και
