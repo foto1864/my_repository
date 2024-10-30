@@ -1,5 +1,4 @@
 import heapq
-import numpy as np
 
 # Defining the grid with terrain types
 terrain_grid = [
@@ -27,7 +26,6 @@ terrain_cost = {
 }
 
 # Define the grid dimensions
-grid_size = len(terrain_grid)
 start = (0, 0)  # Starting point (S)
 goal = (9, 7)   # Goal point (G)
 
@@ -80,3 +78,8 @@ def a_star(grid, start, goal, terrain_cost):
 total_cost, expanded_nodes, fringe_order = a_star(terrain_grid, start, goal, terrain_cost)
 
 total_cost, len(expanded_nodes), fringe_order
+
+# Print the results
+print("Total Cost of Optimal Path:", total_cost)
+print("Number of Nodes Expanded:", len(expanded_nodes))
+print("Order of Nodes Removed from Fringe:", fringe_order)
