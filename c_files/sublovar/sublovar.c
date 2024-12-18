@@ -3,11 +3,11 @@
 #define BIRTH_YEAR 2004
 #define CURRENT_YEAR 2024
 
-typedef char* MIxalos;
+typedef char* String;
 
 int main() {
 
-    MIxalos name = "El Michael";
+    String name = "El Michael";
     int age = CURRENT_YEAR - BIRTH_YEAR;
 
     printf("To onoma mou einai %s kai eimai %d xronon kai pleon spoudazo DI\n", name, age);
