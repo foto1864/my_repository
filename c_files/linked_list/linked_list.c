@@ -44,8 +44,8 @@ void list_insert(List list, int value) {
 }
 
 void list_print(List list) {
-    printf("List %d\n", list->first->value);
-    return;
+    if (list->first == NULL)
+        return;
 }
 
 int main(void) {
