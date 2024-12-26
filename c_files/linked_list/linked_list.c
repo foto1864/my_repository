@@ -22,31 +22,39 @@ list_node* create_node(int value) {
 }
 
 int list_insert(list *list, int value) {
-
     if (list == NULL) {
         fprintf(stderr, "List has not been initialized.\n");
         return -1;
     }
 
     list_node *node = create_node(value);
-    list_node *temp = list->head;
-    list_node *previous = NULL;
+    if (node == NULL) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return -1;
+    }
 
-    if (list->head == NULL) {
+    // Special case: Insert at the head if the list is empty or value is smaller than head
+    if (list->head == NULL || list->head->value >= value) {
+        node->next = list->head;
         list->head = node;
         list->size++;
         return 0;
     }
 
-    while(temp != NULL) {
-        previous = temp;
-        temp = temp->next;
+    // Traverse to find the correct position to insert
+    list_node *current = list->head;
+    while (current->next != NULL && current->next->value < value) {
+        current = current->next;
     }
 
-    previous->next = node;
+    // Insert the new node
+    node->next = current->next;
+    current->next = node;
     list->size++;
+
     return 0;
 }
+
 
 int list_remove(list *list, int value) {
     // Special case: Removing the head of the list
@@ -56,6 +64,10 @@ int list_remove(list *list, int value) {
     if (list == NULL) {
         fprintf(stderr, "List has not been initialized.\n");
         return -1; 
+    }
+
+    if (value < node->value) {
+        return -1;
     }
 
     if (node->value == value) {
@@ -115,6 +127,11 @@ int list_find(list *list, int value) {
         fprintf(stderr, "List has not been initialized.\n");
         return -1; 
     }
+
+    if (value < node->value) {
+        return -1;
+    }
+
     if (node->value == value) {
         return 0; 
     }
