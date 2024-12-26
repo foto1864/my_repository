@@ -108,3 +108,23 @@ int list_destroy(list *list) {
     free(list);
     return 0;
 }
+
+int list_find(list *list, int value) {
+    list_node *node = list->head;
+    if (list == NULL) {
+        fprintf(stderr, "List has not been initialized.\n");
+        return -1; 
+    }
+    if (node->value == value) {
+        return 0; 
+    }
+    // Traverse the list to find the node to remove
+    while (node != NULL && node->value != value) {
+        node = node->next;
+    }
+    // If the value is not found
+    if (node == NULL) {
+        return -1; // Indicate failure (value not found)
+    }
+    return 0;
+}
