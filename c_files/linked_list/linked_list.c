@@ -1,55 +1,140 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
+typedef struct list_node {
     int value;
-    int* next;
-} *ListNode;
+    struct list_node *next; 
+} list_node;
 
 typedef struct {
     int size;
-    ListNode first;
-    ListNode last;
-} *List;
+    list_node *head;
+} list;
 
-List list_create() {
-    List list = malloc(sizeof(*list));
-    list->size = 1;
-    list->first = NULL;
-    list->last = NULL;
+int print_list(list *list) {
+    if (list == NULL) {
+        fprintf(stderr, "List has not been initialized.\n");
+        return -1;
+    }
+    list_node *temp = list->head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->value);
+        temp = temp->next;
+    }
+    printf("NULL\n"); 
+    return 0;
+}
+
+list_node* create_node(int value) {
+    list_node *n1 = (list_node *)malloc(sizeof(list_node));
+    n1->value = value;
+    n1->next = NULL;
+    return n1;
+}
+
+int list_insert(list *list, int value) {
+
+    if (list == NULL) {
+        fprintf(stderr, "List has not been initialized.\n");
+        return -1;
+    }
+
+    list_node *node = create_node(value);
+    list_node *temp = list->head;
+    list_node *previous = NULL;
+
+    if (list->head == NULL) {
+        list->head = node;
+        list->size++;
+        return 0;
+    }
+
+    while(temp != NULL) {
+        previous = temp;
+        temp = temp->next;
+    }
+
+    previous->next = node;
+    list->size++;
+    return 0;
+}
+
+int list_remove(list *list, int value) {
+    // Special case: Removing the head of the list
+    list_node *node = list->head;
+    list_node *previous = NULL;
+
+    if (list == NULL) {
+        fprintf(stderr, "List has not been initialized.\n");
+        return -1; 
+    }
+
+    if (node->value == value) {
+        // If the head node is the one to remove
+        list->head = node->next;
+        free(node);
+        list->size--;
+        return 0; // Success
+    }
+
+    // Traverse the list to find the node to remove
+    while (node != NULL && node->value != value) {
+        previous = node;
+        node = node->next;
+    }
+
+    // If the value is not found
+    if (node == NULL) {
+        return -1; // Indicate failure (value not found)
+    }
+
+    // Remove the node by updating the `next` pointer of the previous node
+    previous->next = node->next;
+    free(node);
+    list->size--;
+
+    return 0; // Success
+}
+
+list* list_create(void) {
+    list* list = malloc(sizeof(list));
+    list->head = NULL;
+    list->size = 0;
     return list;
 }
 
-ListNode create_node(int value) {
-    ListNode node = malloc(sizeof(*node));
-    node->value = value;
-    node->next = NULL;
-    return node;
-}
-
-void list_insert(List list, int value) {
+int list_destroy(list *list) {
     
-    ListNode new_node = create_node(value);
-
-    if (list->first == list->last) {
-        list->first = new_node;
-    }   
-    else {
-        list->last = new_node;
+    if (list == NULL) {
+        fprintf(stderr, "List has not been initialized.\n");
+        return -1;
     }
-
-    list->size++;
-
-    return;
-}
-
-void list_print(List list) {
-    if (list->first == NULL)
-        return;
+    
+    list_node *node = list->head;
+    while (node != NULL) {
+        list_node *next = node->next;
+        free(node);
+        node = next;
+    }
+    free(list);
+    return 0;
 }
 
 int main(void) {
-    List list = list_create(10);
-    list_print(list);
+
+    list *list = list_create();
+    list_insert(list, 10);
+    list_insert(list, 20);
+    list_insert(list, 30);
+
+    print_list(list);
+    
+    list_remove(list, 20);
+
+    print_list(list);
+
+
+    list_destroy(list);
+
     return 0;
 }
