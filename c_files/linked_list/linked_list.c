@@ -1,15 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct list_node {
-    int value;
-    struct list_node *next; 
-} list_node;
-
-typedef struct {
-    int size;
-    list_node *head;
-} list;
+#include "linked_list.h"
 
 int print_list(list *list) {
     if (list == NULL) {
@@ -117,24 +106,5 @@ int list_destroy(list *list) {
         node = next;
     }
     free(list);
-    return 0;
-}
-
-int main(void) {
-
-    list *list = list_create();
-    list_insert(list, 10);
-    list_insert(list, 20);
-    list_insert(list, 30);
-
-    print_list(list);
-    
-    list_remove(list, 20);
-
-    print_list(list);
-
-
-    list_destroy(list);
-
     return 0;
 }
