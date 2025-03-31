@@ -1,5 +1,7 @@
 import heapq
 
+# Are they the same picture?
+
 # Defining the grid with terrain types
 terrain_grid = [
     ['S', 'R', 'R', 'R', 'B', 'W', 'R', 'H', 'H', 'H'],
