@@ -31,3 +31,6 @@ run:
 
 valgrind: $(EXEC)
 	valgrind ./$(EXEC)
+
+clean:
+	rm ADTMap.o ADTSet.o bd_notifs.o birthday_notifications bd_notifs_date_info.o bd_notifs_load_bds.o
