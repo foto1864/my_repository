@@ -2,17 +2,17 @@
 
 CFLAGS = -Wall -Werror
 
-exec: main.o functions.o
-	gcc -o exec main.o functions.o $(CFLAGS)
+exec: string_to_text.o
+	gcc -o exec string_to_text.o $(CFLAGS)
 
-main.o: main.c
-	gcc -c main.c $(CFLAGS)
+string_to_text.o: string_to_text.c
+	gcc -c string_to_text.c $(CFLAGS)
 
-functions.o: functions.c
-	gcc -c functions.c $(CFLAGS)
+# functions.o: functions.c
+# 	gcc -c functions.c $(CFLAGS)
 
 clean:
-	rm functions.o main.o exec
+	- rm *.o memo exec
 
 all: exec
 
