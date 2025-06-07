@@ -8,7 +8,8 @@
     "iosfwd": "cpp",
     "functions.h": "c",
     "general.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "stack.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
